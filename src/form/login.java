@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package login;
+package form;
 
 /**
  *
@@ -44,8 +44,6 @@ public class login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(640, 832));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon("D:\\Latihan Program\\Java\\optik-java\\assets\\amico.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,7 +113,6 @@ public class login extends javax.swing.JFrame {
         jButton1.setText("Masuk");
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.setOpaque(false);
         jButton1.setPreferredSize(new java.awt.Dimension(393, 47));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
