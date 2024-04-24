@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
@@ -176,6 +177,7 @@ public class supplier extends javax.swing.JFrame {
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 565, -1, -1));
 
         jPanel7.setBackground(new java.awt.Color(136, 171, 142));
+        jPanel7.setBackground(new java.awt.Color(136, 171, 142, 128));
         jPanel7.setPreferredSize(new java.awt.Dimension(127, 91));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -298,7 +300,7 @@ public class supplier extends javax.swing.JFrame {
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
         jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
         jButton3.setForeground(new java.awt.Color(242, 241, 235));
         jButton3.setText("+ Tambah");
         jButton3.setBorderPainted(false);
@@ -308,7 +310,7 @@ public class supplier extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1019, 197, -1, -1));
+        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
 
         roundedPanel2.setBackground(new java.awt.Color(175, 200, 173));
         roundedPanel2.setForeground(new java.awt.Color(175, 200, 173));
@@ -355,6 +357,9 @@ public class supplier extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        JFrame formSupplier = new form.supplier();
+        formSupplier.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
