@@ -260,7 +260,6 @@ public class supplier extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(94, 90, 90));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setOpaque(true);
         jComboBox1.setPreferredSize(new java.awt.Dimension(118, 26));
         roundedPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 151, -1, -1));
 
