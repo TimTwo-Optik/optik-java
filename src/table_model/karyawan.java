@@ -243,7 +243,7 @@ public class karyawan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        searchFilter.setBackground(new java.awt.Color(255, 255, 255));
+        searchFilter.setBackground(new java.awt.Color(238, 231, 218));
         searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Urutkan", "A-Z", "Z-A", "Status", "Aktif", "Tidak Aktif" }));
