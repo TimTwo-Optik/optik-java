@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -124,7 +125,6 @@ public class supplier extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(136, 171, 142));
@@ -265,6 +265,7 @@ public class supplier extends javax.swing.JFrame {
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
         searchFilter.setBackground(new java.awt.Color(255, 255, 255));
+        searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.getEditor().getEditorComponent().setBackground(new Color(238, 231, 218));
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jenis Supplier", "Frame", "Lensa", "Aksesoris", "Lokasi", "Luar negeri", "Dalam negeri" }));
@@ -347,8 +348,11 @@ public class supplier extends javax.swing.JFrame {
     }
     
     private void initializeComboBox() {
+        ArrayList<Integer> targetIndices = new ArrayList<>();
+        targetIndices.add(0);
+        targetIndices.add(4);
         
-        searchFilter.setRenderer(new ComboBoxListCellRender());
+        searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
