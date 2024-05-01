@@ -7,8 +7,6 @@ package table_model;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,19 +16,20 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import java.awt.Color;
+
 
 /**
  *
  * @author nerve
  */
-public class pelanggan extends javax.swing.JFrame {
-    
+public class penjualan extends javax.swing.JFrame {
     private DefaultTableModel tabmode;
 
     /**
-     * Creates new form pelanggan
+     * Creates new form penjualan
      */
-    public pelanggan() {
+    public penjualan() {
         initComponents();
         initializeTableActionEvent();
         dataTable();
@@ -40,16 +39,17 @@ public class pelanggan extends javax.swing.JFrame {
     protected void dataTable() {
         Connection conn = koneksi.getConnection();
         
-        Object[] Baris ={"Nama Pelanggan","Kontak","Alamat","Total Pengeluaran", "Status", "Aksi"};
+        Object[] Baris ={"No Faktur","Tanggal Jual","Nama Pelanggan","Total Transaksi", "Status", "Aksi"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariItem = searchBar.getText();
         
         try {
-            String sql = "SELECT p.nama_pelanggan, p.kontak, p.alamat, j.transaksi, j.status " +
-             "FROM pelanggan p " +
-             "JOIN penjualan j ON p.nama_pelanggan = j.nama_pelanggan " +
+            String sql = "SELECT j.id, j.tanggal_jual, p.nama_pelanggan, j.transaksi, j.status " +
+             "FROM penjualan j " +
+             "JOIN pelanggan p ON j.nama_pelanggan = p.nama_pelanggan " +
              "WHERE p.nama_pelanggan LIKE ? OR j.status LIKE ? OR p.kontak LIKE ? OR p.alamat LIKE ? " +
-             "ORDER BY p.id ASC";
+             "ORDER BY j.id ASC";
+
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
@@ -66,7 +66,7 @@ public class pelanggan extends javax.swing.JFrame {
                     hasil.getString(5),
                 });
             }  
-            tablepelanggan.setModel(tabmode);
+            tablepenjualan.setModel(tabmode);
             initializeTableActionEvent();
         
             conn.close();
@@ -91,11 +91,12 @@ public class pelanggan extends javax.swing.JFrame {
             }
         };
         
-        tablepelanggan.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        tablepelanggan.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
-        tablepelanggan.setDefaultRenderer(String.class, new TableActionCellRender());
+        tablepenjualan.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
+        tablepenjualan.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        tablepenjualan.setDefaultRenderer(String.class, new TableActionCellRender());
     
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,7 +130,7 @@ public class pelanggan extends javax.swing.JFrame {
         searchBar = new custom_palette.RoundedTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablepelanggan = new javax.swing.JTable();
+        tablepenjualan = new javax.swing.JTable();
         searchFilter = new javax.swing.JComboBox<>();
         roundedPanel2 = new custom_palette.RoundedPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -202,13 +203,13 @@ public class pelanggan extends javax.swing.JFrame {
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setForeground(new java.awt.Color(8, 10, 16));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user-2.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan.png"))); // NOI18N
         jPanel8.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         jLabel10.setBackground(new java.awt.Color(142, 175, 148));
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(142, 175, 148));
-        jLabel10.setText("Manajemen Pelanggan");
+        jLabel10.setText("Manajemen Penjualan");
         jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 65, 294, -1));
 
         jSeparator1.setBackground(new java.awt.Color(136, 171, 142));
@@ -271,18 +272,17 @@ public class pelanggan extends javax.swing.JFrame {
             }
         });
         jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
-        jButton3.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
         jScrollPane1.setForeground(new java.awt.Color(242, 241, 235));
         jScrollPane1.setToolTipText("");
         jScrollPane1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
 
-        tablepelanggan.getTableHeader().setOpaque(false);
-        tablepelanggan.getTableHeader().setBackground(new Color(136, 171, 142));
-        tablepelanggan.setBackground(new java.awt.Color(242, 241, 235));
-        tablepelanggan.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        tablepelanggan.setModel(new javax.swing.table.DefaultTableModel(
+        tablepenjualan.getTableHeader().setOpaque(false);
+        tablepenjualan.getTableHeader().setBackground(new Color(136, 171, 142));
+        tablepenjualan.setBackground(new java.awt.Color(242, 241, 235));
+        tablepenjualan.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        tablepenjualan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -301,16 +301,16 @@ public class pelanggan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablepelanggan.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
-        tablepelanggan.setRowHeight(60);
-        tablepelanggan.setSelectionBackground(new java.awt.Color(136, 171, 142));
-        jScrollPane1.setViewportView(tablepelanggan);
+        tablepenjualan.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        tablepenjualan.setRowHeight(60);
+        tablepenjualan.setSelectionBackground(new java.awt.Color(136, 171, 142));
+        jScrollPane1.setViewportView(tablepenjualan);
 
         jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
 
         searchFilter.setBackground(new java.awt.Color(255, 255, 255));
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A", "Total Transaksi", "Tertinggi", "Terendah" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rentang Waktu", "Hari ini", "Minggu ini", "Bulan ini", "Status Bayar", "Lunas", "Belum Lunas", "Transaksi", "Tertinggi", "Terendah" }));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
@@ -328,7 +328,7 @@ public class pelanggan extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel14.setText("Data Pelanggan");
+        jLabel14.setText("Data Penjualan");
         roundedPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
@@ -338,16 +338,24 @@ public class pelanggan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBarActionPerformed
+
+    private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            dataTable();
+        }
+    }//GEN-LAST:event_searchBarKeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
         Object filter = searchFilter.getSelectedItem();
@@ -356,13 +364,6 @@ public class pelanggan extends javax.swing.JFrame {
             searchBar.setText(filter.toString());
         }
     }//GEN-LAST:event_searchFilterActionPerformed
-
-    private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
-        // TODO add your handling code here:
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            dataTable();
-        }
-    }//GEN-LAST:event_searchBarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -381,20 +382,20 @@ public class pelanggan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pelanggan().setVisible(true);
+                new penjualan().setVisible(true);
             }
         });
     }
@@ -428,6 +429,6 @@ public class pelanggan extends javax.swing.JFrame {
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedTextField searchBar;
     private javax.swing.JComboBox<String> searchFilter;
-    private javax.swing.JTable tablepelanggan;
+    private javax.swing.JTable tablepenjualan;
     // End of variables declaration//GEN-END:variables
 }
