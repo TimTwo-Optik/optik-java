@@ -360,37 +360,37 @@
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 1"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 2"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 3"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 4"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 5"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 6"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Title 7"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
@@ -474,14 +474,15 @@
               <Color blue="ad" green="c8" red="af" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="8">
                 <StringItem index="0" value="Jenis Supplier"/>
                 <StringItem index="1" value="Frame"/>
                 <StringItem index="2" value="Lensa"/>
                 <StringItem index="3" value="Aksesoris"/>
                 <StringItem index="4" value="Lokasi"/>
-                <StringItem index="5" value="Luar negeri"/>
-                <StringItem index="6" value="Dalam negeri"/>
+                <StringItem index="5" value="Jabodetabek"/>
+                <StringItem index="6" value="Luar Kota"/>
+                <StringItem index="7" value="Luar Negeri"/>
               </StringArray>
             </Property>
           </Properties>
@@ -617,7 +618,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="60" y="10" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="60" y="10" width="170" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

@@ -4,17 +4,39 @@
  */
 package form;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import koneksi.koneksi;
+
 /**
  *
  * @author Bagus
  */
-public class rincian_data_supplier extends javax.swing.JFrame {
+public class RincianDataSupplier extends javax.swing.JFrame {
 
+    private int id;
+    
     /**
      * Creates new form rincian_data_supplier
      */
-    public rincian_data_supplier() {
+    public RincianDataSupplier() {
         initComponents();
+    }
+    
+    public void setData(int id, String[] values) {
+        this.id = id;
+        
+        nama.setText(values[0]);
+        kontak.setText(values[1]);
+        email.setText(values[2]);
+        jenisSupplier.setSelectedItem(values[3]);
+        lokasiSupplier.setSelectedItem(values[4]);
+        alamat.setText(values[5]);
+   
     }
 
     /**
@@ -58,13 +80,13 @@ public class rincian_data_supplier extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jenisSupplier = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        roundedTextField1 = new custom_palette.RoundedTextField();
-        roundedTextField2 = new custom_palette.RoundedTextField();
-        roundedTextField3 = new custom_palette.RoundedTextField();
-        roundedTextField4 = new custom_palette.RoundedTextField();
+        alamat = new javax.swing.JTextArea();
+        nama = new custom_palette.RoundedTextField();
+        kontak = new custom_palette.RoundedTextField();
+        email = new custom_palette.RoundedTextField();
+        lokasiSupplier = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -229,54 +251,64 @@ public class rincian_data_supplier extends javax.swing.JFrame {
         jLabel18.setText("Alamat");
         roundedPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 219, -1, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(248, 248, 248));
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(94, 90, 90));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frame", "Lensa", "Aksesoris" }));
-        jComboBox1.setOpaque(true);
-        jComboBox1.setPreferredSize(new java.awt.Dimension(118, 26));
-        roundedPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 151, -1, -1));
+        jenisSupplier.setBackground(new java.awt.Color(248, 248, 248));
+        jenisSupplier.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jenisSupplier.setForeground(new java.awt.Color(94, 90, 90));
+        jenisSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frame", "Lensa", "Aksesoris" }));
+        jenisSupplier.setOpaque(true);
+        jenisSupplier.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel5.add(jenisSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 151, -1, -1));
 
-        jTextArea1.setBackground(new java.awt.Color(238, 231, 218));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(94, 90, 90));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setForeground(new java.awt.Color(94, 90, 90));
+
+        alamat.setBackground(new java.awt.Color(238, 231, 218));
+        alamat.setColumns(20);
+        alamat.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        alamat.setForeground(new java.awt.Color(94, 90, 90));
+        alamat.setRows(5);
+        jScrollPane1.setViewportView(alamat);
 
         roundedPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(576, 226, 285, -1));
 
-        roundedTextField1.setBackground(new java.awt.Color(238, 231, 218));
-        roundedTextField1.setForeground(new java.awt.Color(94, 90, 90));
-        roundedTextField1.setCornerRadius(5);
-        roundedTextField1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        roundedTextField1.setLineColor(new java.awt.Color(175, 200, 173));
-        roundedPanel5.add(roundedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 45, 285, -1));
+        nama.setBackground(new java.awt.Color(238, 231, 218));
+        nama.setForeground(new java.awt.Color(94, 90, 90));
+        nama.setCornerRadius(5);
+        nama.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        nama.setLineColor(new java.awt.Color(175, 200, 173));
+        roundedPanel5.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 45, 285, -1));
 
-        roundedTextField2.setBackground(new java.awt.Color(238, 231, 218));
-        roundedTextField2.setCornerRadius(5);
-        roundedTextField2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        roundedTextField2.setLineColor(new java.awt.Color(175, 200, 173));
-        roundedPanel5.add(roundedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 81, 285, -1));
+        kontak.setBackground(new java.awt.Color(238, 231, 218));
+        kontak.setForeground(new java.awt.Color(94, 90, 90));
+        kontak.setCornerRadius(5);
+        kontak.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        kontak.setLineColor(new java.awt.Color(175, 200, 173));
+        roundedPanel5.add(kontak, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 81, 285, -1));
 
-        roundedTextField3.setBackground(new java.awt.Color(238, 231, 218));
-        roundedTextField3.setCornerRadius(5);
-        roundedTextField3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        roundedTextField3.setLineColor(new java.awt.Color(175, 200, 173));
-        roundedTextField3.setName(""); // NOI18N
-        roundedPanel5.add(roundedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 117, 285, -1));
+        email.setBackground(new java.awt.Color(238, 231, 218));
+        email.setForeground(new java.awt.Color(94, 90, 90));
+        email.setCornerRadius(5);
+        email.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        email.setLineColor(new java.awt.Color(175, 200, 173));
+        email.setName(""); // NOI18N
+        roundedPanel5.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 117, 285, -1));
 
-        roundedTextField4.setBackground(new java.awt.Color(238, 231, 218));
-        roundedTextField4.setCornerRadius(5);
-        roundedTextField4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        roundedTextField4.setLineColor(new java.awt.Color(175, 200, 173));
-        roundedPanel5.add(roundedTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 186, 285, -1));
+        lokasiSupplier.setBackground(new java.awt.Color(248, 248, 248));
+        lokasiSupplier.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        lokasiSupplier.setForeground(new java.awt.Color(94, 90, 90));
+        lokasiSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jabodetabek", "Luar Kota", "Luar Negeri" }));
+        lokasiSupplier.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel5.add(lokasiSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 186, -1, -1));
 
         roundedPanel3.add(roundedPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 63, 895, 343));
 
         jButton1.setBackground(new java.awt.Color(255, 75, 75));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
         jButton1.setBorderPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         roundedPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 418, 83, 37));
 
         jButton2.setBackground(new java.awt.Color(248, 248, 248));
@@ -320,12 +352,93 @@ public class rincian_data_supplier extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame tableModelSupplier = new table_model.supplier();
+
+            // Tampilkan JFrame baru
+            tableModelSupplier.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        Connection conn = new koneksi().getConnection();
+         
+        try {
+            String sql = "update suppliers set nama_supplier=?,kontak=?,email=?,jenis_supplier=?,lokasi_supplier=?,alamat=? where id=?";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, nama.getText());
+            stat.setString(2, kontak.getText());
+            stat.setString(3, email.getText());
+            stat.setString(4, jenisSupplier.getSelectedItem().toString());
+            stat.setString(5, lokasiSupplier.getSelectedItem().toString());
+            stat.setString(6, alamat.getText());
+            stat.setInt(7, id);
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil diubah");
+
+            conn.close();
+            stat.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal diubah, pesan error: " + e);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Connection conn = new koneksi().getConnection();
+
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data karyawan ini?", "Hapus Data Karyawan", JOptionPane.YES_NO_OPTION);
+        if (ok == 0) {
+            String sql = "delete from suppliers where id = ?";
+
+            try {
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setInt(1, id);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "data berhasil dihapus");
+               
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal dihapus, pesan error: " + e);
+            }
+            
+            try {
+                // Mengatur look and feel menjadi Nimbus
+                UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+                for (UIManager.LookAndFeelInfo look : looks) {
+                    if ("Nimbus".equals(look.getName())) {
+                        UIManager.setLookAndFeel(look.getClassName());
+                        break;
+                    }
+                }
+
+                // Buat objek JFrame baru
+                JFrame tableModelSupplier = new table_model.supplier();
+
+                // Tampilkan JFrame baru
+                tableModelSupplier.setVisible(true);
+
+                // Tutup jendela saat ini
+                this.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,29 +457,31 @@ public class rincian_data_supplier extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(rincian_data_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(rincian_data_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(rincian_data_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(rincian_data_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new rincian_data_supplier().setVisible(true);
+                new RincianDataSupplier().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea alamat;
+    private custom_palette.RoundedTextField email;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -396,15 +511,14 @@ public class rincian_data_supplier extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JComboBox<String> jenisSupplier;
+    private custom_palette.RoundedTextField kontak;
+    private javax.swing.JComboBox<String> lokasiSupplier;
+    private custom_palette.RoundedTextField nama;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedPanel roundedPanel3;
     private custom_palette.RoundedPanel roundedPanel4;
     private custom_palette.RoundedPanel roundedPanel5;
-    private custom_palette.RoundedTextField roundedTextField1;
-    private custom_palette.RoundedTextField roundedTextField2;
-    private custom_palette.RoundedTextField roundedTextField3;
-    private custom_palette.RoundedTextField roundedTextField4;
     // End of variables declaration//GEN-END:variables
 }
