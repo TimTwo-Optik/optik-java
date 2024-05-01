@@ -67,7 +67,6 @@ public class TambahKaryawan extends javax.swing.JFrame {
         alamat = new javax.swing.JTextArea();
         email = new custom_palette.RoundedTextField();
         jButton1 = new javax.swing.JButton();
-        waktu_bergabung = new com.toedter.calendar.JDateChooser();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -164,13 +163,6 @@ public class TambahKaryawan extends javax.swing.JFrame {
             }
         });
         roundedPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 125, 39));
-
-        waktu_bergabung.setBackground(new java.awt.Color(238, 231, 218));
-        waktu_bergabung.setDateFormatString("yyyy-MM-dd");
-        waktu_bergabung.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        waktu_bergabung.setOpaque(false);
-        waktu_bergabung.setPreferredSize(new java.awt.Dimension(232, 22));
-        roundedPanel1.add(waktu_bergabung, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 389, -1, -1));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
 
@@ -310,6 +302,5 @@ public class TambahKaryawan extends javax.swing.JFrame {
     private custom_palette.RoundedTextField kontak;
     private custom_palette.RoundedTextField nama;
     private custom_palette.RoundedPanel roundedPanel1;
-    private com.toedter.calendar.JDateChooser waktu_bergabung;
     // End of variables declaration//GEN-END:variables
 }
