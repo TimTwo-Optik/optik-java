@@ -315,7 +315,7 @@ public class supplier extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(238, 231, 218));
         jLabel12.setText("Data Supplier");
-        roundedPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        roundedPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 170, -1));
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
 

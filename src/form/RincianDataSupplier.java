@@ -403,7 +403,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
 
         int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data karyawan ini?", "Hapus Data Karyawan", JOptionPane.YES_NO_OPTION);
         if (ok == 0) {
-            String sql = "delete from karyawan where id = ?";
+            String sql = "delete from suppliers where id = ?";
 
             try {
                 PreparedStatement stat = conn.prepareStatement(sql);
@@ -427,7 +427,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
                 }
 
                 // Buat objek JFrame baru
-                JFrame tableModelSupplier = new table_model.karyawan();
+                JFrame tableModelSupplier = new table_model.supplier();
 
                 // Tampilkan JFrame baru
                 tableModelSupplier.setVisible(true);
