@@ -8,6 +8,7 @@ import custom_palette.ComboBoxListCellRender;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
+import form.RincianDataKaryawan;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 
@@ -43,12 +45,12 @@ public class karyawan extends javax.swing.JFrame {
     protected void dataTable(){
         Connection conn = new koneksi().getConnection();
         
-        Object[] Baris ={"Nama Karyawan","Kontak","Alamat", "Email", "Status", "Waktu Bergabung", "Aksi"};
+        Object[] Baris ={"ID", "Nama Karyawan","Kontak","Alamat", "Email", "Status", "Waktu Bergabung", "Aksi"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariItem = searchBar.getText();
         
         try {
-            String sql = "SELECT nama, kontak, alamat, email, status, waktu_bergabung FROM karyawan WHERE nama LIKE ? OR alamat LIKE ? order by nama asc";
+            String sql = "SELECT * FROM karyawan WHERE nama LIKE ? OR alamat LIKE ? order by id asc";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
@@ -57,19 +59,20 @@ public class karyawan extends javax.swing.JFrame {
             while (hasil.next()){
                 String kolomStatus = "";
                 
-                if(hasil.getString(5).equals("1")) {
+                if(hasil.getString(6).equals("1")) {
                     kolomStatus = "Aktif";
                 } else {
                     kolomStatus = "Tidak Aktif";
                 }
                 
-                tabmode.addRow(new Object[]{    
+                tabmode.addRow(new Object[]{ 
                     hasil.getString(1),
                     hasil.getString(2),
                     hasil.getString(3),
                     hasil.getString(4),
+                    hasil.getString(5),
                     kolomStatus,
-                    hasil.getString(6)
+                    hasil.getString(7)
                 });
             }  
             tableKaryawan.setModel(tabmode);
@@ -98,11 +101,12 @@ public class karyawan extends javax.swing.JFrame {
             @Override
             public void onView(int row) {
                 System.out.println("View Button row: "+row);
+                sendData(row);
             }
         };
         
-        tableKaryawan.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
-        tableKaryawan.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        tableKaryawan.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender());
+        tableKaryawan.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
         tableKaryawan.setDefaultRenderer(String.class, new TableActionCellRender());
     }
     
@@ -111,6 +115,34 @@ public class karyawan extends javax.swing.JFrame {
         searchFilter.setSelectedItem(null);
     }
 
+    private void sendData(int row) {
+        String[] values = new String[6];
+        
+        int id = Integer.parseInt(tabmode.getValueAt(row, 0).toString());
+        
+    
+        for(int i = 0; i < 6; i++){
+            values[i] = tabmode.getValueAt(row, i+1).toString();
+        }
+        
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            RincianDataKaryawan formUbahKaryawan = new form.RincianDataKaryawan();
+            
+            formUbahKaryawan.setData(id, values);
+
+            // Tampilkan JFrame baru
+            formUbahKaryawan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -295,17 +327,17 @@ public class karyawan extends javax.swing.JFrame {
         tableKaryawan.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         tableKaryawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "null", "null", "Aksi"
+                "Title 1", "Title 2", "Title 3", "Title 4", "null", "null", "", "Aksi"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, true, true
+                true, false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -325,64 +357,68 @@ public class karyawan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        int filter = searchFilter.getSelectedIndex();
-        String order = "";
-        String status = "";
         
-        switch(filter) {
-            case 1:
-                order = "asc";
-                break;
-            case 2:
-                order = "desc";
-                break;
-            case 4:
-                status = "1";
-                break;
-            case 5:
-                status = "0";
-                break;
-        }
-        
-        Connection conn = new koneksi().getConnection();
-        
-        Object[] Baris ={"Nama Karyawan","Kontak","Alamat", "Email", "Status", "Waktu Bergabung", "Aksi"};
-        tabmode = new DefaultTableModel(null, Baris);
-        
-        try {
-            String sql = "SELECT nama, kontak, alamat, email, status, waktu_bergabung FROM karyawan WHERE status LIKE ? order by nama " + order;
-            PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, "%" + status + "%");
-            
-            ResultSet hasil = stat.executeQuery();
-            while (hasil.next()){
-                String kolomStatus = "";
-                
-                if(hasil.getString(5).equals("1")) {
-                    kolomStatus = "Aktif";
-                } else {
-                    kolomStatus = "Tidak Aktif";
-                }
-                
-                tabmode.addRow(new Object[]{    
-                    hasil.getString(1),
-                    hasil.getString(2),
-                    hasil.getString(3),
-                    hasil.getString(4),
-                    kolomStatus,
-                    hasil.getString(6)
-                });
-            }  
-            tableKaryawan.setModel(tabmode);
-            initializeTableActionEvent();
-        
-            conn.close();
-            stat.close();
-            hasil.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
-            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-        }
+        if(searchFilter.getSelectedItem() != null) {
+            int filter = searchFilter.getSelectedIndex();
+            String order = "";
+            String status = "";
+
+            switch(filter) {
+                case 1:
+                    order = "asc";
+                    break;
+                case 2:
+                    order = "desc";
+                    break;
+                case 4:
+                    status = "1";
+                    break;
+                case 5:
+                    status = "0";
+                    break;
+            }
+
+            Connection conn = new koneksi().getConnection();
+
+            Object[] Baris ={"ID", "Nama Karyawan","Kontak","Alamat", "Email", "Status", "Waktu Bergabung", "Aksi"};
+            tabmode = new DefaultTableModel(null, Baris);
+
+            try {
+                String sql = "SELECT * FROM karyawan WHERE status LIKE ? order by nama " + order;
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, "%" + status + "%");
+
+                ResultSet hasil = stat.executeQuery();
+                while (hasil.next()){
+                    String kolomStatus = "";
+
+                    if(hasil.getString(6).equals("1")) {
+                        kolomStatus = "Aktif";
+                    } else {
+                        kolomStatus = "Tidak Aktif";
+                    }
+
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        kolomStatus,
+                        hasil.getString(7)
+                    });
+                }  
+                tableKaryawan.setModel(tabmode);
+                initializeTableActionEvent();
+
+                conn.close();
+                stat.close();
+                hasil.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } 
     }//GEN-LAST:event_searchFilterActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -396,10 +432,21 @@ public class karyawan extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        JFrame formSupplier = new form.supplier();
-        formSupplier.setVisible(true);
-        this.dispose();
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            JFrame formTambahKaryawan = new form.TambahKaryawan();
+
+            // Tampilkan JFrame baru
+            formTambahKaryawan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
