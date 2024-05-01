@@ -8,6 +8,7 @@ import custom_palette.ComboBoxListCellRender;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
+import form.RincianDataSupplier;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 
@@ -49,12 +51,10 @@ public class supplier extends javax.swing.JFrame {
         String cariItem = searchBar.getText();
         
         try {
-            String sql = "SELECT * FROM suppliers WHERE nama_supplier LIKE ? OR jenis_supplier LIKE ? OR lokasi_supplier LIKE ? OR alamat LIKE ? order by id asc";
+            String sql = "SELECT * FROM suppliers WHERE nama_supplier LIKE ? OR alamat LIKE ? order by id asc";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
-            stat.setString(3, "%" + cariItem + "%");
-            stat.setString(4, "%" + cariItem + "%");
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
@@ -238,15 +238,6 @@ public class supplier extends javax.swing.JFrame {
         tableSupplier.setRowHeight(60);
         tableSupplier.setSelectionBackground(new java.awt.Color(136, 171, 142));
         jScrollPane1.setViewportView(tableSupplier);
-        if (tableSupplier.getColumnModel().getColumnCount() > 0) {
-            tableSupplier.getColumnModel().getColumn(0).setHeaderValue("Title 1");
-            tableSupplier.getColumnModel().getColumn(1).setHeaderValue("Title 2");
-            tableSupplier.getColumnModel().getColumn(2).setHeaderValue("Title 3");
-            tableSupplier.getColumnModel().getColumn(3).setHeaderValue("Title 4");
-            tableSupplier.getColumnModel().getColumn(4).setHeaderValue("Title 5");
-            tableSupplier.getColumnModel().getColumn(5).setHeaderValue("Title 6");
-            tableSupplier.getColumnModel().getColumn(6).setHeaderValue("Title 7");
-        }
 
         jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
 
@@ -268,7 +259,7 @@ public class supplier extends javax.swing.JFrame {
         searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.getEditor().getEditorComponent().setBackground(new Color(238, 231, 218));
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jenis Supplier", "Frame", "Lensa", "Aksesoris", "Lokasi", "Luar negeri", "Dalam negeri" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jenis Supplier", "Frame", "Lensa", "Aksesoris", "Lokasi", "Jabodetabek", "Luar Kota", "Luar Negeri" }));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
@@ -338,7 +329,7 @@ public class supplier extends javax.swing.JFrame {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onView(int row) {
-                System.out.println("View Button row: "+row);
+                sendData(row);
             }
         };
         
@@ -355,13 +346,42 @@ public class supplier extends javax.swing.JFrame {
         searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
     }
     
+    private void sendData(int row) {
+        String[] values = new String[6];
+        
+        int id = Integer.parseInt(tabmode.getValueAt(row, 0).toString());
+        
+    
+        for(int i = 0; i < 6; i++){
+            values[i] = tabmode.getValueAt(row, i+1).toString();
+        }
+        
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            RincianDataSupplier formRincianSupplier = new form.RincianDataSupplier();
+            
+            formRincianSupplier.setData(id, values);
+
+            // Tampilkan JFrame baru
+            formRincianSupplier.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dataTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        JFrame formSupplier = new form.supplier();
+        JFrame formSupplier = new form.TambahSupplier();
         formSupplier.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -373,10 +393,64 @@ public class supplier extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarKeyPressed
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        Object filter = searchFilter.getSelectedItem();
-        
-        if(filter != null) {
-            searchBar.setText(filter.toString());
+        if(searchFilter.getSelectedItem() != null) {
+            int filter = searchFilter.getSelectedIndex();
+            String cariItem = "";
+
+            switch(filter) {
+                case 1:
+                    cariItem = "frame";
+                    break;
+                case 2:
+                    cariItem = "lensa";
+                    break;
+                case 3:
+                    cariItem = "aksesoris";
+                    break;
+                case 5:
+                    cariItem = "Jabodetabek";
+                    break;
+                case 6:
+                    cariItem = "Kota";
+                    break;
+                case 7:
+                    cariItem = "Negeri";
+                    break;
+            }
+
+            Connection conn = new koneksi().getConnection();
+
+            Object[] Baris ={"ID","Nama Supplier","Kontak","Email","Jenis Supplier", "Lokasi Supplier", "Alamat", "Aksi"};
+            tabmode = new DefaultTableModel(null, Baris);
+
+            try {
+                String sql = "SELECT * FROM suppliers WHERE jenis_supplier LIKE ? OR lokasi_supplier LIKE ? order by id asc";
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, "%" + cariItem + "%");
+                stat.setString(2, "%" + cariItem + "%");
+
+                ResultSet hasil = stat.executeQuery();
+                while (hasil.next()){
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        hasil.getString(6),
+                        hasil.getString(7)
+                    });
+                }  
+                tableSupplier.setModel(tabmode);
+                initializeTableActionEvent();
+
+                conn.close();
+                stat.close();
+                hasil.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }//GEN-LAST:event_searchFilterActionPerformed
 
