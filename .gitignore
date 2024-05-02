@@ -1,4 +1,6 @@
 /dist/
 
-nbproject/private/private.properties
-nbproject/private/private.xml
+/nbproject/private/
+
+# macOS Files
+.DS_STORE
