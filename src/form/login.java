@@ -5,12 +5,26 @@
  */
 package form;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
+import table_model.supplier;
+
 /**
  *
  * @author Bagus
  */
 public class login extends javax.swing.JFrame {
-
+    
+    private final String email = "admin";
+    private final String password = "team2optik";
+    private final String passwordKaryawan = "karyawanteam2optik";
+    
     /**
      * Creates new form login
      */
@@ -33,16 +47,16 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(242, 241, 235));
         jPanel1.setPreferredSize(new java.awt.Dimension(640, 832));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/amico.png"))); // NOI18N
@@ -73,7 +87,7 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("Masuk");
         jLabel1.setAlignmentX(1.0F);
         jLabel1.setPreferredSize(new java.awt.Dimension(266, 84));
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 138, 200, 74));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 138, 260, 74));
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 64)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,19 +101,14 @@ public class login extends javax.swing.JFrame {
         jLabel3.setText("Password");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
 
-        email.setBackground(new java.awt.Color(136, 171, 142));
-        email.setFont(new java.awt.Font("Roboto Light", 0, 18)); // NOI18N
-        email.setForeground(new java.awt.Color(255, 255, 255));
-        email.setToolTipText("");
-        email.setBorder(null);
-        email.setPreferredSize(new java.awt.Dimension(190, 30));
-        email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
-            }
-        });
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
-        email.getAccessibleContext().setAccessibleName("");
+        emailField.setBackground(new java.awt.Color(136, 171, 142));
+        emailField.setFont(new java.awt.Font("Roboto Light", 0, 18)); // NOI18N
+        emailField.setForeground(new java.awt.Color(255, 255, 255));
+        emailField.setToolTipText("");
+        emailField.setBorder(null);
+        emailField.setPreferredSize(new java.awt.Dimension(190, 30));
+        jPanel2.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 390, -1));
+        emailField.getAccessibleContext().setAccessibleName("");
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(393, 10));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, -1, -1));
@@ -111,7 +120,7 @@ public class login extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(175, 200, 173));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(175, 200, 173));
+        jButton1.setForeground(new java.awt.Color(169, 168, 164));
         jButton1.setText("Masuk");
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -126,11 +135,11 @@ public class login extends javax.swing.JFrame {
         jSeparator3.setPreferredSize(new java.awt.Dimension(393, 10));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 352, -1, -1));
 
-        jPasswordField1.setBackground(new java.awt.Color(136, 171, 142));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setBorder(null);
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(190, 30));
-        jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, -1, -1));
+        passwordField.setBackground(new java.awt.Color(136, 171, 142));
+        passwordField.setForeground(new java.awt.Color(255, 255, 255));
+        passwordField.setBorder(null);
+        passwordField.setPreferredSize(new java.awt.Dimension(190, 30));
+        jPanel2.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 390, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,14 +160,42 @@ public class login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String cariEmail = emailField.getText();
+        String inputPassword = new String(passwordField.getPassword());
+        
+        if(cariEmail.equals(email) && inputPassword.equals(password)) {
+            System.out.println("berhasil login");
+        } else {
+            Connection conn = new koneksi().getConnection();
+
+            try {
+                String sql = "SELECT email FROM karyawan WHERE email = ? AND status = '1'";
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, cariEmail);
+                ResultSet hasil = stat.executeQuery();
+
+                if (hasil.next()) {
+                    if (inputPassword.equals(passwordKaryawan)) {
+                        System.out.println("berhasil login");
+                    } else {
+                         JOptionPane.showMessageDialog(null, "email atau password salah");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "email atau password salah");
+                }
+
+                // Menutup koneksi
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "telah terjadi error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -197,7 +234,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField email;
+    private javax.swing.JTextField emailField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -206,8 +243,8 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 }
