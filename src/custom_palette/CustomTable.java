@@ -31,7 +31,7 @@ public class CustomTable extends JTable {
         getTableHeader().setPreferredSize(new Dimension(0, 62));
         setDefaultRenderer(Object.class, cell);
         setRowHeight(62);
-        setBorder(getBorder());
+        setSelectionBackground(new Color(160,190,15));
     }
 
     public void setColumnWidth(int column, int width) {

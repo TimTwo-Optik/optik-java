@@ -25,6 +25,16 @@ public class TambahSupplier extends javax.swing.JFrame {
      */
     public TambahSupplier() {
         initComponents();
+        kosong();
+    }
+    
+    protected void kosong() {
+        nama.setText("");
+        kontak.setText("");
+        email.setText("");
+        jenisSupplier.setSelectedItem(null);
+        lokasiSupplier.setSelectedItem(null);
+        alamat.setText("");
     }
 
     /**
@@ -74,8 +84,8 @@ public class TambahSupplier extends javax.swing.JFrame {
         kontak = new custom_palette.RoundedTextField();
         email = new custom_palette.RoundedTextField();
         lokasiSupplier = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addDataButton = new custom_palette.RoundedButton();
+        cancelButton = new custom_palette.RoundedButton();
         roundedPanel2 = new custom_palette.RoundedPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -295,31 +305,32 @@ public class TambahSupplier extends javax.swing.JFrame {
 
         roundedPanel3.add(roundedPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 63, 895, 343));
 
-        jButton2.setBackground(new java.awt.Color(248, 248, 248));
-        jButton2.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(136, 171, 142));
-        jButton2.setText("X Batal");
-        jButton2.setBorderPainted(false);
-        jButton2.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addDataButton.setForeground(new java.awt.Color(136, 171, 142));
+        addDataButton.setText("+ Tambah");
+        addDataButton.setColor(new java.awt.Color(248, 248, 248));
+        addDataButton.setColorClick(new java.awt.Color(198, 198, 198));
+        addDataButton.setColorOver(new java.awt.Color(223, 223, 223));
+        addDataButton.setcornerRadius(15);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addDataButtonActionPerformed(evt);
             }
         });
-        roundedPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(801, 418, -1, -1));
+        roundedPanel3.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 416, 120, 41));
 
-        jButton3.setBackground(new java.awt.Color(248, 248, 248));
-        jButton3.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(136, 171, 142));
-        jButton3.setText("+ Tambah");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setForeground(new java.awt.Color(136, 171, 142));
+        cancelButton.setText("X Batal");
+        cancelButton.setColorClick(new java.awt.Color(198, 198, 198));
+        cancelButton.setColorOver(new java.awt.Color(223, 223, 223));
+        cancelButton.setcornerRadius(15);
+        cancelButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
-        roundedPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 418, -1, -1));
+        roundedPanel3.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(801, 416, 103, 41));
 
         jPanel8.add(roundedPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 273, 983, 465));
 
@@ -352,7 +363,7 @@ public class TambahSupplier extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         try {
             // Mengatur look and feel menjadi Nimbus
             UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
@@ -374,9 +385,9 @@ public class TambahSupplier extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
         String sql = "insert into suppliers(nama_supplier, kontak, email, jenis_supplier, lokasi_supplier, alamat) values (?,?,?,?,?,?)";
@@ -392,13 +403,14 @@ public class TambahSupplier extends javax.swing.JFrame {
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
             nama.requestFocus();
+            kosong();
             
             conn.close();
             stat.close();
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "data gagal disimpan, pesan error: "+e);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_addDataButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -446,10 +458,10 @@ public class TambahSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JTextArea alamat;
+    private custom_palette.RoundedButton cancelButton;
     private custom_palette.RoundedTextField email;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
