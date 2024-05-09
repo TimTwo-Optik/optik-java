@@ -41,6 +41,8 @@ public class supplier extends javax.swing.JFrame {
         initializeComboBox();
         dataTable();
         kosong();
+        
+        tableSupplier.fixTable(jScrollPane1);
     }
     
     protected void dataTable(){
@@ -111,18 +113,18 @@ public class supplier extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableSupplier = new javax.swing.JTable();
         roundedPanel1 = new custom_palette.RoundedPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         searchFilter = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        searchButton = new custom_palette.RoundedButton();
         searchBar = new custom_palette.RoundedTextField();
-        jButton3 = new javax.swing.JButton();
         roundedPanel2 = new custom_palette.RoundedPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSupplier = new custom_palette.CustomTable();
+        addDataButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -206,41 +208,6 @@ public class supplier extends javax.swing.JFrame {
         jLabel8.setText("Manajemen Supplier");
         jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 65, 210, -1));
 
-        jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setForeground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-
-        tableSupplier.getTableHeader().setOpaque(false);
-        tableSupplier.getTableHeader().setBackground(new Color(136, 171, 142));
-        tableSupplier.setBackground(new java.awt.Color(242, 241, 235));
-        tableSupplier.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Action"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableSupplier.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
-        tableSupplier.setRowHeight(60);
-        tableSupplier.setSelectionBackground(new java.awt.Color(136, 171, 142));
-        jScrollPane1.setViewportView(tableSupplier);
-
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
-
         roundedPanel1.setBackground(new java.awt.Color(175, 200, 173));
         roundedPanel1.setCornerRadius(5);
         roundedPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -267,16 +234,19 @@ public class supplier extends javax.swing.JFrame {
         });
         jPanel8.add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        jButton1.setBackground(new java.awt.Color(238, 231, 218));
-        jButton1.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(125, 125, 125));
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setForeground(new java.awt.Color(125, 125, 125));
+        searchButton.setText("Cari");
+        searchButton.setColor(new java.awt.Color(238, 231, 218));
+        searchButton.setColorClick(new java.awt.Color(190, 184, 174));
+        searchButton.setColorOver(new java.awt.Color(214, 207, 196));
+        searchButton.setcornerRadius(20);
+        searchButton.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 150, 94, 35));
 
         searchBar.setBackground(new java.awt.Color(242, 241, 235));
         searchBar.setCornerRadius(5);
@@ -290,19 +260,6 @@ public class supplier extends javax.swing.JFrame {
             }
         });
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
-
-        jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(242, 241, 235));
-        jButton3.setText("+ Tambah");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
 
         roundedPanel2.setBackground(new java.awt.Color(175, 200, 173));
         roundedPanel2.setForeground(new java.awt.Color(175, 200, 173));
@@ -318,6 +275,47 @@ public class supplier extends javax.swing.JFrame {
         roundedPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 170, -1));
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
+
+        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableSupplier.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        tableSupplier.setSelectionBackground(new java.awt.Color(160, 190, 158));
+        jScrollPane1.setViewportView(tableSupplier);
+
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 371, 1090, 398));
+
+        addDataButton.setBackground(new java.awt.Color(136, 171, 142));
+        addDataButton.setForeground(new java.awt.Color(242, 241, 235));
+        addDataButton.setText("+ Tambah");
+        addDataButton.setColor(new java.awt.Color(136, 171, 142));
+        addDataButton.setColorClick(new java.awt.Color(108, 136, 113));
+        addDataButton.setColorOver(new java.awt.Color(122, 153, 127));
+        addDataButton.setcornerRadius(20);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        addDataButton.setPreferredSize(new java.awt.Dimension(120, 37));
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDataButtonActionPerformed(evt);
+            }
+        });
+        jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
@@ -375,17 +373,6 @@ public class supplier extends javax.swing.JFrame {
         }
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dataTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        JFrame formSupplier = new form.TambahSupplier();
-        formSupplier.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             dataTable();
@@ -454,6 +441,16 @@ public class supplier extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchFilterActionPerformed
 
+    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
+        JFrame formSupplier = new form.TambahSupplier();
+        formSupplier.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addDataButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        dataTable();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -491,8 +488,7 @@ public class supplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -518,8 +514,9 @@ public class supplier extends javax.swing.JFrame {
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedTextField searchBar;
+    private custom_palette.RoundedButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
-    private javax.swing.JTable tableSupplier;
+    private custom_palette.CustomTable tableSupplier;
     // End of variables declaration//GEN-END:variables
 
 }

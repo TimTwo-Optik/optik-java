@@ -87,9 +87,9 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         kontak = new custom_palette.RoundedTextField();
         email = new custom_palette.RoundedTextField();
         lokasiSupplier = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        editButton = new custom_palette.RoundedButton();
+        removeButton = new custom_palette.RoundedButton();
+        cancelButton = new custom_palette.RoundedButton();
         roundedPanel2 = new custom_palette.RoundedPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -168,7 +168,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         jPanel8.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 103, -1, -1));
 
         jLabel8.setBackground(new java.awt.Color(142, 175, 148));
-        jLabel8.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(142, 175, 148));
         jLabel8.setText("Manajemen Supplier");
         jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 65, 210, -1));
@@ -182,7 +182,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-note.png"))); // NOI18N
         roundedPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 16, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Inter", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Rincian Data Supplier");
         roundedPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 23, -1, -1));
@@ -199,7 +199,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         roundedPanel4.setCornerRadius(30);
         roundedPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Rincian Data Supplier");
         jLabel13.setPreferredSize(new java.awt.Dimension(337, 34));
@@ -208,7 +208,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-rincian.png"))); // NOI18N
         roundedPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, -1, 34));
 
-        roundedPanel3.add(roundedPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 0, 250, 44));
+        roundedPanel3.add(roundedPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 0, 270, 44));
 
         roundedPanel5.setBackground(new java.awt.Color(248, 248, 248));
         roundedPanel5.setForeground(new java.awt.Color(248, 248, 248));
@@ -219,34 +219,34 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         roundedPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 66, -1, -1));
 
         jLabel10.setBackground(new java.awt.Color(94, 90, 90));
-        jLabel10.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(94, 90, 90));
         jLabel10.setText("Nama supplier");
         roundedPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 45, -1, -1));
 
         jLabel14.setBackground(new java.awt.Color(94, 90, 90));
-        jLabel14.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(94, 90, 90));
         jLabel14.setText("Kontak");
         roundedPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 81, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(94, 90, 90));
         jLabel15.setText("E-mail");
         roundedPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 117, -1, -1));
 
         jLabel16.setBackground(new java.awt.Color(94, 90, 90));
-        jLabel16.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(94, 90, 90));
         jLabel16.setText("Jenis supplier");
         roundedPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 151, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(94, 90, 90));
         jLabel17.setText("Lokasi supplier");
         roundedPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 186, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(94, 90, 90));
         jLabel18.setText("Alamat");
         roundedPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 219, -1, -1));
@@ -301,41 +301,43 @@ public class RincianDataSupplier extends javax.swing.JFrame {
 
         roundedPanel3.add(roundedPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 63, 895, 343));
 
-        jButton1.setBackground(new java.awt.Color(255, 75, 75));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-write.png"))); // NOI18N
+        editButton.setColor(new java.awt.Color(247, 147, 39));
+        editButton.setColorClick(new java.awt.Color(197, 117, 31));
+        editButton.setColorOver(new java.awt.Color(222, 132, 35));
+        editButton.setcornerRadius(15);
+        editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editButtonActionPerformed(evt);
             }
         });
-        roundedPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 418, 83, 37));
+        roundedPanel3.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 416, 83, 41));
 
-        jButton2.setBackground(new java.awt.Color(248, 248, 248));
-        jButton2.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(136, 171, 142));
-        jButton2.setText("X Batal");
-        jButton2.setBorderPainted(false);
-        jButton2.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        removeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
+        removeButton.setColor(new java.awt.Color(255, 75, 75));
+        removeButton.setColorClick(new java.awt.Color(204, 60, 60));
+        removeButton.setColorOver(new java.awt.Color(229, 67, 67));
+        removeButton.setcornerRadius(15);
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                removeButtonActionPerformed(evt);
             }
         });
-        roundedPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(801, 418, -1, -1));
+        roundedPanel3.add(removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 416, 83, 41));
 
-        jButton3.setBackground(new java.awt.Color(247, 147, 39));
-        jButton3.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(136, 171, 142));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-write.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setForeground(new java.awt.Color(136, 171, 142));
+        cancelButton.setText("X Batal");
+        cancelButton.setColor(new java.awt.Color(248, 248, 248));
+        cancelButton.setColorClick(new java.awt.Color(198, 198, 198));
+        cancelButton.setColorOver(new java.awt.Color(223, 223, 223));
+        cancelButton.setcornerRadius(15);
+        cancelButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
-        roundedPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 418, 83, 37));
+        roundedPanel3.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(801, 416, 103, 41));
 
         jPanel8.add(roundedPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 273, 983, 465));
 
@@ -351,54 +353,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            // Mengatur look and feel menjadi Nimbus
-            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
-            for (UIManager.LookAndFeelInfo look : looks) {
-                if ("Nimbus".equals(look.getName())) {
-                    UIManager.setLookAndFeel(look.getClassName());
-                    break;
-                }
-            }
-
-            // Buat objek JFrame baru
-            JFrame tableModelSupplier = new table_model.supplier();
-
-            // Tampilkan JFrame baru
-            tableModelSupplier.setVisible(true);
-
-            // Tutup jendela saat ini
-            this.dispose();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Connection conn = new koneksi().getConnection();
-         
-        try {
-            String sql = "update suppliers set nama_supplier=?,kontak=?,email=?,jenis_supplier=?,lokasi_supplier=?,alamat=? where id=?";
-            PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, nama.getText());
-            stat.setString(2, kontak.getText());
-            stat.setString(3, email.getText());
-            stat.setString(4, jenisSupplier.getSelectedItem().toString());
-            stat.setString(5, lokasiSupplier.getSelectedItem().toString());
-            stat.setString(6, alamat.getText());
-            stat.setInt(7, id);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "data berhasil diubah");
-
-            conn.close();
-            stat.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "data gagal diubah, pesan error: " + e);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         Connection conn = new koneksi().getConnection();
 
         int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data karyawan ini?", "Hapus Data Karyawan", JOptionPane.YES_NO_OPTION);
@@ -438,7 +393,54 @@ public class RincianDataSupplier extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        Connection conn = new koneksi().getConnection();
+         
+        try {
+            String sql = "update suppliers set nama_supplier=?,kontak=?,email=?,jenis_supplier=?,lokasi_supplier=?,alamat=? where id=?";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, nama.getText());
+            stat.setString(2, kontak.getText());
+            stat.setString(3, email.getText());
+            stat.setString(4, jenisSupplier.getSelectedItem().toString());
+            stat.setString(5, lokasiSupplier.getSelectedItem().toString());
+            stat.setString(6, alamat.getText());
+            stat.setInt(7, id);
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil diubah");
+
+            conn.close();
+            stat.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal diubah, pesan error: " + e);
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame tableModelSupplier = new table_model.supplier();
+
+            // Tampilkan JFrame baru
+            tableModelSupplier.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,10 +480,9 @@ public class RincianDataSupplier extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea alamat;
+    private custom_palette.RoundedButton cancelButton;
+    private custom_palette.RoundedButton editButton;
     private custom_palette.RoundedTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -515,6 +516,7 @@ public class RincianDataSupplier extends javax.swing.JFrame {
     private custom_palette.RoundedTextField kontak;
     private javax.swing.JComboBox<String> lokasiSupplier;
     private custom_palette.RoundedTextField nama;
+    private custom_palette.RoundedButton removeButton;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedPanel roundedPanel3;
