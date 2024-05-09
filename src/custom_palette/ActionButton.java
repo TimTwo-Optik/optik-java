@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
@@ -47,11 +46,9 @@ public class ActionButton extends JButton {
         int width = getWidth();
         int height = getHeight();
         int size = Math.min(width, height);
-        int x = (width-size)/2;
-        int y = (height-size)/2;
         
         if(mousePress) {
-            g2d.setColor(new Color(136, 171, 142));
+            g2d.setColor(new Color(160, 190, 158));
         } else {
             g2d.setColor(new Color(175, 200, 173));
         }
