@@ -412,7 +412,7 @@
             </Property>
             <Property name="cornerRadius" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Inter" size="18" style="1"/>
+              <Font name="Inter" size="20" style="1"/>
             </Property>
           </Properties>
           <Events>

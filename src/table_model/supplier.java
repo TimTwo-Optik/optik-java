@@ -240,7 +240,7 @@ public class supplier extends javax.swing.JFrame {
         searchButton.setColorClick(new java.awt.Color(190, 184, 174));
         searchButton.setColorOver(new java.awt.Color(214, 207, 196));
         searchButton.setcornerRadius(20);
-        searchButton.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        searchButton.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);

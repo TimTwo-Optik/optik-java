@@ -176,11 +176,11 @@ public class karyawan extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         searchFilter = new javax.swing.JComboBox<>();
-        searchButton = new javax.swing.JButton();
+        searchButton = new custom_palette.RoundedButton();
         searchBar = new custom_palette.RoundedTextField();
-        addDataButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKaryawan = new custom_palette.CustomTable();
+        addDataButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -288,16 +288,19 @@ public class karyawan extends javax.swing.JFrame {
         });
         jPanel8.add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        searchButton.setBackground(new java.awt.Color(238, 231, 218));
-        searchButton.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         searchButton.setForeground(new java.awt.Color(125, 125, 125));
         searchButton.setText("Cari");
+        searchButton.setColor(new java.awt.Color(238, 231, 218));
+        searchButton.setColorClick(new java.awt.Color(190, 184, 174));
+        searchButton.setColorOver(new java.awt.Color(214, 207, 196));
+        searchButton.setcornerRadius(20);
+        searchButton.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
             }
         });
-        jPanel8.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 150, 94, 35));
 
         searchBar.setBackground(new java.awt.Color(242, 241, 235));
         searchBar.setCornerRadius(5);
@@ -311,19 +314,6 @@ public class karyawan extends javax.swing.JFrame {
             }
         });
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
-
-        addDataButton.setBackground(new java.awt.Color(136, 171, 142));
-        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        addDataButton.setForeground(new java.awt.Color(242, 241, 235));
-        addDataButton.setText("+ Tambah");
-        addDataButton.setBorderPainted(false);
-        addDataButton.setPreferredSize(new java.awt.Dimension(103, 37));
-        addDataButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDataButtonActionPerformed(evt);
-            }
-        });
-        jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
 
         jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
 
@@ -368,6 +358,20 @@ public class karyawan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tableKaryawan);
 
         jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 1090, 402));
+
+        addDataButton.setForeground(new java.awt.Color(242, 241, 235));
+        addDataButton.setText("+ Tambah");
+        addDataButton.setColor(new java.awt.Color(136, 171, 142));
+        addDataButton.setColorClick(new java.awt.Color(108, 136, 113));
+        addDataButton.setColorOver(new java.awt.Color(122, 153, 127));
+        addDataButton.setcornerRadius(20);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDataButtonActionPerformed(evt);
+            }
+        });
+        jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
@@ -440,10 +444,6 @@ public class karyawan extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_searchFilterActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        dataTable();
-    }//GEN-LAST:event_searchButtonActionPerformed
-
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             dataTable();
@@ -467,6 +467,10 @@ public class karyawan extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        dataTable();
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,7 +508,7 @@ public class karyawan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addDataButton;
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -527,7 +531,7 @@ public class karyawan extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedTextField searchBar;
-    private javax.swing.JButton searchButton;
+    private custom_palette.RoundedButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
     private custom_palette.CustomTable tableKaryawan;
     // End of variables declaration//GEN-END:variables

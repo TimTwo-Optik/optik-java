@@ -62,9 +62,9 @@ public class TambahKaryawan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alamat = new javax.swing.JTextArea();
         email = new custom_palette.RoundedTextField();
-        jButton1 = new javax.swing.JButton();
         waktu_bergabung = new com.toedter.calendar.JDateChooser();
-        jButton3 = new javax.swing.JButton();
+        addDataButton = new custom_palette.RoundedButton();
+        cancelButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -147,20 +147,6 @@ public class TambahKaryawan extends javax.swing.JFrame {
         email.setLineColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 352, 232, -1));
 
-        jButton1.setBackground(new java.awt.Color(238, 231, 218));
-        jButton1.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(136, 171, 142));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
-        jButton1.setText("Tambah");
-        jButton1.setBorderPainted(false);
-        jButton1.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        roundedPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 125, 39));
-
         waktu_bergabung.setBackground(new java.awt.Color(238, 231, 218));
         waktu_bergabung.setDateFormatString("yyyy-MM-dd");
         waktu_bergabung.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
@@ -168,21 +154,37 @@ public class TambahKaryawan extends javax.swing.JFrame {
         waktu_bergabung.setPreferredSize(new java.awt.Dimension(232, 22));
         roundedPanel1.add(waktu_bergabung, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 389, -1, -1));
 
-        jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
-
-        jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(238, 231, 218));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_batal.png"))); // NOI18N
-        jButton3.setText("Batal");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        addDataButton.setForeground(new java.awt.Color(136, 171, 142));
+        addDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
+        addDataButton.setText("Tambah");
+        addDataButton.setColor(new java.awt.Color(238, 231, 218));
+        addDataButton.setColorClick(new java.awt.Color(190, 184, 174));
+        addDataButton.setColorOver(new java.awt.Color(214, 207, 196));
+        addDataButton.setcornerRadius(15);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                addDataButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1118, 746, 130, 45));
+        roundedPanel1.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 508, 125, 43));
+
+        jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
+
+        cancelButton.setForeground(new java.awt.Color(238, 231, 218));
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_batal.png"))); // NOI18N
+        cancelButton.setText("Batal");
+        cancelButton.setColor(new java.awt.Color(136, 171, 142));
+        cancelButton.setColorClick(new java.awt.Color(108, 136, 113));
+        cancelButton.setColorOver(new java.awt.Color(122, 153, 127));
+        cancelButton.setcornerRadius(15);
+        cancelButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1118, 744, 130, 49));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 832));
 
@@ -194,7 +196,7 @@ public class TambahKaryawan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_kontakActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
         String sql = "insert into karyawan(nama, kontak, alamat, email, waktu_bergabung) values (?,?,?,?,?)";
@@ -216,10 +218,10 @@ public class TambahKaryawan extends javax.swing.JFrame {
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "data gagal disimpan, pesan error: "+e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addDataButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            try {
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        try {
             // Mengatur look and feel menjadi Nimbus
             UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
             for (UIManager.LookAndFeelInfo look : looks) {
@@ -240,7 +242,7 @@ public class TambahKaryawan extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,10 +290,10 @@ public class TambahKaryawan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JTextArea alamat;
+    private custom_palette.RoundedButton cancelButton;
     private custom_palette.RoundedTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
