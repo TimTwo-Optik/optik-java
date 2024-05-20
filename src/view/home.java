@@ -14,6 +14,7 @@ import java.text.DateFormatSymbols;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 import table_model.supplier;
 
@@ -22,6 +23,7 @@ import table_model.supplier;
  * @author Bagus
  */
 public class home extends javax.swing.JFrame {
+    private DefaultTableModel tabmode;
 
     /**
      * Creates new form home
@@ -29,6 +31,75 @@ public class home extends javax.swing.JFrame {
     public home() {
         initComponents();
         dataChart();
+        incomeTable();
+        expenseTable();
+        
+        incomeTable.fixTable(jScrollPane1);
+        expenseTable.fixTable(jScrollPane2);
+    }
+    
+    protected void incomeTable() {
+        Connection conn = koneksi.getConnection();
+        
+        Object[] Baris ={"ID","tanggal", "Nama Barang", "kuantitas", "total harga", "status"};
+        tabmode = new DefaultTableModel(null, Baris);
+        
+        try {
+            String sql = "SELECT p.id, p.tanggal_jual, b.nama, p.kuantitas, p.total_harga, p.status FROM penjualan AS p JOIN barang AS b ON b.id = p.id_barang";
+            Statement stat = conn.createStatement();
+            
+            ResultSet hasil = stat.executeQuery(sql);
+            while (hasil.next()){
+                tabmode.addRow(new Object[]{    
+                    hasil.getString(1),
+                    hasil.getString(2),
+                    hasil.getString(3),
+                    hasil.getString(4),
+                    hasil.getString(5),
+                    hasil.getString(6),
+                });
+            }  
+            incomeTable.setModel(tabmode);
+        
+            conn.close();
+            stat.close();
+            hasil.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+    
+    protected void expenseTable() {
+        Connection conn = koneksi.getConnection();
+        
+        Object[] Baris ={"ID","tanggal", "Nama Barang", "kuantitas", "total harga", "status"};
+        tabmode = new DefaultTableModel(null, Baris);
+        
+        try {
+            String sql = "SELECT p.id, p.tanggal_beli, b.nama, p.kuantitas, p.total_harga, p.status FROM pembelian AS p JOIN barang AS b ON b.id = p.id_barang";
+            Statement stat = conn.createStatement();
+            
+            ResultSet hasil = stat.executeQuery(sql);
+            while (hasil.next()){
+                tabmode.addRow(new Object[]{    
+                    hasil.getString(1),
+                    hasil.getString(2),
+                    hasil.getString(3),
+                    hasil.getString(4),
+                    hasil.getString(5),
+                    hasil.getString(6),
+                });
+            }  
+            expenseTable.setModel(tabmode);
+        
+            conn.close();
+            stat.close();
+            hasil.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+        } 
     }
     
 //    private void dataChart() {
@@ -156,7 +227,7 @@ public class home extends javax.swing.JFrame {
         
         for(int i = 0; i < data.length; i++) {
             String namaBulan = new DateFormatSymbols().getMonths()[i];
-            chartBar.addData(new ModelChart(namaBulan, new double[]{data[i][0], data[i][1], data[i][1]-data[i][0]}));
+            chartBar.addData(new ModelChart(namaBulan, new double[]{data[i][0], data[i][1], data[i][0]-data[i][1]}));
         }
     }
 
@@ -187,7 +258,11 @@ public class home extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        incomeTable = new custom_palette.CustomTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        expenseTable = new custom_palette.CustomTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -270,9 +345,9 @@ public class home extends javax.swing.JFrame {
         jLabel8.setText("TimTwo Optik");
         jPanel10.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(853, 300));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(226, 300));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        incomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -283,9 +358,38 @@ public class home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        incomeTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jScrollPane1.setViewportView(incomeTable);
 
-        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 490, -1, -1));
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 530, 300));
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(226, 300));
+
+        expenseTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        expenseTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jScrollPane2.setViewportView(expenseTable);
+
+        jPanel10.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, 523, 300));
+
+        jLabel9.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel9.setText("Penjualan");
+        jPanel10.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 485, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel10.setText("Pembelian");
+        jPanel10.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 485, -1, -1));
 
         getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
@@ -330,7 +434,10 @@ public class home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private chart.ChartBar chartBar;
+    private custom_palette.CustomTable expenseTable;
+    private custom_palette.CustomTable incomeTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -338,6 +445,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -347,6 +455,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
