@@ -1,6 +1,18 @@
-/dist/
+# NetBeans specific #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+src/koneksi/
 
-/nbproject/private/
+# Class Files #
+*.class
 
-# macOS Files
-.DS_STORE
+# Package Files #
+*.jar
+*.war
+*.ear
+
