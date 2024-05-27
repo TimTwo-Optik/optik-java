@@ -45,17 +45,16 @@ public class penjualan extends javax.swing.JFrame {
         String cariItem = searchBar.getText();
         
         try {
-            String sql = "SELECT j.id, j.tanggal_jual, p.nama_pelanggan, j.transaksi, j.status " +
+            String sql = "SELECT j.id, j.tanggal_jual, p.nama_pelanggan, j.total_harga, j.status " +
              "FROM penjualan j " +
-             "JOIN pelanggan p ON j.nama_pelanggan = p.nama_pelanggan " +
-             "WHERE p.nama_pelanggan LIKE ? OR j.status LIKE ? OR p.kontak LIKE ? OR p.alamat LIKE ? " +
+             "JOIN pelanggan p ON j.id_pelanggan = p.id " +
+             "WHERE j.id = ? OR p.nama_pelanggan LIKE ?" +
              "ORDER BY j.id ASC";
 
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, "%" + cariItem + "%");
+            stat.setString(1, cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
-            stat.setString(3, "%" + cariItem + "%");
-            stat.setString(4, "%" + cariItem + "%");
+        
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
