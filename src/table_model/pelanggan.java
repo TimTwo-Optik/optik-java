@@ -45,16 +45,15 @@ public class pelanggan extends javax.swing.JFrame {
         String cariItem = searchBar.getText();
         
         try {
-            String sql = "SELECT p.nama_pelanggan, p.kontak, p.alamat, j.transaksi, j.status " +
-             "FROM pelanggan p " +
-             "JOIN penjualan j ON p.nama_pelanggan = j.nama_pelanggan " +
-             "WHERE p.nama_pelanggan LIKE ? OR j.status LIKE ? OR p.kontak LIKE ? OR p.alamat LIKE ? " +
-             "ORDER BY p.id ASC";
+       String sql = "SELECT p.nama_pelanggan, p.kontak, p.alamat, SUM(j.total_harga) AS total_harga, j.status " +
+                "FROM pelanggan p " +
+                "JOIN penjualan j ON p.id = j.id_pelanggan " +
+                "WHERE p.nama_pelanggan LIKE ? " +
+                "GROUP BY p.nama_pelanggan, p.kontak, p.alamat, j.status " +
+                "ORDER BY p.nama_pelanggan ASC";
+
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
-            stat.setString(2, "%" + cariItem + "%");
-            stat.setString(3, "%" + cariItem + "%");
-            stat.setString(4, "%" + cariItem + "%");
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
@@ -125,7 +124,7 @@ public class pelanggan extends javax.swing.JFrame {
         roundedPanel1 = new custom_palette.RoundedPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bcari = new javax.swing.JButton();
         searchBar = new custom_palette.RoundedTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -230,16 +229,16 @@ public class pelanggan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        jButton1.setBackground(new java.awt.Color(238, 231, 218));
-        jButton1.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(125, 125, 125));
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bcari.setBackground(new java.awt.Color(238, 231, 218));
+        bcari.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        bcari.setForeground(new java.awt.Color(125, 125, 125));
+        bcari.setText("Cari");
+        bcari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bcariActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
 
         searchBar.setBackground(new java.awt.Color(242, 241, 235));
         searchBar.setCornerRadius(5);
@@ -340,10 +339,13 @@ public class pelanggan extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
+
+        dataTable();
+    }//GEN-LAST:event_bcariActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
@@ -400,7 +402,7 @@ public class pelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bcari;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
