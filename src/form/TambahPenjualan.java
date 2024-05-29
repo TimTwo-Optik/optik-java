@@ -7,6 +7,7 @@ package form;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JFrame;
@@ -19,22 +20,25 @@ import koneksi.koneksi;
  *
  * @author Bagus
  */
-public class TambahKaryawan extends javax.swing.JFrame {
+public class TambahPenjualan extends javax.swing.JFrame {
     
+  
     /**
      * Creates new form TambahKaryawan
      */
-    public TambahKaryawan() {
+    public TambahPenjualan() {
         initComponents();
         kosong();
+        populateComboBoxes();
     } 
     
     protected void kosong() {
-        nama.setText("");
-        kontak.setText("");
-        alamat.setText("");
-        email.setText("");
-        waktu_bergabung.setDate(new Date());
+        transaksi.setText("");
+        cbnama.setSelectedItem("");
+        cbbarang.setSelectedItem("");
+        kuantitas.setText("");
+        tanggal_jual.setDate(new Date());
+        status.setSelectedItem("");
     }
 
     /**
@@ -54,16 +58,17 @@ public class TambahKaryawan extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        nama = new custom_palette.RoundedTextField();
-        kontak = new custom_palette.RoundedTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        alamat = new javax.swing.JTextArea();
-        email = new custom_palette.RoundedTextField();
-        waktu_bergabung = new com.toedter.calendar.JDateChooser();
+        transaksi = new custom_palette.RoundedTextField();
+        tanggal_jual = new com.toedter.calendar.JDateChooser();
         addDataButton = new custom_palette.RoundedButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        kuantitas = new custom_palette.RoundedTextField();
+        jLabel12 = new javax.swing.JLabel();
+        status = new javax.swing.JComboBox<>();
+        cbbarang = new javax.swing.JComboBox<>();
+        cbnama = new javax.swing.JComboBox<>();
         cancelButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,12 +77,12 @@ public class TambahKaryawan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(242, 241, 235));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-employee.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 45, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(142, 175, 148));
-        jLabel2.setText("Manajemen Data Karyawan");
+        jLabel2.setText("Manajemen Penjualan");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 47, 290, 40));
 
         roundedPanel1.setBackground(new java.awt.Color(136, 171, 142));
@@ -87,72 +92,38 @@ public class TambahKaryawan extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Inter", 1, 32)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel3.setText("Tambah Data Karyawan");
+        jLabel3.setText("Tambah Data Penjualan");
         roundedPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 38, 420, 80));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-employee2.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan2.png"))); // NOI18N
         roundedPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 148, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel5.setText("Nama");
-        roundedPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 163, 90, -1));
+        jLabel5.setText("Kuantitas");
+        roundedPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 140, -1));
 
         jLabel6.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel6.setText("Kontak");
-        roundedPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 203, 100, -1));
-
-        jLabel7.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel7.setText("Alamat");
-        roundedPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 240, 100, -1));
-
-        jLabel8.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel8.setText("Email");
-        roundedPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 352, 90, -1));
+        jLabel6.setText("Status");
+        roundedPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, 130, -1));
 
         jLabel9.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel9.setText("Waktu bergabung");
-        roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 389, 160, 20));
+        jLabel9.setText("Tanggal Jual");
+        roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 160, 20));
 
-        nama.setBackground(new java.awt.Color(238, 231, 218));
-        nama.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        nama.setLineColor(new java.awt.Color(238, 231, 218));
-        roundedPanel1.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 163, 232, -1));
+        transaksi.setBackground(new java.awt.Color(238, 231, 218));
+        transaksi.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        transaksi.setLineColor(new java.awt.Color(238, 231, 218));
+        roundedPanel1.add(transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 232, -1));
 
-        kontak.setBackground(new java.awt.Color(238, 231, 218));
-        kontak.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        kontak.setLineColor(new java.awt.Color(238, 231, 218));
-        kontak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kontakActionPerformed(evt);
-            }
-        });
-        roundedPanel1.add(kontak, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 203, 232, -1));
-
-        alamat.setBackground(new java.awt.Color(238, 231, 218));
-        alamat.setColumns(20);
-        alamat.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        alamat.setRows(5);
-        alamat.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(alamat);
-
-        roundedPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, 232, -1));
-
-        email.setBackground(new java.awt.Color(238, 231, 218));
-        email.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        email.setLineColor(new java.awt.Color(238, 231, 218));
-        roundedPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 352, 232, -1));
-
-        waktu_bergabung.setBackground(new java.awt.Color(238, 231, 218));
-        waktu_bergabung.setDateFormatString("yyyy-MM-dd");
-        waktu_bergabung.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        waktu_bergabung.setOpaque(false);
-        waktu_bergabung.setPreferredSize(new java.awt.Dimension(232, 22));
-        roundedPanel1.add(waktu_bergabung, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 389, -1, -1));
+        tanggal_jual.setBackground(new java.awt.Color(238, 231, 218));
+        tanggal_jual.setDateFormatString("yyyy-MM-dd");
+        tanggal_jual.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        tanggal_jual.setOpaque(false);
+        tanggal_jual.setPreferredSize(new java.awt.Dimension(232, 22));
+        roundedPanel1.add(tanggal_jual, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 190, -1, -1));
 
         addDataButton.setForeground(new java.awt.Color(136, 171, 142));
         addDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
@@ -168,6 +139,48 @@ public class TambahKaryawan extends javax.swing.JFrame {
             }
         });
         roundedPanel1.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 508, 125, 43));
+
+        jLabel10.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(238, 231, 218));
+        jLabel10.setText("Nama Pelanggan");
+        roundedPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 140, -1));
+
+        jLabel11.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(238, 231, 218));
+        jLabel11.setText("Nama Barang");
+        roundedPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 140, -1));
+
+        kuantitas.setBackground(new java.awt.Color(238, 231, 218));
+        kuantitas.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        kuantitas.setLineColor(new java.awt.Color(238, 231, 218));
+        roundedPanel1.add(kuantitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 232, -1));
+
+        jLabel12.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(238, 231, 218));
+        jLabel12.setText("Total Transaksi");
+        roundedPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 130, -1));
+
+        status.setBackground(new java.awt.Color(248, 248, 248));
+        status.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        status.setForeground(new java.awt.Color(94, 90, 90));
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunas", "Belum Lunas" }));
+        status.setOpaque(true);
+        status.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 160, -1));
+
+        cbbarang.setBackground(new java.awt.Color(248, 248, 248));
+        cbbarang.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        cbbarang.setForeground(new java.awt.Color(94, 90, 90));
+        cbbarang.setOpaque(true);
+        cbbarang.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel1.add(cbbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 280, 230, -1));
+
+        cbnama.setBackground(new java.awt.Color(248, 248, 248));
+        cbnama.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        cbnama.setForeground(new java.awt.Color(94, 90, 90));
+        cbnama.setOpaque(true);
+        cbnama.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel1.add(cbnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 230, -1));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
 
@@ -192,26 +205,33 @@ public class TambahKaryawan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kontakActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kontakActionPerformed
-
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
-        String sql = "insert into karyawan(nama, kontak, alamat, email, waktu_bergabung) values (?,?,?,?,?)";
+        String sql = "insert into penjualan(id_pelanggan, id_barang,tanggal_jual, kuantitas, total_harga,status) values (?,?,?,?,?,?)";
         
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, nama.getText());
-            stat.setString(2, kontak.getText());
-            stat.setString(3, alamat.getText());
-            stat.setString(4, email.getText());
-            stat.setDate(5, new java.sql.Date(waktu_bergabung.getDate().getTime()));
+        String selectedPelanggan = (String) cbnama.getSelectedItem();
+        int idPelanggan = Integer.parseInt(selectedPelanggan.split(" - ")[0]);
+        
+        String selectedBarang = (String) cbbarang.getSelectedItem();
+        int idBarang = Integer.parseInt(selectedBarang.split(" - ")[0]);
+        
+        stat.setInt(1, idPelanggan);
+        stat.setInt(2, idBarang);
+        stat.setDate(3, new java.sql.Date(tanggal_jual.getDate().getTime()));
+        stat.setInt(4, Integer.parseInt(kuantitas.getText()));
+
+        int kuantitasVal = Integer.parseInt(kuantitas.getText());
+        double hargaPerSatuan = Double.parseDouble(transaksi.getText());
+        double totalHarga = kuantitasVal * hargaPerSatuan;
+
+        stat.setDouble(5, totalHarga);
+        stat.setString(6, status.getSelectedItem().toString());
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
             kosong();
-            nama.requestFocus();
             
             conn.close();
             stat.close();
@@ -219,6 +239,40 @@ public class TambahKaryawan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "data gagal disimpan, pesan error: "+e);
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
+
+    
+    private void populateComboBoxes() {
+        Connection conn = new koneksi().getConnection();
+    
+        String pelangganSql = "SELECT id, nama_pelanggan FROM pelanggan";
+        String barangSql = "SELECT id, kode_barang, nama FROM barang";
+    
+        try {
+            // Populate pelanggan ComboBox
+            PreparedStatement pelangganStat = conn.prepareStatement(pelangganSql);
+            ResultSet pelangganRs = pelangganStat.executeQuery();
+            while (pelangganRs.next()) {
+                int id = pelangganRs.getInt("id");
+                String namaPelanggan = pelangganRs.getString("nama_pelanggan");
+                cbnama.addItem(id + " - " + namaPelanggan);
+            }
+        
+            // Populate barang ComboBox
+            PreparedStatement barangStat = conn.prepareStatement(barangSql);
+            ResultSet barangRs = barangStat.executeQuery();
+            while (barangRs.next()) {
+                int id = barangRs.getInt("id");
+                String kodeBarang = barangRs.getString("kode_barang");
+                String namaBarang = barangRs.getString("nama");
+                cbbarang.addItem(id + " - " + namaBarang + " - " + kodeBarang);
+            }
+        
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Tambahkan ini untuk melihat detail error di konsol
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+        }
+    }
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         try {
@@ -232,10 +286,10 @@ public class TambahKaryawan extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formSupplier = new table_model.karyawan();
+            JFrame formPenjualan = new table_model.penjualan();
 
             // Tampilkan JFrame baru
-            formSupplier.setVisible(true);
+            formPenjualan.setVisible(true);
 
             // Tutup jendela saat ini
             this.dispose();
@@ -244,7 +298,14 @@ public class TambahKaryawan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    
+    
+
+
+    
+    
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -284,30 +345,31 @@ public class TambahKaryawan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahKaryawan().setVisible(true);
+                new TambahPenjualan().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton addDataButton;
-    private javax.swing.JTextArea alamat;
     private custom_palette.RoundedButton cancelButton;
-    private custom_palette.RoundedTextField email;
+    private javax.swing.JComboBox<String> cbbarang;
+    private javax.swing.JComboBox<String> cbnama;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private custom_palette.RoundedTextField kontak;
-    private custom_palette.RoundedTextField nama;
+    private custom_palette.RoundedTextField kuantitas;
     private custom_palette.RoundedPanel roundedPanel1;
-    private com.toedter.calendar.JDateChooser waktu_bergabung;
+    private javax.swing.JComboBox<String> status;
+    private com.toedter.calendar.JDateChooser tanggal_jual;
+    private custom_palette.RoundedTextField transaksi;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,6 +15,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class barang extends javax.swing.JFrame {
 
+    static void addItem(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * Creates new form barang
      */
