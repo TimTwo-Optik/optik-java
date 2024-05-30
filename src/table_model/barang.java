@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package table_model;
+import custom_palette.ComboBoxListCellRender;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
+import form.RincianDataBarang;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 /**
@@ -22,29 +26,33 @@ import koneksi.koneksi;
  * @author sabdha
  */
 public class barang extends javax.swing.JFrame {
-private DefaultTableModel tabmode; 
+   private DefaultTableModel tabmode;
+    
     /**
-     * Creates new form barang
+     * Creates new form karyawan
      */
     public barang() {
         initComponents();
+        initializeTableActionEvent();
+        initializeComboBox();
         dataTable();
         kosong();
-    }
-protected void dataTable() {
-        Connection conn = koneksi.getConnection();
         
-        Object[] Baris ={"No","Kode Barang","Nama Barang","Kategori", "Harga", "Stok"};
+        tablebarang.fixTable(jScrollPane1);
+    }
+    
+ protected void dataTable(){
+      Connection conn = new koneksi().getConnection();
+        
+        Object[] Baris ={"No","Kode Barang","Nama Barang","Kategori","Harga", "Stok", "Aksi"};
         tabmode = new DefaultTableModel(null, Baris);
-        String cariItem = searchBar.getText();
+        String cariItem = txtcari.getText();
         
         try {
-            String sql = "SELECT no,kdbarang,nmbarang,kategori,harga,stok FROM barang WHERE no LIKE ? OR kdbarang LIKE ? OR nmbarang LIKE ? OR kategori LIKE ? order by no asc";
+            String sql = "SELECT * FROM barang WHERE kode_barang LIKE ? OR nama LIKE ? order by id asc";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
-            stat.setString(3, "%" + cariItem + "%");
-            stat.setString(4, "%" + cariItem + "%");
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
@@ -54,6 +62,7 @@ protected void dataTable() {
                     hasil.getString(3),
                     hasil.getString(4),
                     hasil.getString(5),
+                    hasil.getString(6)
                 });
             }  
             tablebarang.setModel(tabmode);
@@ -69,22 +78,8 @@ protected void dataTable() {
     }
     
     private void kosong() {
-        searchBar.setText("");
+        txtcari.setText("");
         searchFilter.setSelectedItem(null);
-    }
-    
-    private void initializeTableActionEvent() {
-        TableActionEvent event = new TableActionEvent() {
-            @Override
-            public void onView(int row) {
-                System.out.println("View Button row: "+row);
-            }
-        };
-        
-        tablebarang.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        tablebarang.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
-        tablebarang.setDefaultRenderer(String.class, new TableActionCellRender());
-    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,23 +104,24 @@ protected void dataTable() {
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
         roundedPanel1 = new custom_palette.RoundedPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         searchFilter = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        searchBar = new custom_palette.RoundedTextField();
-        jButton3 = new javax.swing.JButton();
-        roundedPanel2 = new custom_palette.RoundedPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        btncari = new custom_palette.RoundedButton();
+        txtcari = new custom_palette.RoundedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablebarang = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
+        tablebarang = new custom_palette.CustomTable();
+        btntambah = new custom_palette.RoundedButton();
+        roundedPanel2 = new custom_palette.RoundedPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(136, 171, 142));
         jPanel1.setPreferredSize(new java.awt.Dimension(127, 832));
@@ -185,12 +181,27 @@ protected void dataTable() {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, -1, -1));
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jPanel8.setBackground(new java.awt.Color(242, 241, 235));
-        jPanel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(204, 204, 204)));
+        jPanel8.setPreferredSize(new java.awt.Dimension(1153, 832));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box2.png"))); // NOI18N
+        jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 30, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(136, 171, 142));
+        jSeparator1.setForeground(new java.awt.Color(136, 171, 142));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(316, 10));
+        jPanel8.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 72, 291, 10));
+
+        jLabel8.setBackground(new java.awt.Color(142, 175, 148));
+        jLabel8.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(142, 175, 148));
+        jLabel8.setText("Manajemen Inventaris");
+        jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 37, 223, 25));
+
         roundedPanel1.setBackground(new java.awt.Color(175, 200, 173));
-        roundedPanel1.setForeground(new java.awt.Color(175, 200, 173));
         roundedPanel1.setCornerRadius(5);
         roundedPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -204,8 +215,9 @@ protected void dataTable() {
 
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
+        searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jenis Supplier", "Frame", "Lensa", "Aksesoris", "Lokasi", "Luar negeri", "Dalam negeri" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kategori", "Frame", "Lensa", "Aksesoris", " " }));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
@@ -213,132 +225,230 @@ protected void dataTable() {
         });
         jPanel8.add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        jButton1.setBackground(new java.awt.Color(238, 231, 218));
-        jButton1.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(125, 125, 125));
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btncari.setForeground(new java.awt.Color(125, 125, 125));
+        btncari.setText("Cari");
+        btncari.setColor(new java.awt.Color(238, 231, 218));
+        btncari.setColorClick(new java.awt.Color(190, 184, 174));
+        btncari.setColorOver(new java.awt.Color(214, 207, 196));
+        btncari.setcornerRadius(20);
+        btncari.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        btncari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btncariActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(btncari, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 150, 94, 35));
 
-        searchBar.setBackground(new java.awt.Color(242, 241, 235));
-        searchBar.setCornerRadius(5);
-        searchBar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        searchBar.setLineColor(new java.awt.Color(217, 217, 217));
-        searchBar.setMargin(new java.awt.Insets(2, 6, 2, 200));
-        searchBar.setStrokeWidth(1);
-        searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtcari.setBackground(new java.awt.Color(242, 241, 235));
+        txtcari.setCornerRadius(5);
+        txtcari.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        txtcari.setLineColor(new java.awt.Color(217, 217, 217));
+        txtcari.setMargin(new java.awt.Insets(2, 6, 2, 200));
+        txtcari.setStrokeWidth(1);
+        txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchBarKeyPressed(evt);
+                txtcariKeyPressed(evt);
             }
         });
-        jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
+        jPanel8.add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
-        jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(242, 241, 235));
-        jButton3.setText("+ Tambah");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        tablebarang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
+        tablebarang.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        tablebarang.setSelectionBackground(new java.awt.Color(160, 190, 158));
+        tablebarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablebarangMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablebarang);
+
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 1090, 398));
+
+        btntambah.setBackground(new java.awt.Color(136, 171, 142));
+        btntambah.setForeground(new java.awt.Color(242, 241, 235));
+        btntambah.setText("+ Tambah");
+        btntambah.setColor(new java.awt.Color(136, 171, 142));
+        btntambah.setColorClick(new java.awt.Color(108, 136, 113));
+        btntambah.setColorOver(new java.awt.Color(122, 153, 127));
+        btntambah.setcornerRadius(20);
+        btntambah.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        btntambah.setPreferredSize(new java.awt.Dimension(120, 37));
+        btntambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntambahActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btntambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
 
         roundedPanel2.setBackground(new java.awt.Color(175, 200, 173));
         roundedPanel2.setForeground(new java.awt.Color(175, 200, 173));
         roundedPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-note2.png"))); // NOI18N
-        roundedPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, -1, -1));
+        jLabel13.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-note2.png"))); // NOI18N
+        roundedPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel12.setText("Data Barang");
-        roundedPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        jLabel14.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(238, 231, 218));
+        jLabel14.setText("Data Barang");
+        roundedPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
 
-        tablebarang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tablebarang);
-
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 1090, -1));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box2.png"))); // NOI18N
-        jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 58, -1, -1));
-
-        jLabel8.setBackground(new java.awt.Color(136, 171, 142));
-        jLabel8.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(136, 171, 142));
-        jLabel8.setText("Manajemen Inventaris");
-        jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 65, 223, 25));
-
-        jSeparator1.setBackground(new java.awt.Color(136, 171, 142));
-        jSeparator1.setForeground(new java.awt.Color(136, 171, 142));
-        jPanel8.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 100, 291, 10));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1146, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+  private void initializeTableActionEvent() {
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onView(int row) {
+                sendData(row);
+            }
+        };
+        
+        tablebarang.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
+        tablebarang.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        tablebarang.setDefaultRenderer(String.class, new TableActionCellRender());
+    }
+   private void initializeComboBox() {
+        ArrayList<Integer> targetIndices = new ArrayList<>();
+        targetIndices.add(0);
+        targetIndices.add(4);
+        
+        searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
+    }
+  private void sendData(int row) {
+    String[] values = new String[5];
+    
+    int id = Integer.parseInt(tabmode.getValueAt(row, 0).toString());
+    
+    for(int i = 0; i < 5; i++){
+        values[i] = tabmode.getValueAt(row, i+1).toString();
+    }
+    
+    try {
+        // Mengatur look and feel kembali ke default
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        // Buat objek JFrame baru
+        RincianDataBarang formRincianDataBarang = new form.RincianDataBarang();
+        
+        formRincianDataBarang.setData(id, values);
+
+        // Tampilkan JFrame baru
+        formRincianDataBarang.setVisible(true);
+
+        // Tutup jendela saat ini
+        this.dispose();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        Object filter = searchFilter.getSelectedItem();
+        if(searchFilter.getSelectedItem() != null) {
+            int filter = searchFilter.getSelectedIndex();
+            String cariItem = "";
 
-        if(filter != null) {
-            searchBar.setText(filter.toString());
+            switch(filter) {
+                case 1:
+                cariItem = "frame";
+                break;
+                case 2:
+                cariItem = "lensa";
+                break;
+                case 3:
+                cariItem = "aksesoris";
+                break;
+            }
+
+            Connection conn = new koneksi().getConnection();
+
+            Object[] Baris ={"No","Kode Barang","Nama Barang","Kategori","Harga", "Stok", "Aksi"};
+            tabmode = new DefaultTableModel(null, Baris);
+
+            try {
+                String sql = "SELECT * FROM barang WHERE kode_barang LIKE ? OR kategori LIKE ? order by id asc";
+                PreparedStatement stat = conn.prepareStatement(sql);
+               stat.setString(1, "%" + cariItem + "%");
+               stat.setString(2, "%" + cariItem + "%");
+         
+
+                ResultSet hasil = stat.executeQuery();
+                while (hasil.next()){
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        hasil.getString(6)
+                    });
+                }
+                tablebarang.setModel(tabmode);
+                initializeTableActionEvent();
+
+                conn.close();
+                stat.close();
+                hasil.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }//GEN-LAST:event_searchFilterActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btncariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncariActionPerformed
         dataTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btncariActionPerformed
 
-    private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
+    private void txtcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             dataTable();
         }
-    }//GEN-LAST:event_searchBarKeyPressed
+    }//GEN-LAST:event_txtcariKeyPressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            JFrame formTambahBarang = new form.TambahBarang();
+
+            // Tampilkan JFrame baru
+            formTambahBarang.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btntambahActionPerformed
+
+    private void tablebarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablebarangMouseClicked
         // TODO add your handling code here:
-        JFrame formBarang = new form.barang();
-        formBarang.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_tablebarangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -376,12 +486,12 @@ protected void dataTable() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private custom_palette.RoundedButton btncari;
+    private custom_palette.RoundedButton btntambah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -402,8 +512,8 @@ protected void dataTable() {
     private javax.swing.JSeparator jSeparator1;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
-    private custom_palette.RoundedTextField searchBar;
     private javax.swing.JComboBox<String> searchFilter;
-    private javax.swing.JTable tablebarang;
+    private custom_palette.CustomTable tablebarang;
+    private custom_palette.RoundedTextField txtcari;
     // End of variables declaration//GEN-END:variables
 }

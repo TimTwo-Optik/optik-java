@@ -122,10 +122,30 @@ protected void kosong(){
         jLabel9.setForeground(new java.awt.Color(238, 231, 218));
         jLabel9.setText("Stok");
         roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 431, 111, 21));
+
+        txtkode.setBackground(new java.awt.Color(238, 231, 218));
+        txtkode.setLineColor(new java.awt.Color(238, 231, 218));
+        txtkode.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtkode, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 171, 87, 21));
+
+        txtnama.setBackground(new java.awt.Color(238, 231, 218));
+        txtnama.setLineColor(new java.awt.Color(238, 231, 218));
+        txtnama.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 236, 173, 21));
+
+        txtkategori.setBackground(new java.awt.Color(238, 231, 218));
+        txtkategori.setLineColor(new java.awt.Color(238, 231, 218));
+        txtkategori.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtkategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 301, 173, 21));
+
+        txtharga.setBackground(new java.awt.Color(238, 231, 218));
+        txtharga.setLineColor(new java.awt.Color(238, 231, 218));
+        txtharga.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtharga, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 366, 173, 21));
+
+        txtstok.setBackground(new java.awt.Color(238, 231, 218));
+        txtstok.setLineColor(new java.awt.Color(238, 231, 218));
+        txtstok.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtstok, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 431, 87, 21));
 
         btntambah.setForeground(new java.awt.Color(136, 171, 142));
