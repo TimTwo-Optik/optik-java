@@ -4,6 +4,7 @@
  */
 package table_model;
 
+import custom_palette.ComboBoxListCellRender;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
@@ -16,8 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JFrame;
 
 
 /**
@@ -33,8 +36,20 @@ public class penjualan extends javax.swing.JFrame {
     public penjualan() {
         initComponents();
         initializeTableActionEvent();
+        initializeComboBox();
         dataTable();
         kosong();
+        
+        tablepenjualan.fixTable(jScrollPane1);
+    }
+    
+    private void initializeComboBox() {
+        ArrayList<Integer> targetIndices = new ArrayList<>();
+        targetIndices.add(0);
+        targetIndices.add(4);
+        targetIndices.add(7);
+        
+        searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
     }
     
     protected void dataTable() {
@@ -46,10 +61,12 @@ public class penjualan extends javax.swing.JFrame {
         
         try {
             String sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-             "j.total_harga AS 'Total Transaksi', j.status AS 'Status' " +
-             "FROM penjualan j " +
-             "JOIN pelanggan p ON j.id_pelanggan = p.id " + 
-             "WHERE j.id like ? or p.nama_pelanggan LIKE ?" +
+             "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+             "FROM penjualan AS j " +
+             "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+             "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+             "WHERE j.id LIKE ? OR p.nama_pelanggan LIKE ? " +
+             "GROUP BY j.id " + 
              "ORDER BY j.id ASC";
 
 
@@ -128,15 +145,15 @@ public class penjualan extends javax.swing.JFrame {
         roundedPanel1 = new custom_palette.RoundedPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        searchButton = new custom_palette.RoundedButton();
         searchBar = new custom_palette.RoundedTextField();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablepenjualan = new javax.swing.JTable();
         searchFilter = new javax.swing.JComboBox<>();
         roundedPanel2 = new custom_palette.RoundedPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablepenjualan = new custom_palette.CustomTable();
+        addDataButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -233,16 +250,19 @@ public class penjualan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        jButton1.setBackground(new java.awt.Color(238, 231, 218));
-        jButton1.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(125, 125, 125));
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setForeground(new java.awt.Color(125, 125, 125));
+        searchButton.setText("Cari");
+        searchButton.setColor(new java.awt.Color(238, 231, 218));
+        searchButton.setColorClick(new java.awt.Color(190, 184, 174));
+        searchButton.setColorOver(new java.awt.Color(214, 207, 196));
+        searchButton.setcornerRadius(20);
+        searchButton.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 150, 94, 35));
 
         searchBar.setBackground(new java.awt.Color(242, 241, 235));
         searchBar.setCornerRadius(5);
@@ -262,55 +282,8 @@ public class penjualan extends javax.swing.JFrame {
         });
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
-        jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(242, 241, 235));
-        jButton3.setText("+ Tambah");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
-
-        jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setForeground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-
-        tablepenjualan.getTableHeader().setOpaque(false);
-        tablepenjualan.getTableHeader().setBackground(new Color(136, 171, 142));
-        tablepenjualan.setBackground(new java.awt.Color(242, 241, 235));
-        tablepenjualan.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        tablepenjualan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Action"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tablepenjualan.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
-        tablepenjualan.setRowHeight(60);
-        tablepenjualan.setSelectionBackground(new java.awt.Color(136, 171, 142));
-        jScrollPane1.setViewportView(tablepenjualan);
-
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
-
-        searchFilter.setBackground(new java.awt.Color(255, 255, 255));
+        searchFilter.setBackground(new java.awt.Color(238, 231, 218));
+        searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rentang Waktu", "Hari ini", "Minggu ini", "Bulan ini", "Status Bayar", "Lunas", "Belum Lunas", "Transaksi", "Tertinggi", "Terendah" }));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
@@ -335,16 +308,51 @@ public class penjualan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
 
+        jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
+        jScrollPane1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+
+        tablepenjualan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablepenjualan);
+
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
+
+        addDataButton.setForeground(new java.awt.Color(242, 241, 235));
+        addDataButton.setText("+ Tambah");
+        addDataButton.setColor(new java.awt.Color(136, 171, 142));
+        addDataButton.setColorClick(new java.awt.Color(108, 136, 113));
+        addDataButton.setColorOver(new java.awt.Color(122, 153, 127));
+        addDataButton.setcornerRadius(20);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDataButtonActionPerformed(evt);
+            }
+        });
+        jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
+
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, 1153, 832));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        dataTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
@@ -357,17 +365,129 @@ public class penjualan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchBarKeyPressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        Object filter = searchFilter.getSelectedItem();
+        if(searchFilter.getSelectedItem() != null) {
+            int filter = searchFilter.getSelectedIndex();
+            String sql = "";
 
-        if(filter != null) {
-            searchBar.setText(filter.toString());
+            switch(filter) {
+                case 1:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+                        "WHERE DATE(j.tanggal_jual) = CURDATE() " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY j.id ASC";
+                    break;
+                case 2:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+                        "WHERE j.tanggal_jual BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE() " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY j.id ASC";
+                    break;
+                case 3:
+                    LocalDate currentDate = LocalDate.now();
+                    int currentMonth = currentDate.getMonthValue();
+                    int currentYear = currentDate.getYear();
+
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+                        "WHERE MONTH(j.tanggal_jual) = " + currentMonth + " AND YEAR(j.tanggal_jual) = " + currentYear + " " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY j.id ASC";
+                    break;
+                case 5:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+                        "WHERE j.status LIKE 'Lunas%' " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY j.id ASC";
+                    break;
+                case 6:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
+                        "WHERE j.status LIKE '%Belum%' " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY j.id ASC";
+                    break;
+                case 8:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY SUM(dp.total_harga) DESC";
+                    break;
+                case 9:
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
+                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
+                        "FROM penjualan AS j " +
+                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
+                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " +
+                        "GROUP BY j.id " + 
+                        "ORDER BY SUM(dp.total_harga) ASC";
+                    break;
+            }
+
+            Connection conn = new koneksi().getConnection();
+
+             Object[] Baris ={"No Faktur","Tanggal Jual","Nama Pelanggan","Total Transaksi", "Status", "Aksi"};
+            tabmode = new DefaultTableModel(null, Baris);
+
+            try {
+                PreparedStatement stat = conn.prepareStatement(sql);
+                ResultSet hasil = stat.executeQuery();
+                while (hasil.next()){
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                    });
+                }  
+                tablepenjualan.setModel(tabmode);
+                initializeTableActionEvent();
+
+                conn.close();
+                stat.close();
+                hasil.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }//GEN-LAST:event_searchFilterActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        dataTable();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
+        try {
+            JFrame tambahPenjualan = new transaksi.TambahPenjualan();
+            tambahPenjualan.setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_addDataButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -405,8 +525,7 @@ public class penjualan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -432,7 +551,8 @@ public class penjualan extends javax.swing.JFrame {
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedTextField searchBar;
+    private custom_palette.RoundedButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
-    private javax.swing.JTable tablepenjualan;
+    private custom_palette.CustomTable tablepenjualan;
     // End of variables declaration//GEN-END:variables
 }
