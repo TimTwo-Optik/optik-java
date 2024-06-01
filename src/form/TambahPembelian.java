@@ -20,22 +20,22 @@ import koneksi.koneksi;
  *
  * @author Bagus
  */
-public class TambahPenjualan extends javax.swing.JFrame {
+public class TambahPembelian extends javax.swing.JFrame {
     
   
     /**
      * Creates new form TambahKaryawan
      */
-    public TambahPenjualan() {
+    public TambahPembelian() {
         initComponents();
-        kosong();
         populateComboBoxes();
+        kosong();
     } 
     
     protected void kosong() {
         transaksi.setText("");
-        cbnama.setSelectedItem("");
-        cbbarang.setSelectedItem("");
+        cbnamasupplier.setSelectedItem(null);
+        cbnamabarang.setSelectedItem(null);
         kuantitas.setText("");
         tanggal_jual.setDate(new Date());
         status.setSelectedItem("");
@@ -67,8 +67,8 @@ public class TambahPenjualan extends javax.swing.JFrame {
         kuantitas = new custom_palette.RoundedTextField();
         jLabel12 = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
-        cbbarang = new javax.swing.JComboBox<>();
-        cbnama = new javax.swing.JComboBox<>();
+        cbnamabarang = new javax.swing.JComboBox<>();
+        cbnamasupplier = new javax.swing.JComboBox<>();
         cancelButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,12 +77,12 @@ public class TambahPenjualan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(242, 241, 235));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 45, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-pembelian2.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 38, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(142, 175, 148));
-        jLabel2.setText("Manajemen Penjualan");
+        jLabel2.setText("Manajemen Pembelian");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 47, 290, 40));
 
         roundedPanel1.setBackground(new java.awt.Color(136, 171, 142));
@@ -92,7 +92,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Inter", 1, 32)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel3.setText("Tambah Data Penjualan");
+        jLabel3.setText("Tambah Data Pembelian");
         roundedPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 38, 420, 80));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan2.png"))); // NOI18N
@@ -114,11 +114,13 @@ public class TambahPenjualan extends javax.swing.JFrame {
         roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 160, 20));
 
         transaksi.setBackground(new java.awt.Color(238, 231, 218));
+        transaksi.setForeground(new java.awt.Color(0, 0, 0));
         transaksi.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         transaksi.setLineColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 232, -1));
 
         tanggal_jual.setBackground(new java.awt.Color(238, 231, 218));
+        tanggal_jual.setForeground(new java.awt.Color(0, 0, 0));
         tanggal_jual.setDateFormatString("yyyy-MM-dd");
         tanggal_jual.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         tanggal_jual.setOpaque(false);
@@ -142,7 +144,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel10.setText("Nama Pelanggan");
+        jLabel10.setText("Nama Supplier");
         roundedPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 140, -1));
 
         jLabel11.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
@@ -151,6 +153,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
         roundedPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 140, -1));
 
         kuantitas.setBackground(new java.awt.Color(238, 231, 218));
+        kuantitas.setForeground(new java.awt.Color(0, 0, 0));
         kuantitas.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         kuantitas.setLineColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(kuantitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 232, -1));
@@ -162,25 +165,25 @@ public class TambahPenjualan extends javax.swing.JFrame {
 
         status.setBackground(new java.awt.Color(248, 248, 248));
         status.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        status.setForeground(new java.awt.Color(94, 90, 90));
+        status.setForeground(new java.awt.Color(0, 0, 0));
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunas", "Belum Lunas" }));
         status.setOpaque(true);
         status.setPreferredSize(new java.awt.Dimension(118, 26));
         roundedPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 160, -1));
 
-        cbbarang.setBackground(new java.awt.Color(248, 248, 248));
-        cbbarang.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        cbbarang.setForeground(new java.awt.Color(94, 90, 90));
-        cbbarang.setOpaque(true);
-        cbbarang.setPreferredSize(new java.awt.Dimension(118, 26));
-        roundedPanel1.add(cbbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 280, 230, -1));
+        cbnamabarang.setBackground(new java.awt.Color(248, 248, 248));
+        cbnamabarang.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        cbnamabarang.setForeground(new java.awt.Color(0, 0, 0));
+        cbnamabarang.setOpaque(true);
+        cbnamabarang.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel1.add(cbnamabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 280, 230, -1));
 
-        cbnama.setBackground(new java.awt.Color(248, 248, 248));
-        cbnama.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        cbnama.setForeground(new java.awt.Color(94, 90, 90));
-        cbnama.setOpaque(true);
-        cbnama.setPreferredSize(new java.awt.Dimension(118, 26));
-        roundedPanel1.add(cbnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 230, -1));
+        cbnamasupplier.setBackground(new java.awt.Color(248, 248, 248));
+        cbnamasupplier.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        cbnamasupplier.setForeground(new java.awt.Color(0, 0, 0));
+        cbnamasupplier.setOpaque(true);
+        cbnamasupplier.setPreferredSize(new java.awt.Dimension(118, 26));
+        roundedPanel1.add(cbnamasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 230, -1));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
 
@@ -208,27 +211,21 @@ public class TambahPenjualan extends javax.swing.JFrame {
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
-        String sql = "insert into penjualan(id_pelanggan, id_barang,tanggal_jual, kuantitas, total_harga,status) values (?,?,?,?,?,?)";
+        String sql = "insert into pembelian(id_supplier, id_barang, tanggal_beli, kuantitas, total_harga, status) values (?,?,?,?,?,?)";
         
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
-        String selectedPelanggan = (String) cbnama.getSelectedItem();
-        int idPelanggan = Integer.parseInt(selectedPelanggan.split(" - ")[0]);
-        
-        String selectedBarang = (String) cbbarang.getSelectedItem();
-        int idBarang = Integer.parseInt(selectedBarang.split(" - ")[0]);
-        
-        stat.setInt(1, idPelanggan);
-        stat.setInt(2, idBarang);
-        stat.setDate(3, new java.sql.Date(tanggal_jual.getDate().getTime()));
-        stat.setInt(4, Integer.parseInt(kuantitas.getText()));
+            String selectedPelanggan = (String) cbnamasupplier.getSelectedItem();
+            int idPelanggan = Integer.parseInt(selectedPelanggan.split(" - ")[0]);
+            String selectedBarang = (String) cbnamabarang.getSelectedItem();
+            int idBarang = Integer.parseInt(selectedBarang.split(" - ")[0]);
 
-        int kuantitasVal = Integer.parseInt(kuantitas.getText());
-        double hargaPerSatuan = Double.parseDouble(transaksi.getText());
-        double totalHarga = kuantitasVal * hargaPerSatuan;
-
-        stat.setDouble(5, totalHarga);
-        stat.setString(6, status.getSelectedItem().toString());
+            stat.setInt(1, idPelanggan);
+            stat.setInt(2, idBarang);
+            stat.setDate(3, new java.sql.Date(tanggal_jual.getDate().getTime()));
+            stat.setInt(4, Integer.parseInt(kuantitas.getText()));
+            stat.setDouble(5, Double.parseDouble(transaksi.getText()));
+            stat.setString(6, status.getSelectedItem().toString());
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
             kosong();
@@ -244,7 +241,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
     private void populateComboBoxes() {
         Connection conn = new koneksi().getConnection();
     
-        String pelangganSql = "SELECT id, nama_pelanggan FROM pelanggan";
+        String pelangganSql = "SELECT id, nama_supplier FROM suppliers";
         String barangSql = "SELECT id, kode_barang, nama FROM barang";
     
         try {
@@ -253,8 +250,8 @@ public class TambahPenjualan extends javax.swing.JFrame {
             ResultSet pelangganRs = pelangganStat.executeQuery();
             while (pelangganRs.next()) {
                 int id = pelangganRs.getInt("id");
-                String namaPelanggan = pelangganRs.getString("nama_pelanggan");
-                cbnama.addItem(id + " - " + namaPelanggan);
+                String namaPelanggan = pelangganRs.getString("nama_supplier");
+                cbnamasupplier.addItem(id + " - " + namaPelanggan);
             }
         
             // Populate barang ComboBox
@@ -264,7 +261,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
                 int id = barangRs.getInt("id");
                 String kodeBarang = barangRs.getString("kode_barang");
                 String namaBarang = barangRs.getString("nama");
-                cbbarang.addItem(id + " - " + namaBarang + " - " + kodeBarang);
+                cbnamabarang.addItem(id + " - " + namaBarang + " - " + kodeBarang);
             }
         
             conn.close();
@@ -286,10 +283,10 @@ public class TambahPenjualan extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formPenjualan = new table_model.penjualan();
+            JFrame formPembelian = new table_model.pembelian();
 
             // Tampilkan JFrame baru
-            formPenjualan.setVisible(true);
+            formPembelian.setVisible(true);
 
             // Tutup jendela saat ini
             this.dispose();
@@ -345,7 +342,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahPenjualan().setVisible(true);
+                new TambahPembelian().setVisible(true);
             }
         });
     }
@@ -353,8 +350,8 @@ public class TambahPenjualan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton addDataButton;
     private custom_palette.RoundedButton cancelButton;
-    private javax.swing.JComboBox<String> cbbarang;
-    private javax.swing.JComboBox<String> cbnama;
+    private javax.swing.JComboBox<String> cbnamabarang;
+    private javax.swing.JComboBox<String> cbnamasupplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
