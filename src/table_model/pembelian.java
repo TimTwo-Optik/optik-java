@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -496,9 +497,17 @@ public class pembelian extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
-        try {
-            JFrame tambahPenjualan = new transaksi.TambahPenjualan();
-            tambahPenjualan.setVisible(true);
+         try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            JFrame formTambahPembelian = new form.TambahPembelian();
+
+            // Tampilkan JFrame baru
+            formTambahPembelian.setVisible(true);
+
+            // Tutup jendela saat ini
             this.dispose();
         } catch (Exception ex) {
             ex.printStackTrace();
