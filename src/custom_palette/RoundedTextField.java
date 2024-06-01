@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.beans.BeanProperty;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 

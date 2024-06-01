@@ -20,14 +20,20 @@ import koneksi.koneksi;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JFrame;
-
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author nerve
  */
 public class penjualan extends javax.swing.JFrame {
+
     private DefaultTableModel tabmode;
 
     /**
@@ -39,81 +45,78 @@ public class penjualan extends javax.swing.JFrame {
         initializeComboBox();
         dataTable();
         kosong();
-        
+
         tablepenjualan.fixTable(jScrollPane1);
     }
-    
+
     private void initializeComboBox() {
         ArrayList<Integer> targetIndices = new ArrayList<>();
         targetIndices.add(0);
         targetIndices.add(4);
         targetIndices.add(7);
-        
+
         searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
     }
-    
+
     protected void dataTable() {
         Connection conn = koneksi.getConnection();
-        
-        Object[] Baris ={"No Faktur","Tanggal Jual","Nama Pelanggan","Total Transaksi", "Status", "Aksi"};
+
+        Object[] Baris = {"No Faktur", "Tanggal Jual", "Nama Pelanggan", "Total Transaksi", "Status", "Aksi"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariItem = searchBar.getText();
-        
-        try {
-            String sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-             "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-             "FROM penjualan AS j " +
-             "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-             "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-             "WHERE j.id LIKE ? OR p.nama_pelanggan LIKE ? " +
-             "GROUP BY j.id " + 
-             "ORDER BY j.id ASC";
 
+        try {
+            String sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                    + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                    + "FROM penjualan AS j "
+                    + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                    + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                    + "WHERE j.id LIKE ? OR p.nama_pelanggan LIKE ? "
+                    + "GROUP BY j.id "
+                    + "ORDER BY j.id ASC";
 
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, "%" +cariItem + "%");
+            stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");
 
-            
             ResultSet hasil = stat.executeQuery();
-            while (hasil.next()){
-                tabmode.addRow(new Object[]{    
+            while (hasil.next()) {
+                tabmode.addRow(new Object[]{
                     hasil.getString(1),
                     hasil.getString(2),
                     hasil.getString(3),
                     hasil.getString(4),
-                    hasil.getString(5),
-                });
-            }  
+                    hasil.getString(5),});
+            }
             tablepenjualan.setModel(tabmode);
             initializeTableActionEvent();
-        
+
             conn.close();
             stat.close();
             hasil.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
             Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-        } 
+        }
     }
-    
+
     private void kosong() {
         searchBar.setText("");
         searchFilter.setSelectedItem(null);
     }
-    
+
     private void initializeTableActionEvent() {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onView(int row) {
-                System.out.println("View Button row: "+row);
+                System.out.println("View Button row: " + row);
             }
         };
-        
+
         tablepenjualan.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
         tablepenjualan.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
         tablepenjualan.setDefaultRenderer(String.class, new TableActionCellRender());
-    
+
     }
 
     /**
@@ -154,6 +157,7 @@ public class penjualan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablepenjualan = new custom_palette.CustomTable();
         addDataButton = new custom_palette.RoundedButton();
+        cetakNota = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -330,6 +334,7 @@ public class penjualan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablepenjualan.setSelectionBackground(new java.awt.Color(160, 190, 158));
         jScrollPane1.setViewportView(tablepenjualan);
 
         jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
@@ -347,6 +352,20 @@ public class penjualan extends javax.swing.JFrame {
             }
         });
         jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
+
+        cetakNota.setForeground(new java.awt.Color(242, 241, 235));
+        cetakNota.setText("Cetak Nota");
+        cetakNota.setColor(new java.awt.Color(136, 171, 142));
+        cetakNota.setColorClick(new java.awt.Color(108, 136, 113));
+        cetakNota.setColorOver(new java.awt.Color(122, 153, 127));
+        cetakNota.setcornerRadius(20);
+        cetakNota.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cetakNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakNotaActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cetakNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 195, 120, 41));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, 1153, 832));
 
@@ -366,102 +385,101 @@ public class penjualan extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarKeyPressed
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        if(searchFilter.getSelectedItem() != null) {
+        if (searchFilter.getSelectedItem() != null) {
             int filter = searchFilter.getSelectedIndex();
             String sql = "";
 
-            switch(filter) {
+            switch (filter) {
                 case 1:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-                        "WHERE DATE(j.tanggal_jual) = CURDATE() " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY j.id ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "WHERE DATE(j.tanggal_jual) = CURDATE() "
+                            + "GROUP BY j.id "
+                            + "ORDER BY j.id ASC";
                     break;
                 case 2:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-                        "WHERE j.tanggal_jual BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE() " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY j.id ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "WHERE j.tanggal_jual BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE() "
+                            + "GROUP BY j.id "
+                            + "ORDER BY j.id ASC";
                     break;
                 case 3:
                     LocalDate currentDate = LocalDate.now();
                     int currentMonth = currentDate.getMonthValue();
                     int currentYear = currentDate.getYear();
 
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-                        "WHERE MONTH(j.tanggal_jual) = " + currentMonth + " AND YEAR(j.tanggal_jual) = " + currentYear + " " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY j.id ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "WHERE MONTH(j.tanggal_jual) = " + currentMonth + " AND YEAR(j.tanggal_jual) = " + currentYear + " "
+                            + "GROUP BY j.id "
+                            + "ORDER BY j.id ASC";
                     break;
                 case 5:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-                        "WHERE j.status LIKE 'Lunas%' " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY j.id ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "WHERE j.status LIKE 'Lunas%' "
+                            + "GROUP BY j.id "
+                            + "ORDER BY j.id ASC";
                     break;
                 case 6:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " + 
-                        "WHERE j.status LIKE '%Belum%' " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY j.id ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "WHERE j.status LIKE '%Belum%' "
+                            + "GROUP BY j.id "
+                            + "ORDER BY j.id ASC";
                     break;
                 case 8:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY SUM(dp.total_harga) DESC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "GROUP BY j.id "
+                            + "ORDER BY SUM(dp.total_harga) DESC";
                     break;
                 case 9:
-                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', " +
-                        "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' " +
-                        "FROM penjualan AS j " +
-                        "JOIN pelanggan AS p ON j.id_pelanggan = p.id " + 
-                        "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan " +
-                        "GROUP BY j.id " + 
-                        "ORDER BY SUM(dp.total_harga) ASC";
+                    sql = "SELECT j.id AS 'No Faktur', j.tanggal_jual AS 'Tanggal Jual', p.nama_pelanggan AS 'Nama Pelanggan', "
+                            + "SUM(dp.total_harga) AS 'Total Transaksi', j.status AS 'Status' "
+                            + "FROM penjualan AS j "
+                            + "JOIN pelanggan AS p ON j.id_pelanggan = p.id "
+                            + "JOIN detail_penjualan AS dp ON j.id = dp.id_penjualan "
+                            + "GROUP BY j.id "
+                            + "ORDER BY SUM(dp.total_harga) ASC";
                     break;
             }
 
             Connection conn = new koneksi().getConnection();
 
-             Object[] Baris ={"No Faktur","Tanggal Jual","Nama Pelanggan","Total Transaksi", "Status", "Aksi"};
+            Object[] Baris = {"No Faktur", "Tanggal Jual", "Nama Pelanggan", "Total Transaksi", "Status", "Aksi"};
             tabmode = new DefaultTableModel(null, Baris);
 
             try {
                 PreparedStatement stat = conn.prepareStatement(sql);
                 ResultSet hasil = stat.executeQuery();
-                while (hasil.next()){
+                while (hasil.next()) {
                     tabmode.addRow(new Object[]{
                         hasil.getString(1),
                         hasil.getString(2),
                         hasil.getString(3),
                         hasil.getString(4),
-                        hasil.getString(5),
-                    });
-                }  
+                        hasil.getString(5),});
+                }
                 tablepenjualan.setModel(tabmode);
                 initializeTableActionEvent();
 
@@ -469,7 +487,7 @@ public class penjualan extends javax.swing.JFrame {
                 stat.close();
                 hasil.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
                 Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
             }
         }
@@ -488,6 +506,26 @@ public class penjualan extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
+
+    private void cetakNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakNotaActionPerformed
+        int index = tablepenjualan.getSelectedRow();
+        String noFaktur = tablepenjualan.getValueAt(index, 0).toString();
+        System.out.println("no faktur = " + noFaktur);
+
+        Connection conn = new koneksi().getConnection();
+
+        try {
+            String report = "src/report/report1.jrxml";
+            HashMap parameter = new HashMap();
+            parameter.put("no_faktur", noFaktur);
+            JasperReport jasperReport = JasperCompileManager.compileReport(report);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
+            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_cetakNotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,6 +564,7 @@ public class penjualan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton addDataButton;
+    private custom_palette.RoundedButton cetakNota;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
