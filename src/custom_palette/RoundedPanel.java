@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.beans.BeanProperty;
 import javax.swing.JPanel;
 
 /**
@@ -29,7 +28,6 @@ public class RoundedPanel extends JPanel {
         setOpaque(false); // Make the panel transparent
     }
     
-    @BeanProperty
     public void setCornerRadius(int cornerRadius) {
         this.cornerRadius = cornerRadius;
         repaint(); // Memastikan panel digambar ulang setelah perubahan
