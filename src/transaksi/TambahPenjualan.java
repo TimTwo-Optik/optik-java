@@ -130,7 +130,6 @@ public class TambahPenjualan extends javax.swing.JFrame {
         idPelanggan = new custom_palette.RoundedTextField();
         cariPelangganButton = new custom_palette.RoundedButton();
         jLabel4 = new javax.swing.JLabel();
-        tanggalNota = new com.toedter.calendar.JDateChooser();
         roundedPanel3 = new custom_palette.RoundedPanel();
         cariBarangButton = new custom_palette.RoundedButton();
         namaBarang = new custom_palette.RoundedTextField();
@@ -158,6 +157,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
         status = new javax.swing.JComboBox<>();
         addDataButton = new custom_palette.RoundedButton();
         cancelButton = new custom_palette.RoundedButton();
+        tanggalNota = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -249,10 +249,6 @@ public class TambahPenjualan extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(175, 200, 173));
         jLabel4.setText("Tanggal");
         roundedPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 66, 90, -1));
-
-        tanggalNota.setDateFormatString("yyyy-MM-dd");
-        tanggalNota.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        roundedPanel1.add(tanggalNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(957, 68, 147, 25));
 
         roundedPanel3.setBackground(new java.awt.Color(136, 171, 142));
         roundedPanel3.setForeground(new java.awt.Color(136, 171, 142));
@@ -466,6 +462,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
             }
         });
         roundedPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(987, 673, 125, 39));
+        roundedPanel1.add(tanggalNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(957, 72, 147, 19));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 72, 1178, 729));
 

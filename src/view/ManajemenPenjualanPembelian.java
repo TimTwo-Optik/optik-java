@@ -4,18 +4,20 @@
  */
 package view;
 
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
 /**
  *
- * @author Bagus
+ * @author sabdha
  */
-public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
+public class ManajemenPenjualanPembelian extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManajemenPelangganKaryawan
+     * Creates new form ManajemenPenjualanPembelian
      */
-    public ManajemenPelangganKaryawan() {
+    public ManajemenPenjualanPembelian() {
         initComponents();
     }
 
@@ -35,9 +37,9 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         roundedPanel1 = new custom_palette.RoundedPanel();
         roundedPanel2 = new custom_palette.RoundedPanel();
         roundedPanel3 = new custom_palette.RoundedPanel();
-        roundedButton1 = new custom_palette.RoundedButton();
+        btnpenjualan = new custom_palette.RoundedButton();
         roundedPanel5 = new custom_palette.RoundedPanel();
-        roundedButton2 = new custom_palette.RoundedButton();
+        btnpembelian = new custom_palette.RoundedButton();
         jPanel1 = new javax.swing.JPanel();
         sideHome = new custom_palette.RoundedButton();
         sideBarang = new custom_palette.RoundedButton();
@@ -54,7 +56,7 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         jPanel8.setPreferredSize(new java.awt.Dimension(1153, 832));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-employee.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan.png"))); // NOI18N
         jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 52, -1, -1));
 
         jSeparator1.setBackground(new java.awt.Color(136, 171, 142));
@@ -65,7 +67,7 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         jLabel8.setBackground(new java.awt.Color(142, 175, 148));
         jLabel8.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(142, 175, 148));
-        jLabel8.setText("Manajemen Data Pelanggan & Karyawan ");
+        jLabel8.setText("Manajemen Data Penjualan & Pembelian ");
         jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 65, 440, -1));
 
         roundedPanel1.setBackground(new java.awt.Color(175, 200, 173));
@@ -109,18 +111,18 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         roundedPanel3.setCornerRadius(80);
         roundedPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        roundedButton1.setBackground(new java.awt.Color(242, 241, 235));
-        roundedButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-pelanggan.png"))); // NOI18N
-        roundedButton1.setColor(new java.awt.Color(242, 241, 235));
-        roundedButton1.setColorClick(new java.awt.Color(193, 192, 188));
-        roundedButton1.setColorOver(new java.awt.Color(217, 216, 211));
-        roundedButton1.setcornerRadius(60);
-        roundedButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnpenjualan.setBackground(new java.awt.Color(242, 241, 235));
+        btnpenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-penjualan1.png"))); // NOI18N
+        btnpenjualan.setColor(new java.awt.Color(242, 241, 235));
+        btnpenjualan.setColorClick(new java.awt.Color(193, 192, 188));
+        btnpenjualan.setColorOver(new java.awt.Color(217, 216, 211));
+        btnpenjualan.setcornerRadius(60);
+        btnpenjualan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedButton1ActionPerformed(evt);
+                btnpenjualanActionPerformed(evt);
             }
         });
-        roundedPanel3.add(roundedButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 335, 327));
+        roundedPanel3.add(btnpenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 335, 327));
 
         jPanel8.add(roundedPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 282, 374, 367));
 
@@ -129,18 +131,18 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         roundedPanel5.setCornerRadius(80);
         roundedPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        roundedButton2.setBackground(new java.awt.Color(242, 241, 235));
-        roundedButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-karyawan.png"))); // NOI18N
-        roundedButton2.setColor(new java.awt.Color(242, 241, 235));
-        roundedButton2.setColorClick(new java.awt.Color(193, 192, 188));
-        roundedButton2.setColorOver(new java.awt.Color(217, 216, 211));
-        roundedButton2.setcornerRadius(60);
-        roundedButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnpembelian.setBackground(new java.awt.Color(242, 241, 235));
+        btnpembelian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-pembelian1.png"))); // NOI18N
+        btnpembelian.setColor(new java.awt.Color(242, 241, 235));
+        btnpembelian.setColorClick(new java.awt.Color(193, 192, 188));
+        btnpembelian.setColorOver(new java.awt.Color(217, 216, 211));
+        btnpembelian.setcornerRadius(60);
+        btnpembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedButton2ActionPerformed(evt);
+                btnpembelianActionPerformed(evt);
             }
         });
-        roundedPanel5.add(roundedButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 335, 327));
+        roundedPanel5.add(btnpembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 335, 327));
 
         jPanel8.add(roundedPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(608, 282, 374, 367));
 
@@ -178,10 +180,11 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         });
         jPanel1.add(sideBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, 130, 90));
 
+        sideKaryawan.setBackground(new java.awt.Color(136, 171, 142));
         sideKaryawan.setBorder(null);
         sideKaryawan.setForeground(new java.awt.Color(136, 171, 142));
         sideKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user.png"))); // NOI18N
-        sideKaryawan.setColor(new java.awt.Color(190, 184, 174));
+        sideKaryawan.setColor(new java.awt.Color(136, 171, 142));
         sideKaryawan.setColorClick(new java.awt.Color(190, 184, 174));
         sideKaryawan.setColorOver(new java.awt.Color(190, 184, 174));
         sideKaryawan.addActionListener(new java.awt.event.ActionListener() {
@@ -191,10 +194,11 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         });
         jPanel1.add(sideKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 307, 130, 90));
 
+        sidePenjualan.setBackground(new java.awt.Color(190, 184, 174));
         sidePenjualan.setBorder(null);
         sidePenjualan.setForeground(new java.awt.Color(136, 171, 142));
         sidePenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-chart.png"))); // NOI18N
-        sidePenjualan.setColor(new java.awt.Color(136, 171, 142));
+        sidePenjualan.setColor(new java.awt.Color(190, 184, 174));
         sidePenjualan.setColorClick(new java.awt.Color(190, 184, 174));
         sidePenjualan.setColorOver(new java.awt.Color(190, 184, 174));
         sidePenjualan.addActionListener(new java.awt.event.ActionListener() {
@@ -236,17 +240,53 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void roundedButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton1ActionPerformed
-        JFrame tableModelPelanggan = new table_model.pelanggan();
-        tableModelPelanggan.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_roundedButton1ActionPerformed
+    private void btnpenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpenjualanActionPerformed
+       try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
 
-    private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
-        JFrame tableModelKaryawan = new table_model.karyawan();
-        tableModelKaryawan.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_roundedButton2ActionPerformed
+            // Buat objek JFrame baru
+            JFrame formPenjualan = new table_model.penjualan();
+
+            // Tampilkan JFrame baru
+            formPenjualan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnpenjualanActionPerformed
+
+    private void btnpembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpembelianActionPerformed
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formPembelian = new table_model.pembelian();
+
+            // Tampilkan JFrame baru
+            formPembelian.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnpembelianActionPerformed
 
     private void sideHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideHomeActionPerformed
         // TODO add your handling code here:
@@ -415,32 +455,33 @@ public class ManajemenPelangganKaryawan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManajemenPelangganKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManajemenPenjualanPembelian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManajemenPelangganKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManajemenPenjualanPembelian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManajemenPelangganKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManajemenPenjualanPembelian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManajemenPelangganKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManajemenPenjualanPembelian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManajemenPelangganKaryawan().setVisible(true);
+                new ManajemenPenjualanPembelian().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton btnpembelian;
+    private custom_palette.RoundedButton btnpenjualan;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JSeparator jSeparator1;
-    private custom_palette.RoundedButton roundedButton1;
-    private custom_palette.RoundedButton roundedButton2;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedPanel roundedPanel3;
