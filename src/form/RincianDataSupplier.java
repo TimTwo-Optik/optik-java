@@ -48,19 +48,6 @@ public class RincianDataSupplier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -91,69 +78,16 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         removeButton = new custom_palette.RoundedButton();
         cancelButton = new custom_palette.RoundedButton();
         roundedPanel2 = new custom_palette.RoundedPanel();
+        jPanel1 = new javax.swing.JPanel();
+        sideHome = new custom_palette.RoundedButton();
+        sideBarang = new custom_palette.RoundedButton();
+        sideKaryawan = new custom_palette.RoundedButton();
+        sidePenjualan = new custom_palette.RoundedButton();
+        sidePembelian = new custom_palette.RoundedButton();
+        sideSupplier = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel1.setPreferredSize(new java.awt.Dimension(127, 832));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel2.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-home.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, -1, -1));
-
-        jPanel3.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel3.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box.png"))); // NOI18N
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 30, 30));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel4.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-chart.png"))); // NOI18N
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 307, -1, -1));
-
-        jPanel5.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel5.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user.png"))); // NOI18N
-        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 438, -1, -1));
-
-        jPanel6.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel6.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-document.png"))); // NOI18N
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 565, -1, -1));
-
-        jPanel7.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel7.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-truck.png"))); // NOI18N
-        jPanel7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
-
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel8.setBackground(new java.awt.Color(242, 241, 235));
         jPanel8.setPreferredSize(new java.awt.Dimension(1153, 832));
@@ -255,7 +189,6 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         jenisSupplier.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         jenisSupplier.setForeground(new java.awt.Color(94, 90, 90));
         jenisSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frame", "Lensa", "Aksesoris" }));
-        jenisSupplier.setOpaque(true);
         jenisSupplier.setPreferredSize(new java.awt.Dimension(118, 26));
         roundedPanel5.add(jenisSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 151, -1, -1));
 
@@ -348,6 +281,92 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 259, 980, 451));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(136, 171, 142));
+        jPanel1.setPreferredSize(new java.awt.Dimension(127, 832));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        sideHome.setBackground(new java.awt.Color(136, 171, 142));
+        sideHome.setBorder(null);
+        sideHome.setForeground(new java.awt.Color(136, 171, 142));
+        sideHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-home.png"))); // NOI18N
+        sideHome.setColor(new java.awt.Color(136, 171, 142));
+        sideHome.setColorClick(new java.awt.Color(190, 184, 174));
+        sideHome.setColorOver(new java.awt.Color(190, 184, 174));
+        sideHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideHomeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, 130, 90));
+
+        sideBarang.setBackground(new java.awt.Color(136, 171, 142));
+        sideBarang.setBorder(null);
+        sideBarang.setForeground(new java.awt.Color(136, 171, 142));
+        sideBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box.png"))); // NOI18N
+        sideBarang.setColor(new java.awt.Color(136, 171, 142));
+        sideBarang.setColorClick(new java.awt.Color(190, 184, 174));
+        sideBarang.setColorOver(new java.awt.Color(190, 184, 174));
+        sideBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideBarangActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, 130, 90));
+
+        sideKaryawan.setBackground(new java.awt.Color(136, 171, 142));
+        sideKaryawan.setBorder(null);
+        sideKaryawan.setForeground(new java.awt.Color(136, 171, 142));
+        sideKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user.png"))); // NOI18N
+        sideKaryawan.setColor(new java.awt.Color(136, 171, 142));
+        sideKaryawan.setColorClick(new java.awt.Color(190, 184, 174));
+        sideKaryawan.setColorOver(new java.awt.Color(190, 184, 174));
+        sideKaryawan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideKaryawanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 307, 130, 90));
+
+        sidePenjualan.setBorder(null);
+        sidePenjualan.setForeground(new java.awt.Color(136, 171, 142));
+        sidePenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-chart.png"))); // NOI18N
+        sidePenjualan.setColor(new java.awt.Color(136, 171, 142));
+        sidePenjualan.setColorClick(new java.awt.Color(190, 184, 174));
+        sidePenjualan.setColorOver(new java.awt.Color(190, 184, 174));
+        sidePenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidePenjualanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sidePenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 438, 130, 90));
+
+        sidePembelian.setBackground(new java.awt.Color(136, 171, 142));
+        sidePembelian.setForeground(new java.awt.Color(136, 171, 142));
+        sidePembelian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/uang.png"))); // NOI18N
+        sidePembelian.setColor(new java.awt.Color(136, 171, 142));
+        sidePembelian.setColorClick(new java.awt.Color(190, 184, 174));
+        sidePembelian.setColorOver(new java.awt.Color(190, 184, 174));
+        sidePembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidePembelianActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sidePembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 565, 130, 90));
+
+        sideSupplier.setForeground(new java.awt.Color(136, 171, 142));
+        sideSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-truck.png"))); // NOI18N
+        sideSupplier.setColor(new java.awt.Color(190, 184, 174));
+        sideSupplier.setColorClick(new java.awt.Color(190, 184, 174));
+        sideSupplier.setColorOver(new java.awt.Color(190, 184, 174));
+        sideSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideSupplierActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, 130, 90));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -442,6 +461,156 @@ public class RincianDataSupplier extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void sideHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideHomeActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formHome = new view.home();
+
+            // Tampilkan JFrame baru
+            formHome.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideHomeActionPerformed
+
+    private void sideBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideBarangActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formBarang = new table_model.barang();
+
+            // Tampilkan JFrame baru
+            formBarang.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideBarangActionPerformed
+
+    private void sideKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideKaryawanActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formKaryawan = new view.ManajemenPelangganKaryawan();
+
+            // Tampilkan JFrame baru
+            formKaryawan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideKaryawanActionPerformed
+
+    private void sidePenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidePenjualanActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formPenjualan = new view.ManajemenPenjualanPembelian();
+
+            // Tampilkan JFrame baru
+            formPenjualan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sidePenjualanActionPerformed
+
+    private void sidePembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidePembelianActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formPembelian = new  view.ManajemenPenjualanPembelian1();
+
+            // Tampilkan JFrame baru
+            formPembelian.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sidePembelianActionPerformed
+
+    private void sideSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideSupplierActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formSupplier = new table_model.supplier();
+
+            // Tampilkan JFrame baru
+            formSupplier.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideSupplierActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -483,7 +652,6 @@ public class RincianDataSupplier extends javax.swing.JFrame {
     private custom_palette.RoundedButton cancelButton;
     private custom_palette.RoundedButton editButton;
     private custom_palette.RoundedTextField email;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -494,21 +662,10 @@ public class RincianDataSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -522,5 +679,11 @@ public class RincianDataSupplier extends javax.swing.JFrame {
     private custom_palette.RoundedPanel roundedPanel3;
     private custom_palette.RoundedPanel roundedPanel4;
     private custom_palette.RoundedPanel roundedPanel5;
+    private custom_palette.RoundedButton sideBarang;
+    private custom_palette.RoundedButton sideHome;
+    private custom_palette.RoundedButton sideKaryawan;
+    private custom_palette.RoundedButton sidePembelian;
+    private custom_palette.RoundedButton sidePenjualan;
+    private custom_palette.RoundedButton sideSupplier;
     // End of variables declaration//GEN-END:variables
 }
