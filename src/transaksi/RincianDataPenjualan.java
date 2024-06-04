@@ -8,80 +8,104 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import table_model.supplier;
 
 /**
  *
  * @author Bagus
  */
-public class TambahPenjualan extends javax.swing.JFrame {
-    
+public class RincianDataPenjualan extends javax.swing.JFrame {
+    private String idPenjualan;
     public String IDPelanggan, NamaPelanggan;
     public String IDBarang, NamaBarang, KategoriBarang, HargaBarang;
-    
-    Connection conn = new koneksi().getConnection();
     
     private DefaultTableModel tabmode;
     Object[] Baris = {"Id Barang", "Nama Barang", "Kategori", "Harga", "QTY", "Total Harga"};
 
     /**
-     * Creates new form TambahPenjualanv2
+     * Creates new form RincianDataPenjualan
      */
-    public TambahPenjualan() {
+    public RincianDataPenjualan() {
         initComponents();
-        autoNumber();
         
-        tanggalNota.setDate(new Date());
         tabmode = new DefaultTableModel(null, Baris);
         tableTransaksi.setModel(tabmode);
         tableTransaksi.fixTable(jScrollPane1);
     }
     
-    protected void autoNumber() {
-        String idnota = "";
+    public void setData(String id) {
+        this.idPenjualan = id;
+        
+        Connection conn = new koneksi().getConnection();
+        
+        String query1 = "SELECT p.id, p.nama_pelanggan, pjl.id, pjl.tanggal_jual, pjl.status FROM penjualan AS pjl " +
+                "JOIN pelanggan AS p ON pjl.id_pelanggan = p.id " +
+                "WHERE pjl.id = ?";
+        String query2 = "SELECT b.id, b.nama, b.kategori, b.harga, dpjl.kuantitas, dpjl.total_harga " +
+                "FROM detail_penjualan AS dpjl " +
+                "JOIN barang AS b ON dpjl.id_barang = b.id " +
+                "WHERE dpjl.id_penjualan = ?";
+        
         try {
-            String sql = "SELECT id FROM penjualan order by id asc";
-            PreparedStatement stat = conn.prepareStatement(sql);
-            ResultSet rs = stat.executeQuery(sql);
-            while (rs.next()) {
-                idnota = rs.getString(1);
+            PreparedStatement stat1 = conn.prepareStatement(query1);
+            stat1.setString(1, idPenjualan);
+            ResultSet hasil1 = stat1.executeQuery();
+            
+            while(hasil1.next()) {
+                idPelanggan.setText(hasil1.getString(1));
+                namaPelanggan.setText(hasil1.getString(2));
+                idNota.setText(hasil1.getString(3));
+                tanggalNota.setDate(hasil1.getDate(4));
+                
+                if(hasil1.getString(5).equals("Lunas")) {
+                    status.setSelectedIndex(0);
+                } else {
+                    status.setSelectedIndex(1);
+                }
             }
-        } catch (SQLException sqle) {
-            idnota = "";
+            
+            PreparedStatement stat2 = conn.prepareStatement(query2);
+            stat2.setString(1, idPenjualan);
+            stat2.executeQuery();
+            ResultSet hasil2 = stat2.executeQuery();
+            
+            while(hasil2.next()) {
+                tabmode.addRow(new Object[]{
+                    hasil2.getString(1),
+                    hasil2.getString(2),
+                    hasil2.getString(3),
+                    hasil2.getString(4),
+                    hasil2.getString(5),
+                    hasil2.getString(6),
+                });
+            }
+            conn.close();
+            stat1.close();
+            stat2.close();
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
+            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
         }
-        if (idnota.length() < 1) {
-            idnota = "INV/0000";
-        }
-        String ur = idnota.substring(4);
-        int u = Integer.parseInt(ur) + 1;
-        System.out.println(ur + "==" + u);
-        if (u < 10) {
-            ur = "000" + u;
-        } else if (u < 100) {
-            ur = "00" + u;
-        } else if (u < 1000) {
-            ur = "0" + u;
-        } else {
-            ur = "" + u;
-        }
-        idnota = "INV/" + ur;
-        idNota.setText(idnota);
+        
+        hitung();
     }
     
     public void pelangganTerpilih() {
         PopUpPelanggan Pp = new PopUpPelanggan();
-        Pp.tambahPenjualan = this;
+        Pp.rincianDataPenjualan = this;
         idPelanggan.setText(IDPelanggan);
         namaPelanggan.setText(NamaPelanggan);
     }
     
     public void barangTerpilih() {
         PopUpBarang Pb = new PopUpBarang();
-        Pb.tambahPenjualan = this;
+        Pb.rincianDataPenjualan = this;
         idBarang.setText(IDBarang);
         namaBarang.setText(NamaBarang);
         kategori.setText(KategoriBarang);
@@ -155,12 +179,11 @@ public class TambahPenjualan extends javax.swing.JFrame {
         totalTransaksi = new custom_palette.RoundedTextField();
         jLabel15 = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
-        addDataButton = new custom_palette.RoundedButton();
         cancelButton = new custom_palette.RoundedButton();
         tanggalNota = new com.toedter.calendar.JDateChooser();
+        removeButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(242, 241, 235));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -185,7 +208,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Inter", 1, 32)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(175, 200, 173));
-        jLabel3.setText("Tambah Data Penjualan");
+        jLabel3.setText("Rincian Data Penjualan");
         roundedPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 54, 390, 37));
 
         idNota.setEditable(false);
@@ -434,21 +457,6 @@ public class TambahPenjualan extends javax.swing.JFrame {
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunas", "Belum Lunas" }));
         roundedPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 685, 195, -1));
 
-        addDataButton.setForeground(new java.awt.Color(136, 171, 142));
-        addDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
-        addDataButton.setColor(new java.awt.Color(238, 231, 218));
-        addDataButton.setColorClick(new java.awt.Color(190, 184, 174));
-        addDataButton.setColorOver(new java.awt.Color(214, 207, 196));
-        addDataButton.setcornerRadius(10);
-        addDataButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        addDataButton.setLabel("Tambah");
-        addDataButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDataButtonActionPerformed(evt);
-            }
-        });
-        roundedPanel1.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 673, 125, 39));
-
         cancelButton.setForeground(new java.awt.Color(136, 171, 142));
         cancelButton.setText("X Batal");
         cancelButton.setColor(new java.awt.Color(238, 231, 218));
@@ -464,9 +472,43 @@ public class TambahPenjualan extends javax.swing.JFrame {
         roundedPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(987, 673, 125, 39));
         roundedPanel1.add(tanggalNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(957, 68, 147, 22));
 
+        removeButton.setForeground(new java.awt.Color(255, 255, 255));
+        removeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
+        removeButton.setText("Hapus Data");
+        removeButton.setColor(new java.awt.Color(255, 75, 75));
+        removeButton.setColorClick(new java.awt.Color(204, 60, 60));
+        removeButton.setColorOver(new java.awt.Color(229, 67, 67));
+        removeButton.setcornerRadius(10);
+        removeButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+        roundedPanel1.add(removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 673, -1, 41));
+
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 72, 1178, 729));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 832));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 832, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -474,14 +516,14 @@ public class TambahPenjualan extends javax.swing.JFrame {
 
     private void cariPelangganButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariPelangganButtonActionPerformed
         PopUpPelanggan Pp = new PopUpPelanggan();
-        Pp.tambahPenjualan = this;
+        Pp.rincianDataPenjualan = this;
         Pp.setVisible(true);
         Pp.setResizable(false);
     }//GEN-LAST:event_cariPelangganButtonActionPerformed
 
     private void cariBarangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariBarangButtonActionPerformed
         PopUpBarang Pb = new PopUpBarang();
-        Pb.tambahPenjualan = this;
+        Pb.rincianDataPenjualan = this;
         Pb.setVisible(true);
         Pb.setResizable(false);
     }//GEN-LAST:event_cariBarangButtonActionPerformed
@@ -495,6 +537,8 @@ public class TambahPenjualan extends javax.swing.JFrame {
     }//GEN-LAST:event_hitungButtonActionPerformed
 
     private void tambahBarangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahBarangButtonActionPerformed
+        Connection conn = new koneksi().getConnection();
+        
         try {
             String kolomIdBarang = idBarang.getText();
             String kolomNamaBarang = namaBarang.getText();
@@ -504,6 +548,22 @@ public class TambahPenjualan extends javax.swing.JFrame {
             float kolomTotalHarga = Float.parseFloat(totalHarga.getText());
             tabmode.addRow(new Object[]{kolomIdBarang, kolomNamaBarang, kolomKategori, kolomHarga, kolomKuantitas, kolomTotalHarga});
             tableTransaksi.setModel(tabmode);
+            
+            String query = "insert into detail_penjualan(id_penjualan, id_barang, nama_barang, kategori, harga, kuantitas, total_harga) values(?,?,?,?,?,?,?)";
+            
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, idPenjualan);
+            stat.setInt(2, Integer.parseInt(kolomIdBarang));
+            stat.setString(3, kolomNamaBarang);
+            stat.setString(4, kolomKategori);
+            stat.setFloat(5, kolomHarga);
+            stat.setInt(6, kolomKuantitas);
+            stat.setFloat(7, kolomTotalHarga);
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil ditambah");
+            
+            conn.close();
+            stat.close();
         } catch (Exception e) {
             System.out.println("Error : " + e);
         }
@@ -512,58 +572,75 @@ public class TambahPenjualan extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahBarangButtonActionPerformed
 
     private void hapusBarangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusBarangButtonActionPerformed
-        int index = tableTransaksi.getSelectedRow();
-        tabmode.removeRow(index);
-        tableTransaksi.setModel(tabmode);
-        hitung();
+        Connection conn = new koneksi().getConnection();
+        
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data barang ini?", "Hapus Data Barang", JOptionPane.YES_NO_OPTION);
+        if (ok == 0) {
+            int index = tableTransaksi.getSelectedRow();
+            int kolomIdBarang = Integer.parseInt(tableTransaksi.getValueAt(index, 0).toString());
+
+            try {
+                String query = "delete from detail_penjualan where id_penjualan = ? and id_barang = ?";
+
+                PreparedStatement stat = conn.prepareStatement(query);
+                stat.setString(1, idPenjualan);
+                stat.setInt(2, kolomIdBarang);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "data berhasil dihapus");
+
+                conn.close();
+                stat.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "data gagal dihapus, pesan error: " + e);
+            }
+
+            tabmode.removeRow(index);
+            tableTransaksi.setModel(tabmode);
+            hitung();
+        }
     }//GEN-LAST:event_hapusBarangButtonActionPerformed
 
     private void kosongkanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kosongkanButtonActionPerformed
         kosong();
     }//GEN-LAST:event_kosongkanButtonActionPerformed
 
-    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
-        String query1 = "insert into penjualan values (?,?,?,?)";
-        String query2 = "insert into detail_penjualan values (?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement stat = conn.prepareStatement(query1);
-            stat.setString(1, idNota.getText());
-            stat.setString(2, idPelanggan.getText());
-            stat.setDate(3, new java.sql.Date(tanggalNota.getDate().getTime()));
-            stat.setString(4, status.getSelectedItem().toString());
-            stat.executeUpdate();
-            int t = tableTransaksi.getRowCount();
-            for (int i = 0; i < t; i++) {
-                String kolomIdBarang = tableTransaksi.getValueAt(i, 0).toString();
-                String kolomNamaBarang = tableTransaksi.getValueAt(i, 1).toString();
-                String kolomKategori = tableTransaksi.getValueAt(i, 2).toString();
-                float kolomHarga = Float.parseFloat(tableTransaksi.getValueAt(i, 3).toString());
-                int kolomKuantitas = Integer.parseInt(tableTransaksi.getValueAt(i, 4).toString());
-                float kolomTotalHarga = Float.parseFloat(tableTransaksi.getValueAt(i, 5).toString());
-                PreparedStatement stat2 = conn.prepareStatement(query2);
-                stat2.setString(1, idNota.getText());
-                stat2.setString(2, kolomIdBarang);
-                stat2.setString(3, kolomNamaBarang);
-                stat2.setString(4, kolomKategori);
-                stat2.setFloat(5, kolomHarga);
-                stat2.setInt(6, kolomKuantitas);
-                stat2.setFloat(7, kolomTotalHarga);
-                stat2.executeUpdate();
-            }
-            tabmode = new DefaultTableModel(null, Baris);
-            tableTransaksi.setModel(tabmode);
-            JOptionPane.showMessageDialog(null, "data berhasil disimpan");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "data gagal disimpan " + e);
-        }
-        kosong();
-    }//GEN-LAST:event_addDataButtonActionPerformed
-
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         JFrame Penjualan = new table_model.penjualan();
         Penjualan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        Connection conn = new koneksi().getConnection();
+
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data penjualan ini?", "Hapus Data Penjualan", JOptionPane.YES_NO_OPTION);
+        if (ok == 0) {
+            String sql1 = "delete from detail_penjualan where id_penjualan = ?";
+            String sql2 = "delete from penjualan where id = ?";
+
+            try {
+                PreparedStatement stat1 = conn.prepareStatement(sql1);
+                stat1.setString(1, idPenjualan);
+                stat1.executeUpdate();
+                
+                PreparedStatement stat2 = conn.prepareStatement(sql2);
+                stat2.setString(1, idPenjualan);
+                stat2.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "data berhasil dihapus");
+
+                stat1.close();
+                stat2.close();
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal dihapus, pesan error: " + e);
+            }
+            
+            JFrame penjualan = new table_model.penjualan();
+            penjualan.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_removeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -582,27 +659,25 @@ public class TambahPenjualan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RincianDataPenjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahPenjualan().setVisible(true);
+                new RincianDataPenjualan().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private custom_palette.RoundedButton addDataButton;
     private custom_palette.RoundedButton cancelButton;
     private custom_palette.RoundedButton cariBarangButton;
     private custom_palette.RoundedButton cariPelangganButton;
@@ -636,6 +711,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
     private custom_palette.RoundedTextField kuantitas;
     private custom_palette.RoundedTextField namaBarang;
     private custom_palette.RoundedTextField namaPelanggan;
+    private custom_palette.RoundedButton removeButton;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedPanel roundedPanel3;

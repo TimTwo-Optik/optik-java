@@ -26,6 +26,7 @@ public class PopUpBarang extends javax.swing.JFrame {
     private DefaultTableModel tabmode;
     
     public TambahPenjualan tambahPenjualan = null;
+    public RincianDataPenjualan rincianDataPenjualan = null;
 
     /**
      * Creates new form PopUpPelanggan
@@ -157,11 +158,20 @@ public class PopUpBarang extends javax.swing.JFrame {
 
     private void tableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBarangMouseClicked
         int TableBarang = tableBarang.getSelectedRow();
-        tambahPenjualan.IDBarang = tableBarang.getValueAt(TableBarang, 0).toString();
-        tambahPenjualan.NamaBarang = tableBarang.getValueAt(TableBarang, 1).toString();
-        tambahPenjualan.KategoriBarang = tableBarang.getValueAt(TableBarang, 2).toString();
-        tambahPenjualan.HargaBarang = tableBarang.getValueAt(TableBarang, 3).toString();
-        tambahPenjualan.barangTerpilih();
+        
+        if(rincianDataPenjualan != null) {
+            rincianDataPenjualan.IDBarang = tableBarang.getValueAt(TableBarang, 0).toString();
+            rincianDataPenjualan.NamaBarang = tableBarang.getValueAt(TableBarang, 1).toString();
+            rincianDataPenjualan.KategoriBarang = tableBarang.getValueAt(TableBarang, 2).toString();
+            rincianDataPenjualan.HargaBarang = tableBarang.getValueAt(TableBarang, 3).toString();
+            rincianDataPenjualan.barangTerpilih();
+        } else if(tambahPenjualan != null) {
+            tambahPenjualan.IDBarang = tableBarang.getValueAt(TableBarang, 0).toString();
+            tambahPenjualan.NamaBarang = tableBarang.getValueAt(TableBarang, 1).toString();
+            tambahPenjualan.KategoriBarang = tableBarang.getValueAt(TableBarang, 2).toString();
+            tambahPenjualan.HargaBarang = tableBarang.getValueAt(TableBarang, 3).toString();
+            tambahPenjualan.barangTerpilih();
+        }
         this.dispose();
     }//GEN-LAST:event_tableBarangMouseClicked
 

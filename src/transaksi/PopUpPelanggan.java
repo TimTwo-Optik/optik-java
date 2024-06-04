@@ -26,6 +26,7 @@ public class PopUpPelanggan extends javax.swing.JFrame {
     private DefaultTableModel tabmode;
     
     public TambahPenjualan tambahPenjualan = null;
+    public RincianDataPenjualan rincianDataPenjualan = null;
 
     /**
      * Creates new form PopUpPelanggan
@@ -153,9 +154,16 @@ public class PopUpPelanggan extends javax.swing.JFrame {
 
     private void tablePelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePelangganMouseClicked
         int TablePelanggan = tablePelanggan.getSelectedRow();
-        tambahPenjualan.IDPelanggan = tablePelanggan.getValueAt(TablePelanggan, 0).toString();
-        tambahPenjualan.NamaPelanggan = tablePelanggan.getValueAt(TablePelanggan, 1).toString();
-        tambahPenjualan.pelangganTerpilih();
+        if(tambahPenjualan != null) {
+            tambahPenjualan.IDPelanggan = tablePelanggan.getValueAt(TablePelanggan, 0).toString();
+            tambahPenjualan.NamaPelanggan = tablePelanggan.getValueAt(TablePelanggan, 1).toString();
+            tambahPenjualan.pelangganTerpilih();
+        } else if(rincianDataPenjualan != null) {
+            rincianDataPenjualan.IDPelanggan = tablePelanggan.getValueAt(TablePelanggan, 0).toString();
+            rincianDataPenjualan.NamaPelanggan = tablePelanggan.getValueAt(TablePelanggan, 1).toString();
+            rincianDataPenjualan.pelangganTerpilih();
+        }
+        
         this.dispose();
     }//GEN-LAST:event_tablePelangganMouseClicked
 
