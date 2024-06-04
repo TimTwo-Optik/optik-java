@@ -33,8 +33,7 @@ public class TambahPelanggan extends javax.swing.JFrame {
         nama.setText("");
         kontak.setText("");
         alamat.setText("");
-        email.setText("");
-        waktu_bergabung.setDate(new Date());
+
     }
 
     /**
@@ -55,14 +54,10 @@ public class TambahPelanggan extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         nama = new custom_palette.RoundedTextField();
         kontak = new custom_palette.RoundedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         alamat = new javax.swing.JTextArea();
-        email = new custom_palette.RoundedTextField();
-        waktu_bergabung = new com.toedter.calendar.JDateChooser();
         addDataButton = new custom_palette.RoundedButton();
         cancelButton = new custom_palette.RoundedButton();
 
@@ -90,7 +85,7 @@ public class TambahPelanggan extends javax.swing.JFrame {
         jLabel3.setText("Tambah Data Pelanggan");
         roundedPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 38, 420, 80));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-employee2.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-pelanggan-image.png"))); // NOI18N
         roundedPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 148, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
@@ -106,17 +101,7 @@ public class TambahPelanggan extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(238, 231, 218));
         jLabel7.setText("Alamat");
-        roundedPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 240, 100, -1));
-
-        jLabel8.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel8.setText("Email");
-        roundedPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 352, 90, -1));
-
-        jLabel9.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel9.setText("Waktu bergabung");
-        roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 389, 160, 20));
+        roundedPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 100, -1));
 
         nama.setBackground(new java.awt.Color(238, 231, 218));
         nama.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
@@ -140,19 +125,7 @@ public class TambahPelanggan extends javax.swing.JFrame {
         alamat.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(alamat);
 
-        roundedPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, 232, -1));
-
-        email.setBackground(new java.awt.Color(238, 231, 218));
-        email.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        email.setLineColor(new java.awt.Color(238, 231, 218));
-        roundedPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 352, 232, -1));
-
-        waktu_bergabung.setBackground(new java.awt.Color(238, 231, 218));
-        waktu_bergabung.setDateFormatString("yyyy-MM-dd");
-        waktu_bergabung.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        waktu_bergabung.setOpaque(false);
-        waktu_bergabung.setPreferredSize(new java.awt.Dimension(232, 22));
-        roundedPanel1.add(waktu_bergabung, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 389, -1, -1));
+        roundedPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 260, 232, -1));
 
         addDataButton.setForeground(new java.awt.Color(136, 171, 142));
         addDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
@@ -199,15 +172,14 @@ public class TambahPelanggan extends javax.swing.JFrame {
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
-        String sql = "insert into karyawan(nama, kontak, alamat, email, waktu_bergabung) values (?,?,?,?,?)";
+        String sql = "insert into pelanggan(nama_pelanggan, kontak, alamat) values (?,?,?)";
         
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, nama.getText());
             stat.setString(2, kontak.getText());
             stat.setString(3, alamat.getText());
-            stat.setString(4, email.getText());
-            stat.setDate(5, new java.sql.Date(waktu_bergabung.getDate().getTime()));
+
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
             kosong();
@@ -232,10 +204,10 @@ public class TambahPelanggan extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formSupplier = new table_model.karyawan();
+            JFrame formPelanggan = new table_model.pelanggan();
 
             // Tampilkan JFrame baru
-            formSupplier.setVisible(true);
+            formPelanggan.setVisible(true);
 
             // Tutup jendela saat ini
             this.dispose();
@@ -293,7 +265,6 @@ public class TambahPelanggan extends javax.swing.JFrame {
     private custom_palette.RoundedButton addDataButton;
     private javax.swing.JTextArea alamat;
     private custom_palette.RoundedButton cancelButton;
-    private custom_palette.RoundedTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -301,13 +272,10 @@ public class TambahPelanggan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private custom_palette.RoundedTextField kontak;
     private custom_palette.RoundedTextField nama;
     private custom_palette.RoundedPanel roundedPanel1;
-    private com.toedter.calendar.JDateChooser waktu_bergabung;
     // End of variables declaration//GEN-END:variables
 }
