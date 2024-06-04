@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
@@ -126,13 +127,13 @@ public class pelanggan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         bcari = new javax.swing.JButton();
         searchBar = new custom_palette.RoundedTextField();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablepelanggan = new javax.swing.JTable();
         searchFilter = new javax.swing.JComboBox<>();
         roundedPanel2 = new custom_palette.RoundedPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablepelanggan = new custom_palette.CustomTable();
+        addDataButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -258,55 +259,6 @@ public class pelanggan extends javax.swing.JFrame {
         });
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
-        jButton3.setBackground(new java.awt.Color(136, 171, 142));
-        jButton3.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(242, 241, 235));
-        jButton3.setText("+ Tambah");
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(103, 37));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 197, 120, -1));
-        jButton3.getAccessibleContext().setAccessibleDescription("");
-
-        jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setForeground(new java.awt.Color(242, 241, 235));
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-
-        tablepelanggan.getTableHeader().setOpaque(false);
-        tablepelanggan.getTableHeader().setBackground(new Color(136, 171, 142));
-        tablepelanggan.setBackground(new java.awt.Color(242, 241, 235));
-        tablepelanggan.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        tablepelanggan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Action"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tablepelanggan.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
-        tablepelanggan.setRowHeight(60);
-        tablepelanggan.setSelectionBackground(new java.awt.Color(136, 171, 142));
-        jScrollPane1.setViewportView(tablepelanggan);
-
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 371, 1096, 398));
-
         searchFilter.setBackground(new java.awt.Color(255, 255, 255));
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A", "Total Transaksi", "Tertinggi", "Terendah" }));
@@ -332,16 +284,69 @@ public class pelanggan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
 
+        jScrollPane1.setBackground(new java.awt.Color(242, 241, 235));
+
+        tablepelanggan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablepelanggan.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        tablepelanggan.setSelectionBackground(new java.awt.Color(160, 190, 158));
+        jScrollPane1.setViewportView(tablepelanggan);
+
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 1090, 402));
+
+        addDataButton.setForeground(new java.awt.Color(242, 241, 235));
+        addDataButton.setText("+ Tambah");
+        addDataButton.setColor(new java.awt.Color(136, 171, 142));
+        addDataButton.setColorClick(new java.awt.Color(108, 136, 113));
+        addDataButton.setColorOver(new java.awt.Color(122, 153, 127));
+        addDataButton.setcornerRadius(20);
+        addDataButton.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        addDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDataButtonActionPerformed(evt);
+            }
+        });
+        jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
+
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, 1153, 832));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
 
@@ -366,6 +371,21 @@ public class pelanggan extends javax.swing.JFrame {
             dataTable();
         }
     }//GEN-LAST:event_searchBarKeyPressed
+
+    private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
+        try {
+            // Buat objek JFrame baru
+            JFrame formTambahPelanggan = new form.TambahPelanggan();
+
+            // Tampilkan JFrame baru
+            formTambahPelanggan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_addDataButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,8 +423,8 @@ public class pelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton addDataButton;
     private javax.swing.JButton bcari;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -431,6 +451,6 @@ public class pelanggan extends javax.swing.JFrame {
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedTextField searchBar;
     private javax.swing.JComboBox<String> searchFilter;
-    private javax.swing.JTable tablepelanggan;
+    private custom_palette.CustomTable tablepelanggan;
     // End of variables declaration//GEN-END:variables
 }
