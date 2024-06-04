@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import transaksi.RincianDataPenjualan;
 
 /**
  *
@@ -111,14 +112,23 @@ public class penjualan extends javax.swing.JFrame {
             @Override
             public void onView(int row) {
                 System.out.println("View Button row: " + row);
+                sendData(row);
             }
         };
 
         tablepenjualan.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
         tablepenjualan.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
         tablepenjualan.setDefaultRenderer(String.class, new TableActionCellRender());
-
     }
+    private void sendData(int row) {
+        String id = tabmode.getValueAt(row, 0).toString();
+        
+        RincianDataPenjualan rincianDataKarywan = new transaksi.RincianDataPenjualan();
+        rincianDataKarywan.setData(id);
+        rincianDataKarywan.setVisible(true);
+        this.dispose();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
