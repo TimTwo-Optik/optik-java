@@ -7,7 +7,7 @@ package table_model;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
-import java.awt.Color;
+import form.RincianDataPelanggan;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 
@@ -41,29 +42,31 @@ public class pelanggan extends javax.swing.JFrame {
     protected void dataTable() {
         Connection conn = koneksi.getConnection();
         
-        Object[] Baris ={"Nama Pelanggan","Kontak","Alamat","Total Pengeluaran", "Status", "Aksi"};
+        Object[] Baris ={"ID","Nama Pelanggan","Kontak","Alamat","Total Pengeluaran", "Status", "Aksi"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariItem = searchBar.getText();
         
         try {
-       String sql = "SELECT p.nama_pelanggan, p.kontak, p.alamat, SUM(j.total_harga) AS total_harga, j.status " +
+       String sql = "SELECT p.id,p.nama_pelanggan, p.kontak, p.alamat, SUM(j.total_harga) AS total_harga, j.status " +
                 "FROM pelanggan p " +
                 "JOIN penjualan j ON p.id = j.id_pelanggan " +
                 "WHERE p.nama_pelanggan LIKE ? " +
-                "GROUP BY p.nama_pelanggan, p.kontak, p.alamat, j.status " +
-                "ORDER BY p.nama_pelanggan ASC";
+                "GROUP BY p.id,p.nama_pelanggan, p.kontak, p.alamat, j.status " +
+                "ORDER BY p.id ASC";
 
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
-                tabmode.addRow(new Object[]{    
+                tabmode.addRow(new Object[]{ 
                     hasil.getString(1),
                     hasil.getString(2),
                     hasil.getString(3),
                     hasil.getString(4),
                     hasil.getString(5),
+                    hasil.getString(6),
+
                 });
             }  
             tablepelanggan.setModel(tabmode);
@@ -83,16 +86,19 @@ public class pelanggan extends javax.swing.JFrame {
         searchFilter.setSelectedItem(null);
     }
     
+    
+    
     private void initializeTableActionEvent() {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onView(int row) {
                 System.out.println("View Button row: "+row);
+                sendData(row);
             }
         };
         
-        tablepelanggan.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        tablepelanggan.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        tablepelanggan.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
+        tablepelanggan.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
         tablepelanggan.setDefaultRenderer(String.class, new TableActionCellRender());
     
     }
@@ -288,34 +294,34 @@ public class pelanggan extends javax.swing.JFrame {
 
         tablepelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -387,6 +393,34 @@ public class pelanggan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
 
+      private void sendData(int row) {
+        String[] values = new String[5];
+        
+        int id = Integer.parseInt(tabmode.getValueAt(row, 0).toString());
+        
+    
+        for(int i = 0; i < 5; i++){
+            values[i] = tabmode.getValueAt(row, i+1).toString();
+        }
+        
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            RincianDataPelanggan formUbahPelanggan = new form.RincianDataPelanggan();
+            
+            formUbahPelanggan.setData(id, values);
+
+            // Tampilkan JFrame baru
+            formUbahPelanggan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     /**
      * @param args the command line arguments
      */
