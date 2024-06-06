@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package form;
+package transaksi;
 
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class TambahPembelian extends javax.swing.JFrame {
         cbnamasupplier.setSelectedItem(null);
         cbnamabarang.setSelectedItem(null);
         kuantitas.setText("");
-        tanggal_jual.setDate(new Date());
+        tanggal_beli.setDate(new Date());
         status.setSelectedItem("");
     }
 
@@ -60,7 +60,7 @@ public class TambahPembelian extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         transaksi = new custom_palette.RoundedTextField();
-        tanggal_jual = new com.toedter.calendar.JDateChooser();
+        tanggal_beli = new com.toedter.calendar.JDateChooser();
         addDataButton = new custom_palette.RoundedButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -110,7 +110,7 @@ public class TambahPembelian extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(238, 231, 218));
-        jLabel9.setText("Tanggal Jual");
+        jLabel9.setText("Tanggal Beli");
         roundedPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 160, 20));
 
         transaksi.setBackground(new java.awt.Color(238, 231, 218));
@@ -119,13 +119,13 @@ public class TambahPembelian extends javax.swing.JFrame {
         transaksi.setLineColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 232, -1));
 
-        tanggal_jual.setBackground(new java.awt.Color(238, 231, 218));
-        tanggal_jual.setForeground(new java.awt.Color(0, 0, 0));
-        tanggal_jual.setDateFormatString("yyyy-MM-dd");
-        tanggal_jual.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        tanggal_jual.setOpaque(false);
-        tanggal_jual.setPreferredSize(new java.awt.Dimension(232, 22));
-        roundedPanel1.add(tanggal_jual, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 190, -1, -1));
+        tanggal_beli.setBackground(new java.awt.Color(238, 231, 218));
+        tanggal_beli.setForeground(new java.awt.Color(0, 0, 0));
+        tanggal_beli.setDateFormatString("yyyy-MM-dd");
+        tanggal_beli.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        tanggal_beli.setOpaque(false);
+        tanggal_beli.setPreferredSize(new java.awt.Dimension(232, 22));
+        roundedPanel1.add(tanggal_beli, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 190, -1, -1));
 
         addDataButton.setForeground(new java.awt.Color(136, 171, 142));
         addDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/material-symbols_tambah.png"))); // NOI18N
@@ -222,7 +222,7 @@ public class TambahPembelian extends javax.swing.JFrame {
 
             stat.setInt(1, idPelanggan);
             stat.setInt(2, idBarang);
-            stat.setDate(3, new java.sql.Date(tanggal_jual.getDate().getTime()));
+            stat.setDate(3, new java.sql.Date(tanggal_beli.getDate().getTime()));
             stat.setInt(4, Integer.parseInt(kuantitas.getText()));
             stat.setDouble(5, Double.parseDouble(transaksi.getText()));
             stat.setString(6, status.getSelectedItem().toString());
@@ -295,12 +295,6 @@ public class TambahPembelian extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    
-    
-
-
-    
-    
     /**
      * 
      * @param args the command line arguments
@@ -366,7 +360,7 @@ public class TambahPembelian extends javax.swing.JFrame {
     private custom_palette.RoundedTextField kuantitas;
     private custom_palette.RoundedPanel roundedPanel1;
     private javax.swing.JComboBox<String> status;
-    private com.toedter.calendar.JDateChooser tanggal_jual;
+    private com.toedter.calendar.JDateChooser tanggal_beli;
     private custom_palette.RoundedTextField transaksi;
     // End of variables declaration//GEN-END:variables
 }
