@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import transaksi.RincianDataPembelian;
 
 /**
  *
@@ -113,6 +114,7 @@ public class pembelian extends javax.swing.JFrame {
             @Override
             public void onView(int row) {
                 System.out.println("View Button row: " + row);
+                sendData(row);
             }
         };
 
@@ -120,6 +122,28 @@ public class pembelian extends javax.swing.JFrame {
         tablepembelian.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
         tablepembelian.setDefaultRenderer(String.class, new TableActionCellRender());
 
+    }
+    
+    private void sendData(int row) {
+        int id = Integer.parseInt(tabmode.getValueAt(row, 0).toString());
+        
+        try {
+            // Mengatur look and feel kembali ke default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Buat objek JFrame baru
+            RincianDataPembelian formRincianPembelian = new transaksi.RincianDataPembelian();
+            
+            formRincianPembelian.setData(id);
+
+            // Tampilkan JFrame baru
+            formRincianPembelian.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -524,7 +548,7 @@ public class pembelian extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
             // Buat objek JFrame baru
-            JFrame formTambahPembelian = new form.TambahPembelian();
+            JFrame formTambahPembelian = new transaksi.TambahPembelian();
 
             // Tampilkan JFrame baru
             formTambahPembelian.setVisible(true);
