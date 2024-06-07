@@ -605,7 +605,7 @@ public class karyawan extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formPembelian = new  view.ManajemenPenjualanPembelian1();
+            JFrame formPembelian = new  table_model.pembelian();
 
             // Tampilkan JFrame baru
             formPembelian.setVisible(true);
