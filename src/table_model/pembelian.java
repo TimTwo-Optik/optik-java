@@ -568,7 +568,7 @@ public class pembelian extends javax.swing.JFrame {
         Connection conn = new koneksi().getConnection();
 
         try {
-            String report = "src/report/NotaPenjualan.jrxml";
+            String report = "src/report/NotaPembelian.jrxml";
             HashMap parameter = new HashMap();
             parameter.put("no_faktur", noFaktur);
             JasperReport jasperReport = JasperCompileManager.compileReport(report);
@@ -693,7 +693,7 @@ public class pembelian extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formPembelian = new  view.ManajemenPenjualanPembelian1();
+            JFrame formPembelian = new table_model.pembelian();
 
             // Tampilkan JFrame baru
             formPembelian.setVisible(true);
