@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -43,11 +44,13 @@ public class home extends javax.swing.JFrame {
     protected void incomeTable() {
         Connection conn = koneksi.getConnection();
         
-        Object[] Baris ={"ID","tanggal", "Nama Barang", "kuantitas", "total harga", "status"};
+        Object[] Baris ={"ID", "tanggal", "Nama Barang", "kuantitas", "total harga", "status"};
         tabmode = new DefaultTableModel(null, Baris);
         
         try {
-            String sql = "SELECT p.id, p.tanggal_jual, b.nama, p.kuantitas, p.total_harga, p.status FROM penjualan AS p JOIN barang AS b ON b.id = p.id_barang";
+            String sql = "SELECT p.id, p.tanggal_jual, b.nama, dp.kuantitas, dp.total_harga, p.status "+
+                    "FROM detail_penjualan AS dp JOIN barang AS b ON dp.id_barang = b.id " +
+                    "JOIN penjualan AS p ON dp.id_penjualan = p.id";
             Statement stat = conn.createStatement();
             
             ResultSet hasil = stat.executeQuery(sql);
@@ -179,11 +182,15 @@ public class home extends javax.swing.JFrame {
         double[][] data = new double[12][2];
 
         try {
-            String sql = "SELECT MONTH(tanggal_jual) AS bulan, SUM(total_harga) AS total_penjualan_per_bulan " +
-                         "FROM penjualan " +
-                         "WHERE YEAR(tanggal_jual) = 2024 " +
+            LocalDate currentDate = LocalDate.now();
+            int currentYear = currentDate.getYear();
+            
+            String sql = "SELECT MONTH(p.tanggal_jual) AS bulan, SUM(dp.total_harga) AS total_penjualan_per_bulan " +
+                         "FROM penjualan AS P " +
+                         "JOIN detail_penjualan AS dp ON p.id = dp.id_penjualan " +
+                         "WHERE YEAR(tanggal_jual) = " + currentYear + " " +
                          "GROUP BY bulan " +
-                         "ORDER BY bulan;";
+                         "ORDER BY bulan";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
 
@@ -201,11 +208,14 @@ public class home extends javax.swing.JFrame {
         } 
 
         try {
+            LocalDate currentDate = LocalDate.now();
+            int currentYear = currentDate.getYear();
+            
             String sql = "SELECT MONTH(tanggal_beli) AS bulan, SUM(total_harga) AS total_pembelian_per_bulan " +
                          "FROM pembelian " +
-                         "WHERE YEAR(tanggal_beli) = 2024 " +
+                         "WHERE YEAR(tanggal_beli) = " + currentYear + " " +
                          "GROUP BY bulan " +
-                         "ORDER BY bulan;";
+                         "ORDER BY bulan";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
 
