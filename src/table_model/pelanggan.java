@@ -37,6 +37,8 @@ public class pelanggan extends javax.swing.JFrame {
         initializeTableActionEvent();
         dataTable();
         kosong();
+        
+        tablepelanggan.fixTable(jScrollPane1);
     }
     
     protected void dataTable() {
@@ -47,11 +49,12 @@ public class pelanggan extends javax.swing.JFrame {
         String cariItem = searchBar.getText();
         
         try {
-       String sql = "SELECT p.id,p.nama_pelanggan, p.kontak, p.alamat, SUM(j.total_harga) AS total_harga, j.status " +
+       String sql = "SELECT p.id, p.nama_pelanggan, p.kontak, p.alamat, COALESCE(SUM(dj.total_harga), 0), p.status " +
                 "FROM pelanggan p " +
-                "JOIN penjualan j ON p.id = j.id_pelanggan " +
+                "LEFT JOIN penjualan pj ON p.id = pj.id_pelanggan " +
+                "LEFT JOIN detail_penjualan dj ON pj.id = dj.id_penjualan " +
                 "WHERE p.nama_pelanggan LIKE ? " +
-                "GROUP BY p.id,p.nama_pelanggan, p.kontak, p.alamat, j.status " +
+                "GROUP BY p.id, p.nama_pelanggan " +
                 "ORDER BY p.id ASC";
 
             PreparedStatement stat = conn.prepareStatement(sql);
@@ -59,13 +62,21 @@ public class pelanggan extends javax.swing.JFrame {
             
             ResultSet hasil = stat.executeQuery();
             while (hasil.next()){
+                String kolomStatus = "";
+                
+                if(hasil.getString(6).equals("1")) {
+                    kolomStatus = "Aktif";
+                } else {
+                    kolomStatus = "Tidak Aktif";
+                }
+                
                 tabmode.addRow(new Object[]{ 
                     hasil.getString(1),
                     hasil.getString(2),
                     hasil.getString(3),
                     hasil.getString(4),
                     hasil.getString(5),
-                    hasil.getString(6),
+                    kolomStatus,
 
                 });
             }  
