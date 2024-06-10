@@ -4,6 +4,7 @@
  */
 package table_model;
 
+import custom_palette.ComboBoxListCellRender;
 import custom_palette.TableActionCellEditor;
 import custom_palette.TableActionCellRender;
 import custom_palette.TableActionEvent;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -35,6 +37,7 @@ public class pelanggan extends javax.swing.JFrame {
     public pelanggan() {
         initComponents();
         initializeTableActionEvent();
+        initializeComboBox();
         dataTable();
         kosong();
         
@@ -123,18 +126,12 @@ public class pelanggan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        sideHome = new custom_palette.RoundedButton();
+        sideBarang = new custom_palette.RoundedButton();
+        sideKaryawan = new custom_palette.RoundedButton();
+        sidePenjualan = new custom_palette.RoundedButton();
+        sidePembelian = new custom_palette.RoundedButton();
+        sideSupplier = new custom_palette.RoundedButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -142,7 +139,7 @@ public class pelanggan extends javax.swing.JFrame {
         roundedPanel1 = new custom_palette.RoundedPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        bcari = new javax.swing.JButton();
+        searchButton = new custom_palette.RoundedButton();
         searchBar = new custom_palette.RoundedTextField();
         searchFilter = new javax.swing.JComboBox<>();
         roundedPanel2 = new custom_palette.RoundedPanel();
@@ -159,59 +156,85 @@ public class pelanggan extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(127, 832));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel2.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sideHome.setBackground(new java.awt.Color(136, 171, 142));
+        sideHome.setBorder(null);
+        sideHome.setForeground(new java.awt.Color(136, 171, 142));
+        sideHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-home.png"))); // NOI18N
+        sideHome.setColor(new java.awt.Color(136, 171, 142));
+        sideHome.setColorClick(new java.awt.Color(190, 184, 174));
+        sideHome.setColorOver(new java.awt.Color(190, 184, 174));
+        sideHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideHomeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, 130, 90));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-home.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        sideBarang.setBackground(new java.awt.Color(136, 171, 142));
+        sideBarang.setBorder(null);
+        sideBarang.setForeground(new java.awt.Color(136, 171, 142));
+        sideBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box.png"))); // NOI18N
+        sideBarang.setColor(new java.awt.Color(136, 171, 142));
+        sideBarang.setColorClick(new java.awt.Color(190, 184, 174));
+        sideBarang.setColorOver(new java.awt.Color(190, 184, 174));
+        sideBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideBarangActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, 130, 90));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, -1, -1));
+        sideKaryawan.setBorder(null);
+        sideKaryawan.setForeground(new java.awt.Color(136, 171, 142));
+        sideKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user.png"))); // NOI18N
+        sideKaryawan.setColor(new java.awt.Color(190, 184, 174));
+        sideKaryawan.setColorClick(new java.awt.Color(190, 184, 174));
+        sideKaryawan.setColorOver(new java.awt.Color(190, 184, 174));
+        sideKaryawan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideKaryawanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 307, 130, 90));
 
-        jPanel3.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel3.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sidePenjualan.setBorder(null);
+        sidePenjualan.setForeground(new java.awt.Color(136, 171, 142));
+        sidePenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-chart.png"))); // NOI18N
+        sidePenjualan.setColor(new java.awt.Color(136, 171, 142));
+        sidePenjualan.setColorClick(new java.awt.Color(190, 184, 174));
+        sidePenjualan.setColorOver(new java.awt.Color(190, 184, 174));
+        sidePenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidePenjualanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sidePenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 438, 130, 90));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-box.png"))); // NOI18N
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 30, 30));
+        sidePembelian.setBackground(new java.awt.Color(136, 171, 142));
+        sidePembelian.setForeground(new java.awt.Color(136, 171, 142));
+        sidePembelian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/uang.png"))); // NOI18N
+        sidePembelian.setColor(new java.awt.Color(136, 171, 142));
+        sidePembelian.setColorClick(new java.awt.Color(190, 184, 174));
+        sidePembelian.setColorOver(new java.awt.Color(190, 184, 174));
+        sidePembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidePembelianActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sidePembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 565, 130, 90));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel4.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-chart.png"))); // NOI18N
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 307, -1, -1));
-
-        jPanel5.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel5.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-user.png"))); // NOI18N
-        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 438, -1, -1));
-
-        jPanel6.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel6.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-document.png"))); // NOI18N
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 565, -1, -1));
-
-        jPanel7.setBackground(new java.awt.Color(136, 171, 142));
-        jPanel7.setPreferredSize(new java.awt.Dimension(127, 91));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-truck.png"))); // NOI18N
-        jPanel7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
-
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, -1, -1));
+        sideSupplier.setBackground(new java.awt.Color(136, 171, 142));
+        sideSupplier.setForeground(new java.awt.Color(136, 171, 142));
+        sideSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-truck.png"))); // NOI18N
+        sideSupplier.setColor(new java.awt.Color(136, 171, 142));
+        sideSupplier.setColorClick(new java.awt.Color(190, 184, 174));
+        sideSupplier.setColorOver(new java.awt.Color(190, 184, 174));
+        sideSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sideSupplierActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sideSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, 130, 90));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -247,16 +270,19 @@ public class pelanggan extends javax.swing.JFrame {
 
         jPanel8.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 146, 116, 44));
 
-        bcari.setBackground(new java.awt.Color(238, 231, 218));
-        bcari.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
-        bcari.setForeground(new java.awt.Color(125, 125, 125));
-        bcari.setText("Cari");
-        bcari.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setForeground(new java.awt.Color(125, 125, 125));
+        searchButton.setText("Cari");
+        searchButton.setColor(new java.awt.Color(238, 231, 218));
+        searchButton.setColorClick(new java.awt.Color(190, 184, 174));
+        searchButton.setColorOver(new java.awt.Color(214, 207, 196));
+        searchButton.setcornerRadius(20);
+        searchButton.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bcariActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
-        jPanel8.add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 152, 94, 31));
+        jPanel8.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 150, 94, 35));
 
         searchBar.setBackground(new java.awt.Color(242, 241, 235));
         searchBar.setCornerRadius(5);
@@ -277,8 +303,9 @@ public class pelanggan extends javax.swing.JFrame {
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
         searchFilter.setBackground(new java.awt.Color(255, 255, 255));
+        searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A", "Total Transaksi", "Tertinggi", "Terendah" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Urutkan", "A-Z", "Z-A", "Total Transaksi", "Tertinggi", "Terendah" }));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
@@ -365,22 +392,9 @@ public class pelanggan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
-
-        dataTable();
-    }//GEN-LAST:event_bcariActionPerformed
-
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBarActionPerformed
-
-    private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        Object filter = searchFilter.getSelectedItem();
-
-        if(filter != null) {
-            searchBar.setText(filter.toString());
-        }
-    }//GEN-LAST:event_searchFilterActionPerformed
 
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
         // TODO add your handling code here:
@@ -403,6 +417,229 @@ public class pelanggan extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
+
+    private void sideHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideHomeActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formHome = new view.home();
+
+            // Tampilkan JFrame baru
+            formHome.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideHomeActionPerformed
+
+    private void sideBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideBarangActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formBarang = new table_model.barang();
+
+            // Tampilkan JFrame baru
+            formBarang.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideBarangActionPerformed
+
+    private void sideKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideKaryawanActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formKaryawan = new view.ManajemenPelangganKaryawan();
+
+            // Tampilkan JFrame baru
+            formKaryawan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideKaryawanActionPerformed
+
+    private void sidePenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidePenjualanActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formPenjualan = new view.ManajemenPenjualanPembelian();
+
+            // Tampilkan JFrame baru
+            formPenjualan.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sidePenjualanActionPerformed
+
+    private void sidePembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidePembelianActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formPembelian = new  table_model.pembelian();
+
+            // Tampilkan JFrame baru
+            formPembelian.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sidePembelianActionPerformed
+
+    private void sideSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideSupplierActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Mengatur look and feel menjadi Nimbus
+            UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : looks) {
+                if ("Nimbus".equals(look.getName())) {
+                    UIManager.setLookAndFeel(look.getClassName());
+                    break;
+                }
+            }
+
+            // Buat objek JFrame baru
+            JFrame formSupplier = new table_model.supplier();
+
+            // Tampilkan JFrame baru
+            formSupplier.setVisible(true);
+
+            // Tutup jendela saat ini
+            this.dispose();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_sideSupplierActionPerformed
+
+    private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
+        if(searchFilter.getSelectedItem() != null) {
+            int filter = searchFilter.getSelectedIndex();
+            String order = "";
+
+
+            switch(filter) {
+                case 1:
+                    order = "ORDER BY p.nama_pelanggan ASC";
+                    break;
+                case 2:
+                    order = "ORDER BY p.nama_pelanggan DESC";
+                    break;
+                case 4:
+                    order = "ORDER BY COALESCE(SUM(dj.total_harga), 0) DESC";
+                    break;
+                case 5:
+                    order = "ORDER BY COALESCE(SUM(dj.total_harga), 0) ASC";
+                    break;
+            }
+
+            Connection conn = new koneksi().getConnection();
+
+        Object[] Baris ={"ID","Nama Pelanggan","Kontak","Alamat","Total Pengeluaran", "Status", "Aksi"};
+            tabmode = new DefaultTableModel(null, Baris);
+
+            try {
+                String sql = "SELECT p.id, p.nama_pelanggan, p.kontak, p.alamat, COALESCE(SUM(dj.total_harga), 0), p.status "
+                        + "FROM pelanggan p "
+                        + "LEFT JOIN penjualan pj ON p.id = pj.id_pelanggan "
+                        + "LEFT JOIN detail_penjualan dj ON pj.id = dj.id_penjualan "
+                        + "GROUP BY p.id, p.nama_pelanggan "
+                        + order;
+                PreparedStatement stat = conn.prepareStatement(sql);
+
+                ResultSet hasil = stat.executeQuery();
+                while (hasil.next()){
+                    String kolomStatus = "";
+
+                    if(hasil.getString(6).equals("1")) {
+                        kolomStatus = "Aktif";
+                    } else {
+                        kolomStatus = "Tidak Aktif";
+                    }
+  
+
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        kolomStatus,
+                        
+                    });
+                }  
+                tablepelanggan.setModel(tabmode);
+                initializeTableActionEvent();
+
+                conn.close();
+                stat.close();
+                hasil.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } 
+    }//GEN-LAST:event_searchFilterActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        dataTable();
+    }//GEN-LAST:event_searchButtonActionPerformed
 
       private void sendData(int row) {
         String[] values = new String[5];
@@ -431,6 +668,15 @@ public class pelanggan extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+      
+      private void initializeComboBox() {
+        ArrayList<Integer> targetIndices = new ArrayList<>();
+        targetIndices.add(0);
+        targetIndices.add(3);
+        
+        searchFilter.setRenderer(new ComboBoxListCellRender(targetIndices));
+        
     }
     /**
      * @param args the command line arguments
@@ -466,36 +712,31 @@ public class pelanggan extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton addDataButton;
-    private javax.swing.JButton bcari;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedPanel roundedPanel2;
     private custom_palette.RoundedTextField searchBar;
+    private custom_palette.RoundedButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
+    private custom_palette.RoundedButton sideBarang;
+    private custom_palette.RoundedButton sideHome;
+    private custom_palette.RoundedButton sideKaryawan;
+    private custom_palette.RoundedButton sidePembelian;
+    private custom_palette.RoundedButton sidePenjualan;
+    private custom_palette.RoundedButton sideSupplier;
     private custom_palette.CustomTable tablepelanggan;
     // End of variables declaration//GEN-END:variables
 }
