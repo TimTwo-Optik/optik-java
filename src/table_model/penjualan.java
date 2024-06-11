@@ -648,7 +648,7 @@ public class penjualan extends javax.swing.JFrame {
             }
 
             // Buat objek JFrame baru
-            JFrame formPenjualan = new view.ManajemenPenjualanPembelian();
+            JFrame formPenjualan = new table_model.penjualan();
 
             // Tampilkan JFrame baru
             formPenjualan.setVisible(true);
