@@ -561,23 +561,8 @@ public class pembelian extends javax.swing.JFrame {
     }//GEN-LAST:event_addDataButtonActionPerformed
 
     private void cetakNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakNotaActionPerformed
-        int index = tablepembelian.getSelectedRow();
-        String noFaktur = tablepembelian.getValueAt(index, 0).toString();
-        System.out.println("no faktur = " + noFaktur);
-
-        Connection conn = new koneksi().getConnection();
-
-        try {
-            String report = "src/report/NotaPembelian.jrxml";
-            HashMap parameter = new HashMap();
-            parameter.put("no_faktur", noFaktur);
-            JasperReport jasperReport = JasperCompileManager.compileReport(report);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
-            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-        }
+        JFrame popUpLaporanPembelian = new table_model.PopUpLaporanPembelian();
+        popUpLaporanPembelian.setVisible(true);
     }//GEN-LAST:event_cetakNotaActionPerformed
 
     private void sideHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sideHomeActionPerformed
