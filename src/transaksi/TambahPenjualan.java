@@ -523,16 +523,19 @@ public class TambahPenjualan extends javax.swing.JFrame {
     }//GEN-LAST:event_kosongkanButtonActionPerformed
 
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
-        String query1 = "insert into penjualan values (?,?,?,?)";
-        String query2 = "insert into detail_penjualan values (?,?,?,?,?,?,?)";
         try {
+            String query1 = "insert into penjualan values (?,?,?,?)";
+            String query2 = "insert into detail_penjualan values (?,?,?,?,?,?,?)";
+        
             PreparedStatement stat = conn.prepareStatement(query1);
             stat.setString(1, idNota.getText());
             stat.setString(2, idPelanggan.getText());
             stat.setDate(3, new java.sql.Date(tanggalNota.getDate().getTime()));
             stat.setString(4, status.getSelectedItem().toString());
             stat.executeUpdate();
+            
             int t = tableTransaksi.getRowCount();
+            
             for (int i = 0; i < t; i++) {
                 String kolomIdBarang = tableTransaksi.getValueAt(i, 0).toString();
                 String kolomNamaBarang = tableTransaksi.getValueAt(i, 1).toString();
@@ -540,6 +543,7 @@ public class TambahPenjualan extends javax.swing.JFrame {
                 float kolomHarga = Float.parseFloat(tableTransaksi.getValueAt(i, 3).toString());
                 int kolomKuantitas = Integer.parseInt(tableTransaksi.getValueAt(i, 4).toString());
                 float kolomTotalHarga = Float.parseFloat(tableTransaksi.getValueAt(i, 5).toString());
+                
                 PreparedStatement stat2 = conn.prepareStatement(query2);
                 stat2.setString(1, idNota.getText());
                 stat2.setString(2, kolomIdBarang);
@@ -549,6 +553,11 @@ public class TambahPenjualan extends javax.swing.JFrame {
                 stat2.setInt(6, kolomKuantitas);
                 stat2.setFloat(7, kolomTotalHarga);
                 stat2.executeUpdate();
+                
+                String query3 = "update barang set stok = stok - " + kolomKuantitas + " where id = " + kolomIdBarang;
+                
+                PreparedStatement stat3 = conn.prepareStatement(query3);
+                stat3.executeUpdate();
             }
             tabmode = new DefaultTableModel(null, Baris);
             tableTransaksi.setModel(tabmode);

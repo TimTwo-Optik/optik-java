@@ -44,7 +44,7 @@ public class PopUpBarang extends javax.swing.JFrame {
         String cariItem = searchBar.getText();
 
         try {
-            String sql = "SELECT id, nama, kategori, harga FROM barang WHERE id like ? OR nama LIKE ? OR kategori LIKE ?order by id asc";
+            String sql = "SELECT id, nama, kategori, harga FROM barang WHERE stok > 0 AND (id like ? OR nama LIKE ? OR kategori LIKE ?) order by id asc";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, "%" + cariItem + "%");
             stat.setString(2, "%" + cariItem + "%");

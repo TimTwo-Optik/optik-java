@@ -211,9 +211,9 @@ public class TambahPembelian extends javax.swing.JFrame {
     private void addDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDataButtonActionPerformed
         Connection conn = new koneksi().getConnection();
         
-        String sql = "insert into pembelian(id_supplier, id_barang, tanggal_beli, kuantitas, total_harga, status) values (?,?,?,?,?,?)";
-        
         try{
+            String sql = "insert into pembelian(id_supplier, id_barang, tanggal_beli, kuantitas, total_harga, status) values (?,?,?,?,?,?)";
+            
             PreparedStatement stat = conn.prepareStatement(sql);
             String selectedPelanggan = (String) cbnamasupplier.getSelectedItem();
             int idPelanggan = Integer.parseInt(selectedPelanggan.split(" - ")[0]);
@@ -228,12 +228,27 @@ public class TambahPembelian extends javax.swing.JFrame {
             stat.setString(6, status.getSelectedItem().toString());
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
-            kosong();
-            
-            conn.close();
-            stat.close();
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "data gagal disimpan, pesan error: "+e);
+        }
+        
+        try {
+            String selectedBarang = (String) cbnamabarang.getSelectedItem();
+            int idBarang = Integer.parseInt(selectedBarang.split(" - ")[0]);
+            int Kuantitas = Integer.parseInt(kuantitas.getText());
+            
+            String query2 = "update barang set stok = stok + ? where id = ?";
+            
+            PreparedStatement stat = conn.prepareStatement(query2);
+            stat.setInt(1, Kuantitas);
+            stat.setInt(2, idBarang);
+            stat.executeUpdate();
+            
+            kosong();
+            conn.close();
+            stat.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "gagal update stok barang: "+e);
         }
     }//GEN-LAST:event_addDataButtonActionPerformed
 
