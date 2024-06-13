@@ -549,8 +549,14 @@ public class penjualan extends javax.swing.JFrame {
 
         try {
             String report = "src/report/NotaPenjualan.jrxml";
+            String logo = "src/assets/logo-TeamTwo.png";
+            String ttd = "src/assets/ttd-fadhil.jpg";
+      
             HashMap parameter = new HashMap();
             parameter.put("no_faktur", noFaktur);
+            parameter.put("logo", logo);
+            parameter.put("ttd", ttd);
+            
             JasperReport jasperReport = JasperCompileManager.compileReport(report);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
             JasperViewer.viewReport(jasperPrint, false);

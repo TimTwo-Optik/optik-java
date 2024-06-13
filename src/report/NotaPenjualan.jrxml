@@ -2,8 +2,10 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d661385f-6f88-4e6d-8d65-d7e6d9d52c85">
 	<property name="ireport.zoom" value="1.3310000000000042"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="369"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="no_faktur" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="ttd" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 
    pjl.id AS 'NoFaktur',
@@ -43,10 +45,10 @@ WHERE pjl.id = $P{no_faktur}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="126" splitType="Stretch">
+		<band height="150" splitType="Stretch">
 			<image>
-				<reportElement x="23" y="3" width="107" height="99" uuid="024d7dcc-1b42-45ef-b0a7-e1962f3d1b93"/>
-				<imageExpression><![CDATA["D:\\Latihan Program\\Java\\optik-java\\src\\assets\\logo-TeamTwo.png"]]></imageExpression>
+				<reportElement x="23" y="3" width="143" height="138" uuid="024d7dcc-1b42-45ef-b0a7-e1962f3d1b93"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="421" y="45" width="101" height="35" uuid="1a452001-689f-49a7-9075-3d681e161b3f"/>
@@ -212,7 +214,7 @@ WHERE pjl.id = $P{no_faktur}]]>
 			</staticText>
 			<image>
 				<reportElement x="414" y="88" width="145" height="102" uuid="7877d785-304d-44ac-909b-a40b9d8a3ad0"/>
-				<imageExpression><![CDATA["D:\\Latihan Program\\Java\\optik-java\\src\\assets\\ttd-fadhil.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
 			<line>
 				<reportElement x="397" y="190" width="100" height="1" uuid="e05d28f4-2093-4b55-a875-f62058020787"/>
