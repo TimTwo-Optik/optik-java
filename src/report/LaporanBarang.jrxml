@@ -256,11 +256,11 @@ FROM barang]]>
 				<text><![CDATA[Pemilik toko,]]></text>
 			</staticText>
 			<image>
-				<reportElement x="456" y="49" width="117" height="65" uuid="e8c934c4-eeab-4c61-ac9d-a0d6c6f90ab6"/>
-				<imageExpression><![CDATA["C:\\Users\\bagus\\Downloads\\WhatsApp Image 2024-06-13 at 14.54.51_a81234b5.jpg"]]></imageExpression>
+				<reportElement x="444" y="48" width="126" height="85" uuid="0fbbb139-7d12-4dd4-86a5-0736fb5a76ff"/>
+				<imageExpression><![CDATA["D:\\Latihan Program\\Java\\optik-java\\src\\assets\\ttd-fadhil.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="427" y="120" width="98" height="20" uuid="51de0b2b-96f9-4d23-b74c-00d3170da73d"/>
+				<reportElement x="427" y="129" width="98" height="20" uuid="51de0b2b-96f9-4d23-b74c-00d3170da73d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[M. Fadhil A. Fattah]]></text>
 			</staticText>
