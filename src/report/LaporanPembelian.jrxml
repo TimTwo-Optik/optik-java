@@ -5,6 +5,8 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="bulan" class="java.lang.String"/>
 	<parameter name="tahun" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="ttd" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 
    pbl.id AS 'NoFaktur',
@@ -66,35 +68,39 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="93" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<textField>
-				<reportElement x="314" y="43" width="100" height="36" uuid="ea7019fc-ac10-4099-851f-3d8fee9ea837"/>
+				<reportElement x="355" y="43" width="100" height="36" uuid="ea7019fc-ac10-4099-851f-3d8fee9ea837"/>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tahun}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="142" y="43" width="80" height="36" uuid="375194be-731f-44d8-a21d-16e87fd0452c"/>
+				<reportElement x="171" y="43" width="69" height="36" uuid="375194be-731f-44d8-a21d-16e87fd0452c"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bulan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="163" y="10" width="228" height="33" uuid="421b57c8-dcbb-4867-bf95-58b22f2ec70d"/>
+				<reportElement x="171" y="10" width="228" height="33" uuid="421b57c8-dcbb-4867-bf95-58b22f2ec70d"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Laporan Pembelian ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="222" y="43" width="92" height="36" uuid="2ff14f28-74f0-4295-b988-3cf53fb713d6"/>
+				<reportElement x="230" y="43" width="155" height="36" uuid="2ff14f28-74f0-4295-b988-3cf53fb713d6"/>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Bulan}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="24" y="0" width="107" height="99" uuid="deff1add-18ee-4453-8b55-f716fdc7cb68"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -134,93 +140,182 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="032e3d88-af8a-43ac-a827-bdd31b96c2f7"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="79" height="20" uuid="02c0155e-5f7a-41cf-a147-3cae71eb7857"/>
+				<reportElement mode="Opaque" x="0" y="0" width="79" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="02c0155e-5f7a-41cf-a147-3cae71eb7857"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Kode Barang]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="79" y="0" width="111" height="20" uuid="b5e71338-8ded-4c10-83e0-6d368695fd7e"/>
+				<reportElement mode="Opaque" x="190" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="d61ba942-c1e6-44d9-9178-8e87483bd007"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nama Barang]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="190" y="0" width="111" height="20" uuid="d61ba942-c1e6-44d9-9178-8e87483bd007"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Kategori]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="301" y="0" width="111" height="20" uuid="b6063b0a-ec14-4c88-96cc-bc12d9fc63c0"/>
+				<reportElement mode="Opaque" x="301" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="b6063b0a-ec14-4c88-96cc-bc12d9fc63c0"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Harga]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="412" y="0" width="58" height="20" uuid="cb8c953f-40ce-45e1-ab32-94bb4e1afd52"/>
+				<reportElement mode="Opaque" x="412" y="0" width="58" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="cb8c953f-40ce-45e1-ab32-94bb4e1afd52"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Kuantitas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="470" y="0" width="82" height="20" uuid="5f85150d-35ba-4345-8119-27ebd95c6641"/>
+				<reportElement mode="Opaque" x="470" y="0" width="82" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="5f85150d-35ba-4345-8119-27ebd95c6641"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="7198ee19-e861-47c1-addb-dd4a99bbabf1"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="15825a59-371e-4698-8556-36c761fbc90c"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="89542437-c867-407b-b376-3a96200ef94f"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="a8ab76fc-87c5-4161-b2cc-d0744afcbd5a"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-354" y="1" width="130" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="0cfc50e0-8b3d-402b-8a65-3e37d8c04483"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="79" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="7003a1c2-26dc-41a8-aed1-082ed0ceac85"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Barang]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -229,11 +324,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="0" y="0" width="79" height="20" uuid="a152ab51-bc7b-42fb-9099-33219fb99b6d"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Kode Barang}]]></textFieldExpression>
@@ -241,11 +336,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="79" y="0" width="111" height="20" uuid="2eb6b35b-065b-4ea7-b204-a37bdf86b57c"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Nama Barang}]]></textFieldExpression>
@@ -253,11 +348,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="190" y="0" width="111" height="20" uuid="df3b9eb3-1894-424e-bc33-e5ad3ce3e2da"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Kategori}]]></textFieldExpression>
@@ -265,11 +360,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="412" y="0" width="58" height="20" uuid="8bc8c2ef-a769-45ff-b456-83d98ba32051"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Kuantitas}]]></textFieldExpression>
@@ -277,11 +372,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="470" y="0" width="82" height="20" uuid="9b90502d-aa05-4ed6-ba58-bced76e34c1d"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
@@ -289,11 +384,11 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 			<textField>
 				<reportElement x="301" y="0" width="112" height="20" uuid="52997c2a-c799-4afd-ab7c-91b227878f23"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
@@ -303,7 +398,7 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 		</band>
 	</detail>
 	<summary>
-		<band height="71" splitType="Stretch">
+		<band height="258" splitType="Stretch">
 			<staticText>
 				<reportElement x="373" y="22" width="36" height="20" uuid="cfbd9d2a-53e7-4786-9bf2-6b5ac96d4175"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -325,6 +420,27 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Total Transaksi_1}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="386" y="204" width="100" height="1" uuid="e0e3ef5d-d663-4e91-858e-b769263cbf0f"/>
+			</line>
+			<staticText>
+				<reportElement x="399" y="81" width="71" height="21" uuid="4575f0e3-b66c-494e-9f0e-8c6d559c688a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pemilik toko,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="209" width="104" height="21" uuid="f51fc694-cf44-42c7-ae72-6197037bb5e9"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[M. Fadhil A. Fattah]]></text>
+			</staticText>
+			<image>
+				<reportElement x="406" y="109" width="126" height="85" uuid="64ea22ed-4948-4e5c-99d4-d3dbb5193386"/>
+				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
+			</image>
 		</band>
 	</summary>
 </jasperReport>
