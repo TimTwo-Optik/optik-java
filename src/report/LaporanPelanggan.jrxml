@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="awal" class="java.lang.String"/>
 	<parameter name="akhir" class="java.lang.String"/>
-        <parameter name="logo" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="ttd" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 
@@ -52,6 +52,8 @@ Limit 20;]]>
 			<image>
 				<reportElement x="24" y="0" width="107" height="99" uuid="d475b9be-113c-4b45-a5ca-311d9677e42a"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+				<anchorNameExpression><![CDATA["C:\\Users\\sabdha\\Documents\\NetBeansProjects\\optik-java\\src\\assets\\logo-TeamTwo.png"]]></anchorNameExpression>
+				<hyperlinkTooltipExpression><![CDATA["C:\\Users\\sabdha\\Documents\\NetBeansProjects\\optik-java\\src\\assets\\logo-TeamTwo.png"]]></hyperlinkTooltipExpression>
 			</image>
 		</band>
 	</title>
@@ -232,6 +234,8 @@ Limit 20;]]>
 			<image>
 				<reportElement x="430" y="48" width="126" height="85" uuid="c0ac56bf-4f9c-4c7a-989d-f2d09d6c376e"/>
 				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
+				<anchorNameExpression><![CDATA["C:\\Users\\sabdha\\Documents\\NetBeansProjects\\optik-java\\src\\assets\\ttd-fadhil.jpg"]]></anchorNameExpression>
+				<hyperlinkTooltipExpression><![CDATA["C:\\Users\\sabdha\\Documents\\NetBeansProjects\\optik-java\\src\\assets\\ttd-fadhil.jpg"]]></hyperlinkTooltipExpression>
 			</image>
 		</band>
 	</summary>
