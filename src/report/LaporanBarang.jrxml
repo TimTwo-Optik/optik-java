@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5971e9dd-1308-409b-96f6-4795be269312">
+	<property name="ireport.zoom" value="1.331000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="185"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+	kode_barang AS kode,
+	nama,
+	kategori,
+	harga,
+	stok
+FROM barang]]>
+	</queryString>
+	<field name="kode" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kategori" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="kode_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{kode}]]></variableExpression>
+	</variable>
+	<variable name="stok_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{stok}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="14" width="99" height="32" uuid="c4ec8f77-29c9-4c04-adc4-1a61f6265da7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan]]></text>
+			</staticText>
+			<image>
+				<reportElement x="24" y="0" width="107" height="99" uuid="91316fc5-69da-4565-ae98-22ede6646080"/>
+				<imageExpression><![CDATA["D:\\Latihan Program\\Java\\optik-java\\src\\assets\\logo-TeamTwo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="201" y="46" width="152" height="32" uuid="d6a84401-0e79-4613-aefe-8ddddeec395c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Barang]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="40" width="72" height="20" uuid="549447b8-8817-4255-a53d-3579b6b09786"/>
+				<text><![CDATA[Tanggal Cetak : ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="427" y="40" width="115" height="20" uuid="6dc1acb8-7330-4ad8-ab01-b584212fb94c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="30" y="0" width="81" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="1b2cc15e-c1fa-4874-b508-2d92f46aec4f"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="58ecfaf0-d1ab-46dd-84e5-29f825012f2c"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="efd9f7c8-4341-4225-9926-ed65b00b7716"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kategori]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="f4bee718-7520-4c9d-8beb-3c252994035e"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="444" y="0" width="78" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="d6198840-6f9c-4acd-9e72-adf7df91f248"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stok]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="81" height="20" uuid="360036a1-e1f3-4807-bc7c-748934c14ec7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="20" uuid="782c62d1-f1a8-4542-89d3-f0dca1f999b7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="f6996fb4-9e3f-41c7-b3c2-325f27b79e58"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kategori}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="20" uuid="b263e9f5-eeae-4470-b530-a80fa4753bf3"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="78" height="20" uuid="a548dc74-803c-47d6-8e87-2e5d8b6ecd63"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{stok}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="155" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="60" width="75" height="20" uuid="69ed8644-e855-4a55-a2ae-a6c1a6e3ad98"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="80" width="75" height="20" uuid="c2cb3b7e-6e92-405c-8f38-2fa40d67184a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Stok]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="60" width="12" height="20" uuid="fffd2585-6bc4-48e5-a3ce-176d6e3ccd71"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="80" width="12" height="20" uuid="fd007edd-0b50-48ef-9d85-1856a1a4a22b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="60" width="68" height="20" uuid="25953dec-0535-4cca-91f9-bed205f33980"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{kode_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="80" width="68" height="20" uuid="a8099561-cba0-4165-b7ba-42edb179a18b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{stok_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="444" y="29" width="59" height="20" uuid="40a5ef67-0965-4030-814d-c26fe2bbe339"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Pemilik toko,]]></text>
+			</staticText>
+			<image>
+				<reportElement x="456" y="49" width="117" height="65" uuid="e8c934c4-eeab-4c61-ac9d-a0d6c6f90ab6"/>
+				<imageExpression><![CDATA["C:\\Users\\bagus\\Downloads\\WhatsApp Image 2024-06-13 at 14.54.51_a81234b5.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="427" y="120" width="98" height="20" uuid="51de0b2b-96f9-4d23-b74c-00d3170da73d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[M. Fadhil A. Fattah]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
