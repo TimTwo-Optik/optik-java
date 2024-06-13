@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -21,6 +22,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author sabdha
@@ -106,6 +112,7 @@ public class barang extends javax.swing.JFrame {
         roundedPanel2 = new custom_palette.RoundedPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        cetak = new custom_palette.RoundedButton();
         jPanel1 = new javax.swing.JPanel();
         sideHome = new custom_palette.RoundedButton();
         sideBarang = new custom_palette.RoundedButton();
@@ -246,6 +253,20 @@ public class barang extends javax.swing.JFrame {
         roundedPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jPanel8.add(roundedPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 244, 1096, 44));
+
+        cetak.setForeground(new java.awt.Color(242, 241, 235));
+        cetak.setText("Cetak");
+        cetak.setColor(new java.awt.Color(136, 171, 142));
+        cetak.setColorClick(new java.awt.Color(108, 136, 113));
+        cetak.setColorOver(new java.awt.Color(122, 153, 127));
+        cetak.setcornerRadius(20);
+        cetak.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 195, 90, 41));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
@@ -621,6 +642,20 @@ public class barang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sideSupplierActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+        Connection conn = new koneksi().getConnection();
+        
+        try {
+            String report = "src/report/LaporanBarang.jrxml";
+            JasperReport jasperReport = JasperCompileManager.compileReport(report);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
+            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_cetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -659,6 +694,7 @@ public class barang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton btncari;
     private custom_palette.RoundedButton btntambah;
+    private custom_palette.RoundedButton cetak;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
