@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -22,6 +23,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -148,6 +154,7 @@ public class pelanggan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablepelanggan = new custom_palette.CustomTable();
         addDataButton = new custom_palette.RoundedButton();
+        cetak = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -302,7 +309,6 @@ public class pelanggan extends javax.swing.JFrame {
         });
         jPanel8.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 146, 582, 44));
 
-        searchFilter.setBackground(new java.awt.Color(255, 255, 255));
         searchFilter.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         searchFilter.setForeground(new java.awt.Color(175, 200, 173));
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Urutkan", "A-Z", "Z-A", "Total Transaksi", "Tertinggi", "Terendah" }));
@@ -385,6 +391,20 @@ public class pelanggan extends javax.swing.JFrame {
             }
         });
         jPanel8.add(addDataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1002, 195, 120, 41));
+
+        cetak.setForeground(new java.awt.Color(242, 241, 235));
+        cetak.setText("Cetak");
+        cetak.setColor(new java.awt.Color(136, 171, 142));
+        cetak.setColorClick(new java.awt.Color(108, 136, 113));
+        cetak.setColorOver(new java.awt.Color(122, 153, 127));
+        cetak.setcornerRadius(20);
+        cetak.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 195, 90, 41));
 
         getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, 1153, 832));
 
@@ -641,6 +661,11 @@ public class pelanggan extends javax.swing.JFrame {
         dataTable();
     }//GEN-LAST:event_searchButtonActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+        JFrame popUpLaporanPelanggan = new table_model.PopUpLaporanPelanggan();
+                popUpLaporanPelanggan.setVisible(true);
+    }//GEN-LAST:event_cetakActionPerformed
+
       private void sendData(int row) {
         String[] values = new String[5];
         
@@ -716,6 +741,7 @@ public class pelanggan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private custom_palette.RoundedButton addDataButton;
+    private custom_palette.RoundedButton cetak;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
