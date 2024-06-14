@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1dc1e2a7-8ef1-4753-96fe-3125cb791b6d">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tahun" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="ttd" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[WITH all_months AS (
+   SELECT 1 AS month_number, 'Januari' AS month_name
+   UNION ALL SELECT 2, 'Februari'
+   UNION ALL SELECT 3, 'Maret'
+   UNION ALL SELECT 4, 'April'
+   UNION ALL SELECT 5, 'Mei'
+   UNION ALL SELECT 6, 'Juni'
+   UNION ALL SELECT 7, 'Juli'
+   UNION ALL SELECT 8, 'Agustus'
+   UNION ALL SELECT 9, 'September'
+   UNION ALL SELECT 10, 'Oktober'
+   UNION ALL SELECT 11, 'November'
+   UNION ALL SELECT 12, 'Desember'
+)
+
+SELECT 
+   am.month_name AS Bulan,
+   COALESCE(SUM(dp.total_harga), 0) AS 'Penjualan',
+   COALESCE(SUM(pbl.total_harga), 0) AS 'Pembelian'
+FROM 
+   all_months am
+LEFT JOIN 
+   penjualan pjl ON MONTH(pjl.tanggal_jual) = am.month_number AND YEAR(pjl.tanggal_jual) = $P{tahun}
+LEFT JOIN 
+	detail_penjualan AS dp ON pjl.id = dp.id_penjualan
+LEFT JOIN 
+	pembelian AS pbl ON MONTH(pbl.tanggal_beli) = am.month_number AND YEAR(pbl.tanggal_beli) = $P{tahun}
+GROUP BY 
+   am.month_number, am.month_name
+ORDER BY 
+   am.month_number;]]>
+	</queryString>
+	<field name="Bulan" class="java.lang.String"/>
+	<field name="Penjualan" class="java.math.BigDecimal"/>
+	<field name="Pembelian" class="java.math.BigDecimal"/>
+	<variable name="Penjualan_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Penjualan}]]></variableExpression>
+	</variable>
+	<variable name="Pembelian_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Pembelian}]]></variableExpression>
+	</variable>
+	<variable name="keuntungan" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{Penjualan_1}-$V{Pembelian_1}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="157" splitType="Stretch">
+			<staticText>
+				<reportElement x="310" y="44" width="228" height="34" uuid="250d901f-6536-4d08-9186-10f140f36ce2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Keuangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="78" width="78" height="34" uuid="09c553b1-b864-4153-9230-89acb7168ab7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tahun]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="78" width="66" height="34" uuid="57f81be2-5873-4e77-98a3-c1ffd5a45d2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tahun}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="23" y="3" width="143" height="138" uuid="cb4a824d-90b3-4c64-abe6-2dd3e3fbc307"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="21" width="93" height="20" uuid="adbeb835-d725-4120-a610-d23e3ec4df06"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tanggal Cetak : ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="126" y="21" width="158" height="20" uuid="68531e4e-f737-4f8e-b6fb-ff50854c0ede"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="25" y="0" width="160" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="e9b31642-3723-4c4b-b145-82e44c943442"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="160" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="fe2671a6-f667-41b6-b060-f4319d55eccc"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Penjualan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="345" y="0" width="160" height="20" forecolor="#FFFFFF" backcolor="#88AB8E" uuid="2ee2b649-28fd-4836-a3c2-4699c1582dae"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#88AB8E"/>
+					<topPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<leftPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="1.0" lineColor="#88AB8E"/>
+					<rightPen lineWidth="1.0" lineColor="#88AB8E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pembelian]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="0" width="160" height="20" uuid="bf4ec1a4-67e4-481e-8de4-42f7e3b0f7b4"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Bulan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="185" y="0" width="160" height="20" uuid="99817016-c33e-40b2-ad0a-37a4ad3eee80"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Penjualan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="345" y="0" width="160" height="20" uuid="1138535a-c1a9-4f68-a54e-c2d36b73a875"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Pembelian}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="300" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="36" width="100" height="20" uuid="c62b1568-a56f-4874-8544-e2c8dcf5e27a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Penjualan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="61" width="100" height="20" uuid="eedf9b12-434f-425f-a1b8-6b5411778558"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Pembelian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="86" width="100" height="20" uuid="9ba53bd6-a0f4-42cf-b36d-2d46db8658ea"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Keuntungan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="36" width="8" height="20" uuid="a9394808-7ff1-4fab-9688-af2599ce59c5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="61" width="8" height="20" uuid="64714660-f7e6-4e32-b69d-08384b439555"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="86" width="8" height="20" uuid="a1e6cb5d-f932-4051-a200-fb067890b37e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="153" y="36" width="100" height="20" uuid="dc7de5f7-16dc-4ae2-8b70-c0e634926b51"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Penjualan_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="153" y="61" width="100" height="20" uuid="ff29ac52-b226-41b2-92e7-3e01a03fec6d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Pembelian_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="153" y="86" width="100" height="20" uuid="e039baf4-e1fc-413a-b233-3582779d1b8f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{keuntungan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="408" y="123" width="93" height="20" uuid="edd0f527-73c7-45a7-9cfa-8ab958ce72be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pemilik toko, ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="414" y="153" width="145" height="102" uuid="a9ff3c71-a8fb-4864-8322-fbe518a9d6a3"/>
+				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="397" y="268" width="131" height="1" uuid="b36992eb-54ae-4268-8dee-9678c8fc994a"/>
+			</line>
+			<staticText>
+				<reportElement x="408" y="273" width="111" height="20" uuid="bca1862b-89fa-4db6-8715-905a9f573b73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[M. Fadhil A. Fattah]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
