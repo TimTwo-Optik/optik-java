@@ -147,65 +147,80 @@ Limit 20;]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="14" y="0" width="28" height="20" uuid="4e20397d-c18d-4d81-bc25-3f7ecfa6330a"/>
+		<band height="21" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="14" y="0" width="28" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4e20397d-c18d-4d81-bc25-3f7ecfa6330a"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ID Pelanggan}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="42" y="0" width="130" height="20" uuid="ebb867d6-c759-48df-a691-a815f9153027"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="42" y="0" width="130" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ebb867d6-c759-48df-a691-a815f9153027"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Nama}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="172" y="0" width="132" height="20" uuid="547de8cf-8ef2-40ae-aed2-4ff4ef5f3459"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="172" y="0" width="132" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="547de8cf-8ef2-40ae-aed2-4ff4ef5f3459"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Kontak}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="304" y="0" width="165" height="20" uuid="67f40a77-1493-49d3-9eff-21114b769702"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="304" y="0" width="165" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="67f40a77-1493-49d3-9eff-21114b769702"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Alamat}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="469" y="0" width="73" height="20" uuid="92748c1f-6d5c-4f63-ba25-1070ccfa801b"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="469" y="0" width="73" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="92748c1f-6d5c-4f63-ba25-1070ccfa801b"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.5" lineColor="#88AB8E"/>
+					<topPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<leftPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<bottomPen lineWidth="0.5" lineColor="#88AB8E"/>
+					<rightPen lineWidth="0.5" lineColor="#88AB8E"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{status_text}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -231,7 +246,7 @@ Limit 20;]]>
 			</staticText>
 			<image>
 				<reportElement x="430" y="48" width="126" height="85" uuid="c0ac56bf-4f9c-4c7a-989d-f2d09d6c376e"/>
-				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>		
+				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
 		</band>
 	</summary>
