@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,6 +20,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.UIManager;
 import javax.swing.JFrame;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import table_model.supplier;
 
 /**
@@ -252,6 +258,7 @@ public class home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cetak = new custom_palette.RoundedButton();
         jPanel10 = new javax.swing.JPanel();
         chartBar = new chart.ChartBar();
         jLabel7 = new javax.swing.JLabel();
@@ -272,6 +279,20 @@ public class home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cetak.setForeground(new java.awt.Color(242, 241, 235));
+        cetak.setText("Cetak");
+        cetak.setColor(new java.awt.Color(136, 171, 142));
+        cetak.setColorClick(new java.awt.Color(108, 136, 113));
+        cetak.setColorOver(new java.awt.Color(122, 153, 127));
+        cetak.setcornerRadius(20);
+        cetak.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 75, 90, 41));
 
         jPanel10.setBackground(new java.awt.Color(242, 241, 235));
         jPanel10.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -579,6 +600,15 @@ public class home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sideSupplierActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+        try {
+            JFrame popUpLaporanKeuangan = new view.PopUpLaporanKeuangan();
+            popUpLaporanKeuangan.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_cetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -615,6 +645,7 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton cetak;
     private chart.ChartBar chartBar;
     private custom_palette.CustomTable expenseTable;
     private custom_palette.CustomTable incomeTable;

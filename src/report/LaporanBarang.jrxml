@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5971e9dd-1308-409b-96f6-4795be269312">
-	<property name="ireport.zoom" value="1.331000000000002"/>
+	<property name="ireport.zoom" value="1.2100000000000024"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="59"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="ttd" class="java.lang.String"/>
 	<queryString language="SQL">
@@ -39,7 +39,7 @@ FROM barang]]>
 	<title>
 		<band height="149" splitType="Stretch">
 			<staticText>
-				<reportElement x="309" y="39" width="99" height="32" uuid="c4ec8f77-29c9-4c04-adc4-1a61f6265da7"/>
+				<reportElement x="432" y="39" width="99" height="32" uuid="c4ec8f77-29c9-4c04-adc4-1a61f6265da7"/>
 				<textElement verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -50,8 +50,8 @@ FROM barang]]>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="280" y="71" width="152" height="32" uuid="d6a84401-0e79-4613-aefe-8ddddeec395c"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="384" y="71" width="143" height="32" uuid="d6a84401-0e79-4613-aefe-8ddddeec395c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data Barang]]></text>
@@ -59,13 +59,13 @@ FROM barang]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="73" splitType="Stretch">
+		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement x="353" y="25" width="72" height="20" uuid="549447b8-8817-4255-a53d-3579b6b09786"/>
+				<reportElement x="30" y="17" width="72" height="20" uuid="549447b8-8817-4255-a53d-3579b6b09786"/>
 				<text><![CDATA[Tanggal Cetak : ]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="430" y="25" width="115" height="20" uuid="6dc1acb8-7330-4ad8-ab01-b584212fb94c"/>
+				<reportElement x="107" y="17" width="115" height="20" uuid="6dc1acb8-7330-4ad8-ab01-b584212fb94c"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -209,63 +209,66 @@ FROM barang]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="155" splitType="Stretch">
+		<band height="185" splitType="Stretch">
 			<staticText>
-				<reportElement x="30" y="60" width="75" height="20" uuid="69ed8644-e855-4a55-a2ae-a6c1a6e3ad98"/>
+				<reportElement x="30" y="19" width="75" height="20" uuid="69ed8644-e855-4a55-a2ae-a6c1a6e3ad98"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Barang]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="80" width="75" height="20" uuid="c2cb3b7e-6e92-405c-8f38-2fa40d67184a"/>
+				<reportElement x="30" y="39" width="75" height="20" uuid="c2cb3b7e-6e92-405c-8f38-2fa40d67184a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Stok]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="60" width="12" height="20" uuid="fffd2585-6bc4-48e5-a3ce-176d6e3ccd71"/>
+				<reportElement x="123" y="19" width="12" height="20" uuid="fffd2585-6bc4-48e5-a3ce-176d6e3ccd71"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="80" width="12" height="20" uuid="fd007edd-0b50-48ef-9d85-1856a1a4a22b"/>
+				<reportElement x="123" y="39" width="12" height="20" uuid="fd007edd-0b50-48ef-9d85-1856a1a4a22b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="135" y="60" width="68" height="20" uuid="25953dec-0535-4cca-91f9-bed205f33980"/>
+				<reportElement x="135" y="19" width="68" height="20" uuid="25953dec-0535-4cca-91f9-bed205f33980"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{kode_1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="80" width="68" height="20" uuid="a8099561-cba0-4165-b7ba-42edb179a18b"/>
+				<reportElement x="135" y="39" width="68" height="20" uuid="a8099561-cba0-4165-b7ba-42edb179a18b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{stok_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="444" y="29" width="59" height="20" uuid="40a5ef67-0965-4030-814d-c26fe2bbe339"/>
+				<reportElement x="444" y="23" width="59" height="20" uuid="40a5ef67-0965-4030-814d-c26fe2bbe339"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Pemilik toko,]]></text>
 			</staticText>
 			<image>
-				<reportElement x="444" y="48" width="126" height="85" uuid="0fbbb139-7d12-4dd4-86a5-0736fb5a76ff"/>
+				<reportElement x="444" y="42" width="126" height="85" uuid="0fbbb139-7d12-4dd4-86a5-0736fb5a76ff"/>
 				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="427" y="129" width="98" height="20" uuid="51de0b2b-96f9-4d23-b74c-00d3170da73d"/>
+				<reportElement x="427" y="134" width="98" height="20" uuid="51de0b2b-96f9-4d23-b74c-00d3170da73d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[M. Fadhil A. Fattah]]></text>
 			</staticText>
+			<line>
+				<reportElement x="419" y="130" width="113" height="1" uuid="e9ad6da2-bf0d-4d4c-829d-d797d5aa73b5"/>
+			</line>
 		</band>
 	</summary>
 </jasperReport>
