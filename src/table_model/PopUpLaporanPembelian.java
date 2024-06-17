@@ -166,6 +166,8 @@ public class PopUpLaporanPembelian extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
             Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
         }
+        
+        this.dispose();
     }//GEN-LAST:event_cetakNota1ActionPerformed
 
     /**

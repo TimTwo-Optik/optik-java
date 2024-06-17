@@ -194,6 +194,7 @@ public class PopUpLaporanPelanggan extends javax.swing.JFrame {
         if (conn != null) {
             try {
                 conn.close();
+                this.dispose();
             } catch (SQLException e) {
                 Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
             }
