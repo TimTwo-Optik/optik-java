@@ -182,6 +182,7 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
         cancelButton = new custom_palette.RoundedButton();
         tanggalNota = new com.toedter.calendar.JDateChooser();
         removeButton = new custom_palette.RoundedButton();
+        editButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -474,7 +475,6 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
 
         removeButton.setForeground(new java.awt.Color(255, 255, 255));
         removeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
-        removeButton.setText("Hapus Data");
         removeButton.setColor(new java.awt.Color(255, 75, 75));
         removeButton.setColorClick(new java.awt.Color(204, 60, 60));
         removeButton.setColorOver(new java.awt.Color(229, 67, 67));
@@ -485,7 +485,19 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
                 removeButtonActionPerformed(evt);
             }
         });
-        roundedPanel1.add(removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 673, -1, 41));
+        roundedPanel1.add(removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 673, 83, 41));
+
+        editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-write.png"))); // NOI18N
+        editButton.setColor(new java.awt.Color(247, 147, 39));
+        editButton.setColorClick(new java.awt.Color(197, 117, 31));
+        editButton.setColorOver(new java.awt.Color(222, 132, 35));
+        editButton.setcornerRadius(15);
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+        roundedPanel1.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 673, 83, 41));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 72, 1178, 729));
 
@@ -561,12 +573,23 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
             stat.setFloat(7, kolomTotalHarga);
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil ditambah");
+        } catch (Exception e) {
+            System.out.println("Error : " + e);
+        }
+        
+        try {
+            String query = "update barang set stok = stok - ? where id = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, Integer.parseInt(kuantitas.getText()));
+            stat.setString(2, idBarang.getText());
+            stat.executeUpdate();
             
             conn.close();
             stat.close();
         } catch (Exception e) {
             System.out.println("Error : " + e);
         }
+        
         kosong();
         hitung();
     }//GEN-LAST:event_tambahBarangButtonActionPerformed
@@ -578,12 +601,24 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
         if (ok == 0) {
             int index = tableTransaksi.getSelectedRow();
             int kolomIdBarang = Integer.parseInt(tableTransaksi.getValueAt(index, 0).toString());
+            int kolomKuantitas = Integer.parseInt(tableTransaksi.getValueAt(index, 4).toString());
 
             try {
                 String query = "delete from detail_penjualan where id_penjualan = ? and id_barang = ?";
 
                 PreparedStatement stat = conn.prepareStatement(query);
                 stat.setString(1, idPenjualan);
+                stat.setInt(2, kolomIdBarang);
+                stat.executeUpdate();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "data gagal dihapus, pesan error: " + e);
+            }
+            
+            try {
+                String query = "update barang set stok = stok + ? where id = ?";
+
+                PreparedStatement stat = conn.prepareStatement(query);
+                stat.setInt(1, kolomKuantitas);
                 stat.setInt(2, kolomIdBarang);
                 stat.executeUpdate();
                 JOptionPane.showMessageDialog(null, "data berhasil dihapus");
@@ -617,8 +652,21 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
         if (ok == 0) {
             String sql1 = "delete from detail_penjualan where id_penjualan = ?";
             String sql2 = "delete from penjualan where id = ?";
-
+            String sql3 = "update barang set stok = stok + ? where id = ?";
+                       
             try {
+                int t = tableTransaksi.getRowCount();
+            
+                for (int i = 0; i < t; i++) {
+                    String kolomIdBarang = tableTransaksi.getValueAt(i, 0).toString();
+                    int kolomKuantitas = Integer.parseInt(tableTransaksi.getValueAt(i, 4).toString());
+                    
+                    PreparedStatement stat = conn.prepareStatement(sql3);
+                    stat.setInt(1, kolomKuantitas);
+                    stat.setString(2, kolomIdBarang);
+                    stat.executeUpdate();
+                }
+                                
                 PreparedStatement stat1 = conn.prepareStatement(sql1);
                 stat1.setString(1, idPenjualan);
                 stat1.executeUpdate();
@@ -641,6 +689,25 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        Connection conn = new koneksi().getConnection();
+
+        try {
+            String sql = "update penjualan set tanggal_jual = ?, status = ? where id = ?";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setDate(1, new java.sql.Date(tanggalNota.getDate().getTime()));
+            stat.setString(2, status.getSelectedItem().toString());
+            stat.setString(3, idNota.getText());
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil diubah");
+            
+            conn.close();
+            stat.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal diubah, pesan error: " + e);
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -681,6 +748,7 @@ public class RincianDataPenjualan extends javax.swing.JFrame {
     private custom_palette.RoundedButton cancelButton;
     private custom_palette.RoundedButton cariBarangButton;
     private custom_palette.RoundedButton cariPelangganButton;
+    private custom_palette.RoundedButton editButton;
     private custom_palette.RoundedButton hapusBarangButton;
     private custom_palette.RoundedTextField harga;
     private custom_palette.RoundedButton hitungButton;
