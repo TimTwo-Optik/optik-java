@@ -5,6 +5,7 @@
  */
 package form;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,6 +38,37 @@ public class login extends javax.swing.JFrame {
         JFrame home = new view.home();
         home.setVisible(true);
         this.dispose();
+    }
+    
+    private void userLogin(String Email, String Password) {
+        if(Email.equals(email) && Password.equals(password)) {
+            homepage();
+        } else {
+            Connection conn = new koneksi().getConnection();
+
+            try {
+                String sql = "SELECT email FROM karyawan WHERE email = ? AND status = '1'";
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, Email);
+                ResultSet hasil = stat.executeQuery();
+
+                if (hasil.next()) {
+                    if (Password.equals(passwordKaryawan)) {
+                        homepage();
+                    } else {
+                         JOptionPane.showMessageDialog(null, "email atau password salah");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "email atau password salah");
+                }
+
+                // Menutup koneksi
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "telah terjadi error: "+e);
+                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
     /**
@@ -132,6 +164,11 @@ public class login extends javax.swing.JFrame {
         passwordField.setForeground(new java.awt.Color(255, 255, 255));
         passwordField.setBorder(null);
         passwordField.setPreferredSize(new java.awt.Dimension(190, 30));
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
+        });
         jPanel2.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 390, -1));
 
         loginButton.setForeground(new java.awt.Color(238, 231, 218));
@@ -174,35 +211,17 @@ public class login extends javax.swing.JFrame {
         String cariEmail = emailField.getText();
         String inputPassword = new String(passwordField.getPassword());
         
-        if(cariEmail.equals(email) && inputPassword.equals(password)) {
-            homepage();
-        } else {
-            Connection conn = new koneksi().getConnection();
-
-            try {
-                String sql = "SELECT email FROM karyawan WHERE email = ? AND status = '1'";
-                PreparedStatement stat = conn.prepareStatement(sql);
-                stat.setString(1, cariEmail);
-                ResultSet hasil = stat.executeQuery();
-
-                if (hasil.next()) {
-                    if (inputPassword.equals(passwordKaryawan)) {
-                        homepage();
-                    } else {
-                         JOptionPane.showMessageDialog(null, "email atau password salah");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "email atau password salah");
-                }
-
-                // Menutup koneksi
-                conn.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "telah terjadi error: "+e);
-                Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
+        userLogin(cariEmail, inputPassword);
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String cariEmail = emailField.getText();
+            String inputPassword = new String(passwordField.getPassword());
+            
+            userLogin(cariEmail, inputPassword);
+        }
+    }//GEN-LAST:event_passwordFieldKeyPressed
 
     /**
      * @param args the command line arguments
