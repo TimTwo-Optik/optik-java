@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/table_model/pelanggan.java</file>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/table_model/barang.java</file>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/report/SubReportLaporanKeuangan.jrxml</file>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/report/report1.jrxml</file>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/report/NotaPenjualan.jrxml</file>
-            <file>file:/D:/Latihan%20Program/Java/optik-java/src/view/home.java</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/report/LaporanPelanggan.jrxml</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/table_model/PopUpLaporanPembelian.java</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/form/RincianDataBarang.java</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/table_model/PopUpLaporanPelanggan.java</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/table_model/barang.java</file>
+            <file>file:/C:/Users/sabdha/Documents/NetBeansProjects/optik-java/src/report/LaporanPembelian.jrxml</file>
         </group>
     </open-files>
 </project-private>

@@ -20,29 +20,29 @@ import koneksi.koneksi;
  */
 public class RincianDataBarang extends javax.swing.JFrame {
  private int id;
- private String[] values;
     /**
      * Creates new form UbahBarang
      */
     public RincianDataBarang() {
         initComponents();
-        kosong();
+        cbKategori.addItem("frame");
+        cbKategori.addItem("lensa");
+        cbKategori.addItem("aksesoris");
+//        kosong();
     }
-protected void kosong(){ 
-          txtkode.setText(""); 
-          txtnama.setText(""); 
-          txtkategori.setText(""); 
-          txtharga.setText(""); 
-          txtstok.setText(""); 
-      }
+//protected void kosong(){ 
+//          txtkode.setText(""); 
+//          txtnama.setText(""); 
+//          cbKategori.setSelectedItem(""); 
+//          txtharga.setText(""); 
+//          txtstok.setText(""); 
+//      }
 public void setData(int id, String[] values) {
-        // Set the data to your form fields
-        // For example:
-         this.id = id;
-        this.values = values;
+       this.id = id;
+         
         txtkode.setText(values[0]);
         txtnama.setText(values[1]);
-        txtkategori.setText(values[2]);
+        cbKategori.setSelectedItem(values[2]);
         txtharga.setText(values[3]);
         txtstok.setText(values[4]);
     }
@@ -69,10 +69,11 @@ public void setData(int id, String[] values) {
         jLabel9 = new javax.swing.JLabel();
         txtkode = new custom_palette.RoundedTextField();
         txtnama = new custom_palette.RoundedTextField();
-        txtkategori = new custom_palette.RoundedTextField();
         txtharga = new custom_palette.RoundedTextField();
         txtstok = new custom_palette.RoundedTextField();
         btnubah = new custom_palette.RoundedButton();
+        btnHapus = new custom_palette.RoundedButton();
+        cbKategori = new javax.swing.JComboBox<>();
         cancelButton = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,11 +148,6 @@ public void setData(int id, String[] values) {
         txtnama.setSelectionColor(new java.awt.Color(238, 231, 218));
         roundedPanel1.add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 236, 173, 21));
 
-        txtkategori.setBackground(new java.awt.Color(238, 231, 218));
-        txtkategori.setLineColor(new java.awt.Color(238, 231, 218));
-        txtkategori.setSelectionColor(new java.awt.Color(238, 231, 218));
-        roundedPanel1.add(txtkategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 301, 173, 21));
-
         txtharga.setBackground(new java.awt.Color(238, 231, 218));
         txtharga.setLineColor(new java.awt.Color(238, 231, 218));
         txtharga.setSelectionColor(new java.awt.Color(238, 231, 218));
@@ -176,6 +172,24 @@ public void setData(int id, String[] values) {
             }
         });
         roundedPanel1.add(btnubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 508, 125, 43));
+
+        btnHapus.setBackground(new java.awt.Color(255, 75, 75));
+        btnHapus.setForeground(new java.awt.Color(238, 231, 218));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo-trash.png"))); // NOI18N
+        btnHapus.setText("Hapus");
+        btnHapus.setColor(new java.awt.Color(255, 75, 75));
+        btnHapus.setColorClick(new java.awt.Color(190, 184, 174));
+        btnHapus.setColorOver(new java.awt.Color(214, 207, 196));
+        btnHapus.setcornerRadius(15);
+        btnHapus.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+        roundedPanel1.add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(775, 508, 125, 43));
+
+        roundedPanel1.add(cbKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(693, 301, 173, 21));
 
         jPanel1.add(roundedPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 118, 1006, 583));
 
@@ -221,12 +235,12 @@ public void setData(int id, String[] values) {
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, txtnama.getText());
-            stat.setString(2, txtkategori.getText());
+            stat.setString(2, cbKategori.getSelectedItem().toString());
             stat.setString(3, txtharga.getText());
             stat.setString(4, txtstok.getText());
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "data berhasil diubah");
-            kosong();
+//            kosong();
             txtnama.requestFocus();
 
             conn.close();
@@ -259,6 +273,90 @@ public void setData(int id, String[] values) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+    Connection conn = null;
+    try {
+        conn = new koneksi().getConnection();
+
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data barang ini?", "Hapus Data Barang", JOptionPane.YES_NO_OPTION);
+        if (ok == JOptionPane.YES_OPTION) {
+            conn.setAutoCommit(false);
+
+            // Hapus data terkait dari tabel pembelian
+            deleteRelatedPembelian(conn, id);
+
+            // Hapus data terkait dari tabel detail_penjualan
+            deleteRelatedDetailPenjualan(conn, id);
+
+            // Setelah data terkait dihapus, baru hapus data barang
+            String deleteBarangSql = "DELETE FROM barang WHERE id = ?";
+            try (PreparedStatement deleteBarangStat = conn.prepareStatement(deleteBarangSql)) {
+                deleteBarangStat.setInt(1, id);
+                int rowsAffected = deleteBarangStat.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Data barang berhasil dihapus");
+                    conn.commit();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data barang tidak ditemukan");
+                }
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+            // Refresh tampilan atau tindakan lain setelah penghapusan
+            // refreshTableBarang();
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal menghapus data barang: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    try {
+  
+    UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+    for (UIManager.LookAndFeelInfo look : looks) {
+        if ("Nimbus".equals(look.getName())) {
+            UIManager.setLookAndFeel(look.getClassName());
+            break;
+        }
+    }
+
+  
+    JFrame tableModelBarang = new table_model.barang();
+    tableModelBarang.setVisible(true); 
+    this.dispose(); 
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
+
+    }//GEN-LAST:event_btnHapusActionPerformed
+private void deleteRelatedPembelian(Connection conn, int idBarang) throws SQLException {
+    String deletePembelianSql = "DELETE FROM pembelian WHERE id_barang = ?";
+    try (PreparedStatement deletePembelianStat = conn.prepareStatement(deletePembelianSql)) {
+        deletePembelianStat.setInt(1, idBarang);
+        deletePembelianStat.executeUpdate();
+    }
+}
+
+private void deleteRelatedDetailPenjualan(Connection conn, int idBarang) throws SQLException {
+    String deleteDetailPenjualanSql = "DELETE FROM detail_penjualan WHERE id_barang = ?";
+    try (PreparedStatement deleteDetailPenjualanStat = conn.prepareStatement(deleteDetailPenjualanSql)) {
+        deleteDetailPenjualanStat.setInt(1, idBarang);
+        deleteDetailPenjualanStat.executeUpdate();
+    }
+}
 
     /**
      * @param args the command line arguments
@@ -304,8 +402,10 @@ public void setData(int id, String[] values) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom_palette.RoundedButton btnHapus;
     private custom_palette.RoundedButton btnubah;
     private custom_palette.RoundedButton cancelButton;
+    private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -319,7 +419,6 @@ public void setData(int id, String[] values) {
     private javax.swing.JSeparator jSeparator1;
     private custom_palette.RoundedPanel roundedPanel1;
     private custom_palette.RoundedTextField txtharga;
-    private custom_palette.RoundedTextField txtkategori;
     private custom_palette.RoundedTextField txtkode;
     private custom_palette.RoundedTextField txtnama;
     private custom_palette.RoundedTextField txtstok;

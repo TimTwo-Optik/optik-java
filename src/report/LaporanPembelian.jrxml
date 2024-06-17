@@ -60,7 +60,7 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Bulan" class="java.lang.String"/>
-	<field name="Year" class="java.sql.Date"/>
+	<field name="Year" class="java.lang.String"/>
 	<variable name="Total Transaksi_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[$F{Total Transaksi}]]></variableExpression>
 	</variable>
