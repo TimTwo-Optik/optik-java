@@ -143,6 +143,8 @@ public class PopUpLaporanKeuangan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: " + e);
             Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
         }
+        
+        this.dispose();
     }//GEN-LAST:event_cetakNotaActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
