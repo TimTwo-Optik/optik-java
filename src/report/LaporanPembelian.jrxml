@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="01d4a839-a4d8-49fb-a68a-0fdc09655770">
 	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="290"/>
 	<parameter name="bulan" class="java.lang.String"/>
 	<parameter name="tahun" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
@@ -398,7 +398,7 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 		</band>
 	</detail>
 	<summary>
-		<band height="258" splitType="Stretch">
+		<band height="324" splitType="Stretch">
 			<staticText>
 				<reportElement x="373" y="22" width="36" height="20" uuid="cfbd9d2a-53e7-4786-9bf2-6b5ac96d4175"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -421,26 +421,40 @@ WHERE MONTH(pbl.tanggal_beli) = $P{bulan} AND YEAR(pbl.tanggal_beli) = $P{tahun}
 				<textFieldExpression><![CDATA[$V{Total Transaksi_1}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="386" y="204" width="100" height="1" uuid="e0e3ef5d-d663-4e91-858e-b769263cbf0f"/>
+				<reportElement x="386" y="226" width="100" height="1" uuid="e0e3ef5d-d663-4e91-858e-b769263cbf0f"/>
 			</line>
 			<staticText>
-				<reportElement x="399" y="81" width="71" height="21" uuid="4575f0e3-b66c-494e-9f0e-8c6d559c688a"/>
+				<reportElement x="399" y="103" width="71" height="21" uuid="4575f0e3-b66c-494e-9f0e-8c6d559c688a"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Pemilik toko,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="385" y="209" width="104" height="21" uuid="f51fc694-cf44-42c7-ae72-6197037bb5e9"/>
+				<reportElement x="385" y="231" width="104" height="21" uuid="f51fc694-cf44-42c7-ae72-6197037bb5e9"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[M. Fadhil A. Fattah]]></text>
 			</staticText>
 			<image>
-				<reportElement x="406" y="109" width="126" height="85" uuid="64ea22ed-4948-4e5c-99d4-d3dbb5193386"/>
+				<reportElement x="406" y="131" width="126" height="85" uuid="64ea22ed-4948-4e5c-99d4-d3dbb5193386"/>
 				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="424" y="80" width="100" height="20" uuid="d5dbe5b3-d776-489d-8723-9223be4acfb4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="374" y="80" width="50" height="20" uuid="59ca9df0-ae61-4b9a-8b7a-15eee27c3c1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

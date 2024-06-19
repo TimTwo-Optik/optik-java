@@ -7,12 +7,14 @@ package table_model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -157,7 +159,7 @@ public class PopUpLaporanPelanggan extends javax.swing.JFrame {
         String reportPath = "src/report/LaporanPelanggan.jrxml";
         String logo = "src/assets/logo-TeamTwo.png";
         String ttd = "src/assets/ttd-fadhil.jpg";
-        
+        Locale locale = new Locale("in", "ID");
        
         JasperDesign jasperDesign = JRXmlLoader.load(reportPath);
 
@@ -174,7 +176,7 @@ public class PopUpLaporanPelanggan extends javax.swing.JFrame {
         HashMap<String, Object> parameter = new HashMap<>();
         parameter.put("logo", logo);
         parameter.put("ttd", ttd);
-
+         parameter.put(JRParameter.REPORT_LOCALE, locale);
        
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
 

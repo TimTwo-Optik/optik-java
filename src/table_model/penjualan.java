@@ -21,8 +21,10 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.UIManager;
 import javax.swing.JFrame;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -551,11 +553,13 @@ public class penjualan extends javax.swing.JFrame {
             String report = "src/report/NotaPenjualan.jrxml";
             String logo = "src/assets/logo-TeamTwo.png";
             String ttd = "src/assets/ttd-fadhil.jpg";
-      
+            Locale locale = new Locale("in", "ID");
+            
             HashMap parameter = new HashMap();
             parameter.put("no_faktur", noFaktur);
             parameter.put("logo", logo);
             parameter.put("ttd", ttd);
+            parameter.put(JRParameter.REPORT_LOCALE, locale);
             
             JasperReport jasperReport = JasperCompileManager.compileReport(report);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
