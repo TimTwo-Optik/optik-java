@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1dc1e2a7-8ef1-4753-96fe-3125cb791b6d">
 	<property name="ireport.zoom" value="1.0000000000000007"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="158"/>
 	<parameter name="tahun" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="ttd" class="java.lang.String"/>
@@ -188,7 +188,7 @@ ORDER BY
 		</band>
 	</detail>
 	<summary>
-		<band height="300" splitType="Stretch">
+		<band height="324" splitType="Stretch">
 			<staticText>
 				<reportElement x="26" y="36" width="100" height="20" uuid="c62b1568-a56f-4874-8544-e2c8dcf5e27a"/>
 				<textElement verticalAlignment="Middle">
@@ -253,25 +253,39 @@ ORDER BY
 				<textFieldExpression><![CDATA[$V{keuntungan}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="408" y="123" width="93" height="20" uuid="edd0f527-73c7-45a7-9cfa-8ab958ce72be"/>
+				<reportElement x="408" y="134" width="93" height="20" uuid="edd0f527-73c7-45a7-9cfa-8ab958ce72be"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Pemilik toko, ]]></text>
 			</staticText>
 			<image>
-				<reportElement x="414" y="153" width="145" height="102" uuid="a9ff3c71-a8fb-4864-8322-fbe518a9d6a3"/>
+				<reportElement x="414" y="164" width="145" height="102" uuid="a9ff3c71-a8fb-4864-8322-fbe518a9d6a3"/>
 				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="397" y="268" width="131" height="1" uuid="b36992eb-54ae-4268-8dee-9678c8fc994a"/>
+				<reportElement x="397" y="279" width="131" height="1" uuid="b36992eb-54ae-4268-8dee-9678c8fc994a"/>
 			</line>
 			<staticText>
-				<reportElement x="408" y="273" width="111" height="20" uuid="bca1862b-89fa-4db6-8715-905a9f573b73"/>
+				<reportElement x="408" y="284" width="111" height="20" uuid="bca1862b-89fa-4db6-8715-905a9f573b73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[M. Fadhil A. Fattah]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="436" y="107" width="100" height="20" uuid="7c3a8d19-fea5-46c4-867d-79102ec664c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="386" y="107" width="50" height="20" uuid="bf8f1c40-2039-44d4-8161-7ef1bb16f2e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
 			</staticText>
 		</band>
 	</summary>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d661385f-6f88-4e6d-8d65-d7e6d9d52c85">
 	<property name="ireport.zoom" value="1.3310000000000042"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="585"/>
 	<parameter name="no_faktur" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="ttd" class="java.lang.String"/>
@@ -190,7 +190,7 @@ WHERE pjl.id = $P{no_faktur}]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="218" splitType="Stretch">
+		<band height="311" splitType="Stretch">
 			<staticText>
 				<reportElement x="378" y="13" width="49" height="20" uuid="44ad15c2-68d5-4955-bc30-628cbfb4fcc3"/>
 				<textElement verticalAlignment="Middle">
@@ -206,26 +206,40 @@ WHERE pjl.id = $P{no_faktur}]]>
 				<textFieldExpression><![CDATA[$V{TOTAL_TRANSAKSI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="410" y="67" width="71" height="21" uuid="209f593a-fc39-4bc5-b88b-46064c060f17"/>
+				<reportElement x="410" y="107" width="71" height="21" uuid="209f593a-fc39-4bc5-b88b-46064c060f17"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Pemilik toko,]]></text>
 			</staticText>
 			<image>
-				<reportElement x="414" y="88" width="145" height="102" uuid="7877d785-304d-44ac-909b-a40b9d8a3ad0"/>
+				<reportElement x="414" y="128" width="145" height="102" uuid="7877d785-304d-44ac-909b-a40b9d8a3ad0"/>
 				<imageExpression><![CDATA[$P{ttd}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="397" y="190" width="100" height="1" uuid="e05d28f4-2093-4b55-a875-f62058020787"/>
+				<reportElement x="397" y="230" width="100" height="1" uuid="e05d28f4-2093-4b55-a875-f62058020787"/>
 			</line>
 			<staticText>
-				<reportElement x="396" y="195" width="104" height="21" uuid="e32ab6d2-d3f3-40e8-b77f-005252441dcf"/>
+				<reportElement x="396" y="235" width="104" height="21" uuid="e32ab6d2-d3f3-40e8-b77f-005252441dcf"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[M. Fadhil A. Fattah]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="387" y="83" width="50" height="20" uuid="dbe5656c-1b24-44d7-a8f9-861ec4b6842b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="437" y="83" width="100" height="20" uuid="00dd425b-64e4-42c5-b4b6-5c4d8b8328b8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

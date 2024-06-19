@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -649,10 +651,12 @@ public class barang extends javax.swing.JFrame {
             String report = "src/report/LaporanBarang.jrxml";
             String logo = "src/assets/logo-TeamTwo.png";
             String ttd = "src/assets/ttd-fadhil.jpg";
+            Locale locale = new Locale("in", "ID");
             
             HashMap parameter = new HashMap();
             parameter.put("logo", logo);
             parameter.put("ttd", ttd);
+            parameter.put(JRParameter.REPORT_LOCALE, locale);
             
             JasperReport jasperReport = JasperCompileManager.compileReport(report);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
