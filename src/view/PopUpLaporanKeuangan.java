@@ -107,6 +107,11 @@ public class PopUpLaporanKeuangan extends javax.swing.JFrame {
         });
         jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 120, 40));
 
+        cbtahun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbtahunActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbtahun, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +158,10 @@ public class PopUpLaporanKeuangan extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void cbtahunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtahunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbtahunActionPerformed
 
     /**
      * @param args the command line arguments
