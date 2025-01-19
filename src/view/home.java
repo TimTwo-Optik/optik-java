@@ -7,6 +7,7 @@ package view;
 import chart.ModelChart;
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,12 +40,17 @@ public class home extends javax.swing.JFrame {
      */
     public home() {
         initComponents();
+        populateCombobox();
         dataChart();
         incomeTable();
         expenseTable();
         
         incomeTable.fixTable(jScrollPane1);
         expenseTable.fixTable(jScrollPane2);
+        
+        chartBar.addLegend("Penjualan", new Color(136,171,142));
+        chartBar.addLegend("Pembelian", new Color(142,136,171));
+        chartBar.addLegend("Keuntungan", new Color(171,142,136));
     }
     
     protected void incomeTable() {
@@ -113,83 +119,12 @@ public class home extends javax.swing.JFrame {
         } 
     }
     
-//    private void dataChart() {
-//        Connection conn = new koneksi().getConnection();
-//        
-//        double[] dataPenjualan = new double[12];
-//        double[] dataPembelian = new double[12];
-//        
-//        try {
-//            String sql = "SELECT SUM(total_harga) AS total_penjualan_per_bulan\n" +
-//                        "FROM penjualan\n" +
-//                        "WHERE YEAR(tanggal_jual) = 2024\n" +
-//                        "GROUP BY MONTH(tanggal_jual)\n" +
-//                        "ORDER BY MONTH(tanggal_jual);";
-//            Statement stat = conn.createStatement();
-//            
-//            ResultSet hasil = stat.executeQuery(sql);
-//            
-//            int index = 0;
-//            while(hasil.next()){
-//                dataPenjualan[index] = hasil.getDouble(1);
-//                index++;
-//            }
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "terjadi error, pesan error: "+e);
-//            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-//        }
-//        
-//        try {
-//            String sql = "SELECT SUM(total_harga) AS total_pembelian_per_bulan\n" +
-//                        "FROM pembelian\n" +
-//                        "WHERE YEAR(tanggal_beli) = 2024\n" +
-//                        "GROUP BY MONTH(tanggal_beli)\n" +
-//                        "ORDER BY MONTH(tanggal_beli);";
-//            Statement stat = conn.createStatement();
-//            
-//            ResultSet hasil = stat.executeQuery(sql);
-//            
-//            int index = 0;
-//            while(hasil.next()){
-//                dataPembelian[index] = hasil.getDouble(1);
-//                index++;
-//            }
-//            
-//            conn.close();
-//            stat.close();
-//            hasil.close();
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "terjadi error, pesan error: "+e);
-//            Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
-//        } 
-//        
-//        System.out.println(dataPenjualan[0]);
-//        System.out.println(dataPembelian[0]);
-//        
-//        getContentPane().setBackground(new Color(250,250,250));
-//        chartBar.addLegend("Penjualan", new Color(136,171,142));
-//        chartBar.addLegend("Pembelian", new Color(142,136,171));
-//        chartBar.addData(new ModelChart("Januari", new double[]{dataPenjualan[0], dataPembelian[0]}));
-//        chartBar.addData(new ModelChart("Februari", new double[]{dataPenjualan[1], dataPembelian[1]}));
-//        chartBar.addData(new ModelChart("Maret", new double[]{dataPenjualan[2], dataPembelian[2]}));
-//        chartBar.addData(new ModelChart("April", new double[]{dataPenjualan[3], dataPembelian[3]}));
-//        chartBar.addData(new ModelChart("Mei", new double[]{dataPenjualan[4], dataPembelian[4]}));
-//        chartBar.addData(new ModelChart("Juni", new double[]{dataPenjualan[5], dataPembelian[5]}));
-//        chartBar.addData(new ModelChart("Juli", new double[]{dataPenjualan[6], dataPembelian[6]}));
-//        chartBar.addData(new ModelChart("Agustus", new double[]{dataPenjualan[7], dataPembelian[7]}));
-//        chartBar.addData(new ModelChart("September", new double[]{dataPenjualan[8], dataPembelian[8]}));
-//        chartBar.addData(new ModelChart("Oktober", new double[]{dataPenjualan[9], dataPembelian[9]}));
-//        chartBar.addData(new ModelChart("November", new double[]{dataPenjualan[10], dataPembelian[10]}));
-//        chartBar.addData(new ModelChart("Desember", new double[]{dataPenjualan[11], dataPembelian[11]}));
-//    }
-    
     private void dataChart() {
         Connection conn = new koneksi().getConnection();
         double[][] data = new double[12][2];
 
         try {
-            LocalDate currentDate = LocalDate.now();
-            int currentYear = currentDate.getYear();
+            String currentYear = cbtahun.getSelectedItem().toString();
             
             String sql = "SELECT MONTH(p.tanggal_jual) AS bulan, SUM(dp.total_harga) AS total_penjualan_per_bulan " +
                          "FROM penjualan AS P " +
@@ -214,8 +149,7 @@ public class home extends javax.swing.JFrame {
         } 
 
         try {
-            LocalDate currentDate = LocalDate.now();
-            int currentYear = currentDate.getYear();
+            String currentYear = cbtahun.getSelectedItem().toString();
             
             String sql = "SELECT MONTH(tanggal_beli) AS bulan, SUM(total_harga) AS total_pembelian_per_bulan " +
                          "FROM pembelian " +
@@ -238,14 +172,32 @@ public class home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "terjadi error, pesan error: " + e);
             Logger.getLogger(supplier.class.getName()).log(Level.SEVERE, null, e);
         } 
-
-        chartBar.addLegend("Penjualan", new Color(136,171,142));
-        chartBar.addLegend("Pembelian", new Color(142,136,171));
-        chartBar.addLegend("Keuntungan", new Color(171,142,136));
+        
+        chartBar.start();
         
         for(int i = 0; i < data.length; i++) {
             String namaBulan = new DateFormatSymbols().getMonths()[i];
             chartBar.addData(new ModelChart(namaBulan, new double[]{data[i][0], data[i][1], data[i][0]-data[i][1]}));
+        }
+    }
+    
+    private void populateCombobox(){
+        Connection conn = new koneksi().getConnection();
+    
+        String sql = "SELECT YEAR(tanggal_jual) FROM penjualan GROUP BY YEAR(tanggal_jual) ORDER BY YEAR(tanggal_jual) DESC";
+        
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            ResultSet result = stat.executeQuery();
+            while (result.next()) {
+                String tahun = result.getString(1);
+                cbtahun.addItem(tahun);
+            }
+            
+            conn.close();
+            stat.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal ditampilkan, pesan error: "+e);
         }
     }
 
@@ -259,6 +211,14 @@ public class home extends javax.swing.JFrame {
     private void initComponents() {
 
         cetak = new custom_palette.RoundedButton();
+        jPanel1 = new javax.swing.JPanel();
+        sideHome = new custom_palette.RoundedButton();
+        sideBarang = new custom_palette.RoundedButton();
+        sideKaryawan = new custom_palette.RoundedButton();
+        sidePenjualan = new custom_palette.RoundedButton();
+        sidePembelian = new custom_palette.RoundedButton();
+        sideSupplier = new custom_palette.RoundedButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel10 = new javax.swing.JPanel();
         chartBar = new chart.ChartBar();
         jLabel7 = new javax.swing.JLabel();
@@ -269,13 +229,9 @@ public class home extends javax.swing.JFrame {
         expenseTable = new custom_palette.CustomTable();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        sideHome = new custom_palette.RoundedButton();
-        sideBarang = new custom_palette.RoundedButton();
-        sideKaryawan = new custom_palette.RoundedButton();
-        sidePenjualan = new custom_palette.RoundedButton();
-        sidePembelian = new custom_palette.RoundedButton();
-        sideSupplier = new custom_palette.RoundedButton();
+        jLabel11 = new javax.swing.JLabel();
+        cbtahun = new javax.swing.JComboBox<>();
+        cetak1 = new custom_palette.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -293,72 +249,6 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 75, 90, 41));
-
-        jPanel10.setBackground(new java.awt.Color(242, 241, 235));
-        jPanel10.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jPanel10.setPreferredSize(new java.awt.Dimension(1153, 832));
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        chartBar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel10.add(chartBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 105, 993, 370));
-
-        jLabel7.setFont(new java.awt.Font("Inter", 1, 30)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(136, 171, 142));
-        jLabel7.setText("Grafik Laporan Bulanan ");
-        jPanel10.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 35, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setText("TimTwo Optik");
-        jPanel10.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
-
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(226, 300));
-
-        incomeTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        incomeTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jScrollPane1.setViewportView(incomeTable);
-
-        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 530, 300));
-
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(226, 300));
-
-        expenseTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        expenseTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jScrollPane2.setViewportView(expenseTable);
-
-        jPanel10.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, 523, 300));
-
-        jLabel9.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(136, 171, 142));
-        jLabel9.setText("Penjualan");
-        jPanel10.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 485, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(136, 171, 142));
-        jLabel10.setText("Pembelian");
-        jPanel10.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 485, -1, -1));
-
-        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(136, 171, 142));
         jPanel1.setPreferredSize(new java.awt.Dimension(127, 832));
@@ -445,6 +335,103 @@ public class home extends javax.swing.JFrame {
         jPanel1.add(sideSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 698, 130, 90));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(1153, 832));
+
+        jPanel10.setBackground(new java.awt.Color(242, 241, 235));
+        jPanel10.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jPanel10.setMinimumSize(new java.awt.Dimension(1123, 1191));
+        jPanel10.setPreferredSize(new java.awt.Dimension(1153, 1250));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        chartBar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        chartBar.setPreferredSize(new java.awt.Dimension(558, 320));
+        jPanel10.add(chartBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 136, 970, 370));
+
+        jLabel7.setFont(new java.awt.Font("Inter", 1, 30)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel7.setText("Grafik Laporan Bulanan ");
+        jPanel10.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 35, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel8.setText("TimTwo Optik");
+        jPanel10.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(226, 300));
+
+        incomeTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        incomeTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jScrollPane1.setViewportView(incomeTable);
+
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 566, 965, 277));
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(226, 300));
+
+        expenseTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        expenseTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jScrollPane2.setViewportView(expenseTable);
+
+        jPanel10.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 907, 965, 277));
+
+        jLabel9.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel9.setText("Penjualan");
+        jPanel10.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 533, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel10.setText("Pembelian");
+        jPanel10.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 875, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Inter", 1, 20)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(136, 171, 142));
+        jLabel11.setText("Tahun");
+        jPanel10.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+
+        cbtahun.setBackground(new java.awt.Color(248, 248, 248));
+        cbtahun.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        cbtahun.setPreferredSize(new java.awt.Dimension(90, 22));
+        jPanel10.add(cbtahun, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 102, -1, -1));
+
+        cetak1.setForeground(new java.awt.Color(242, 241, 235));
+        cetak1.setText("Pilih");
+        cetak1.setColor(new java.awt.Color(136, 171, 142));
+        cetak1.setColorClick(new java.awt.Color(108, 136, 113));
+        cetak1.setColorOver(new java.awt.Color(122, 153, 127));
+        cetak1.setcornerRadius(20);
+        cetak1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cetak1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetak1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(cetak1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 93, 80, 38));
+
+        jScrollPane3.setViewportView(jPanel10);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -609,6 +596,11 @@ public class home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cetakActionPerformed
 
+    private void cetak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetak1ActionPerformed
+        chartBar.clear();
+        dataChart();
+    }//GEN-LAST:event_cetak1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -645,11 +637,14 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbtahun;
     private custom_palette.RoundedButton cetak;
+    private custom_palette.RoundedButton cetak1;
     private chart.ChartBar chartBar;
     private custom_palette.CustomTable expenseTable;
     private custom_palette.CustomTable incomeTable;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -657,6 +652,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private custom_palette.RoundedButton sideBarang;
     private custom_palette.RoundedButton sideHome;
     private custom_palette.RoundedButton sideKaryawan;
